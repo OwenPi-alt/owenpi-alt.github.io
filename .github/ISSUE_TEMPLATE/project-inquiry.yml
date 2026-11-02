@@ -7,6 +7,7 @@ body:
       value: |
         需求会公开显示，请勿填写密码、密钥、客户隐私或未公开源码。
         简要说明你希望解决的问题即可；暂未确定的内容可以注明「待讨论」。
+        如需邮件沟通，可联系 [chuangzaoxingfuvip@gmail.com](mailto:chuangzaoxingfuvip@gmail.com)。
 
   - type: dropdown
     id: service-direction

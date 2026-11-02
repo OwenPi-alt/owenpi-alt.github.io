@@ -582,6 +582,69 @@ span.project-type {
   font-family: var(--mono);
 }
 
+.email-contact {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  max-width: 100%;
+  width: fit-content;
+  padding: 18px 0;
+  margin-top: 22px;
+  border-block: 1px solid #b5f36b25;
+}
+
+.email-contact > div {
+  min-width: 0;
+}
+
+.email-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #9bac8f;
+  margin-bottom: 5px;
+}
+
+.email-address {
+  font: 16px/1.7 var(--mono);
+  color: #d4edbd;
+  overflow-wrap: anywhere;
+  text-underline-offset: 5px;
+}
+
+.email-address:hover {
+  color: var(--lime);
+  text-decoration: underline;
+}
+
+.email-copy {
+  padding: 8px 12px;
+  min-height: 36px;
+  flex-shrink: 0;
+  background: #b5f36b0b;
+  border: 1px solid #b5f36b35;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #c5d8b3;
+}
+
+.email-copy:hover {
+  background: #b5f36b1a;
+}
+
+.contact-copy > .copy-status {
+  height: auto;
+  min-height: 20px;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 650px) {
+  .email-address {
+    font-size: 12px;
+  }
+}
+
 .contact-actions .button {
   min-height: 44px;
   font-size: 12px;

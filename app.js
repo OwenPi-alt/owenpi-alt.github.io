@@ -190,6 +190,16 @@
     dialogTrigger?.focus({ preventScroll: true });
   });
 
+  document.querySelector('#copy-email').addEventListener('click', async () => {
+    const email = document.querySelector('#contact-email').textContent.trim();
+    const status = document.querySelector('#copy-status');
+    try {
+      await navigator.clipboard.writeText(email);
+      status.textContent = '邮箱已复制，欢迎发送项目需求。';
+    } catch {
+      status.textContent = `请复制邮箱：${email}`;
+    }
+  });
   document.querySelector('#copy-link').addEventListener('click', async () => {
     const url = document.querySelector('link[rel="canonical"]').href;
     const status = document.querySelector('#copy-status');
