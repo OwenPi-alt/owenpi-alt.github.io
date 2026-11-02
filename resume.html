@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="王子棋的公开简历：Java 后端、微服务架构、AI 应用与技术团队管理。">
+  <title>王子棋 · 个人简历</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <style>
+    :root { color-scheme: light; --ink: #18251f; --muted: #58645e; --line: #dce4df; --accent: #24734b; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: #eaf0ec; font: 14px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+    .toolbar { max-width: 900px; margin: 24px auto 16px; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .toolbar a { text-decoration: none; font-size: 13px; }
+    .toolbar button { border: 0; border-radius: 6px; background: #173f2b; color: #fff; padding: 11px 17px; font: inherit; font-size: 13px; cursor: pointer; }
+    .toolbar button:hover { background: #24613f; }
+    .sheet { width: min(900px, calc(100% - 32px)); margin: 0 auto 40px; padding: 44px 50px; background: #fff; border-top: 5px solid var(--accent); box-shadow: 0 8px 40px #18251f0a; }
+    .masthead { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+    h1 { margin: 0 0 5px; font-size: 34px; line-height: 1.2; letter-spacing: 3px; }
+    .role { margin: 0; font-size: 15px; letter-spacing: .06em; }
+    .contact { text-align: right; font-size: 12px; color: var(--muted); line-height: 1.9; }
+    .contact p { margin: 0; }
+    .intro { margin: 19px 0 0; }
+    .intro strong { font-weight: 650; }
+    h2 { margin: 25px 0 11px; padding-bottom: 7px; border-bottom: 1px solid var(--line); color: var(--accent); font-size: 14px; font-weight: 700; letter-spacing: .12em; }
+    .skill-list { display: grid; grid-template-columns: 84px 1fr; gap: 5px 10px; margin: 0; font-size: 13px; }
+    .skill-list dt { font-weight: 650; }
+    .skill-list dd { margin: 0; color: #35453c; }
+    .job { margin: 0 0 12px; break-inside: avoid; }
+    .job-title { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    h3 { margin: 0; font-size: 13px; line-height: 1.55; font-weight: 650; }
+    .job time, .date { flex-shrink: 0; color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .job p { margin: 3px 0 0; font-size: 12.5px; line-height: 1.65; color: #35453c; }
+    .projects { display: grid; grid-template-columns: 1fr 1fr; gap: 17px 24px; }
+    .project { break-inside: avoid; }
+    .project .meta { margin: 3px 0 6px; color: var(--muted); font-size: 11px; }
+    .project p { margin: 0; color: #35453c; font-size: 12.5px; line-height: 1.7; }
+    .education { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; margin: 0; font-size: 12.5px; }
+    .education span { display: block; }
+    .education .date { white-space: nowrap; }
+    @media (max-width: 600px) {
+      .sheet { padding: 28px 22px; width: calc(100% - 20px); }
+      .toolbar { margin-top: 16px; padding: 0 16px; }
+      .masthead { display: block; }
+      .contact { text-align: left; margin-top: 14px; }
+      .contact p { display: inline; }
+      .contact p + p::before { content: " · "; }
+      h1 { font-size: 30px; }
+      .role { font-size: 13px; }
+      .projects { grid-template-columns: 1fr; }
+      .job-title { display: block; }
+      .skill-list { grid-template-columns: 72px 1fr; font-size: 12px; }
+      .education { display: block; }
+    }
+    @page { size: A4; margin: 13mm 14mm; }
+    @media print {
+      :root { --ink: #111; --muted: #444; --line: #bbb; --accent: #111; }
+      body { background: #fff; font-size: 9pt; line-height: 1.5; }
+      .toolbar { display: none; }
+      .sheet { width: 100%; margin: 0; padding: 0; border: 0; box-shadow: none; }
+      .masthead { padding-bottom: 11px; }
+      h1 { font-size: 25pt; }
+      .role { font-size: 10pt; }
+      .contact { font-size: 8pt; }
+      .intro { margin-top: 12px; }
+      h2 { margin: 16px 0 7px; padding-bottom: 4px; font-size: 9.5pt; break-after: avoid; }
+      .skill-list { font-size: 8.5pt; gap: 3px 9px; }
+      .job { margin-bottom: 8px; }
+      h3 { font-size: 9pt; }
+      .job time, .date, .project .meta { font-size: 7.5pt; }
+      .job p, .project p, .education { font-size: 8.5pt; line-height: 1.55; color: #222; }
+      .projects { gap: 12px 20px; }
+      .project .meta { margin: 2px 0 4px; }
+      a { text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="toolbar" aria-label="简历操作">
+    <a href="./index.html">← 返回个人主页</a>
+    <button type="button" onclick="window.print()">打印 / 存为 PDF</button>
+  </nav>
+  <main class="sheet">
+    <header class="masthead">
+      <div>
+        <h1>王子棋</h1>
+        <p class="role">Java 后端 · 架构设计 · AI 应用 · 技术团队管理</p>
+      </div>
+      <div class="contact">
+        <p>上海</p>
+        <p><a href="https://github.com/OwenPi-alt">github.com/OwenPi-alt</a></p>
+      </div>
+    </header>
+
+    <p class="intro"><strong>近 15 年软件研发经验，5 年技术组长经验。</strong>长期从事业务系统建设，负责过电销系统改造、营销触达平台及订单支付模块，参与 AI 客服和运营自助查询项目。带领过约 8 人团队，承担代码评审、任务分工、技术指导、招聘及绩效工作。</p>
+
+    <section aria-labelledby="skills-title">
+      <h2 id="skills-title">技术栈</h2>
+      <dl class="skill-list">
+        <dt>Java 后端</dt><dd>Java · Spring Boot · Spring Cloud · Dubbo · MyBatis · JVM 调优 · SQL 优化</dd>
+        <dt>数据与消息</dt><dd>MySQL · PostgreSQL · Redis · Elasticsearch · Kafka · RabbitMQ</dd>
+        <dt>AI 应用</dt><dd>LangChain4j · RAG · Dify · 百炼知识库 · Codex · Claude · Copilot</dd>
+        <dt>工程与协作</dt><dd>Docker · Linux · Git · Maven · Apollo · XXL-JOB；具备 Python、PHP、Vue 开发能力</dd>
+      </dl>
+    </section>
+
+    <section aria-labelledby="experience-title">
+      <h2 id="experience-title">工作经历</h2>
+      <article class="job">
+        <div class="job-title"><h3>奇富科技 · Java 技术专家 / 技术组长</h3><time>2018.04 — 2026.03</time></div>
+        <p>负责电销、触达系统的技术方案与核心开发，参与 AI 客服及运营自助查询项目。带领约 8 人团队，组织需求评审、开发迭代和代码评审，协调产品、测试与运维完成交付。</p>
+      </article>
+      <article class="job">
+        <div class="job-title"><h3>百味云 · 资深软件工程师 / 技术组长</h3><time>2016.10 — 2018.04</time></div>
+        <p>负责云小二、云掌柜的架构搭建与核心开发，主导订单模块，承担支付网关开发并参与风控模块；通过 Netty 长连接与极光 Push 推送订单消息。</p>
+      </article>
+      <article class="job">
+        <div class="job-title"><h3>上海邮乐网络技术有限公司 · 高级软件工程师</h3><time>2015.04 — 2016.09</time></div>
+        <p>参与邮乐网、邮生活、邮 E 贷等 App 前端开发，采用分包、懒加载、图片压缩和 CDN 加速改善首屏加载，处理列表滚动卡顿。</p>
+      </article>
+      <article class="job">
+        <div class="job-title"><h3>东软集团 · 高级软件工程师</h3><time>2013.08 — 2015.04</time></div>
+        <p>负责支付宝外部担保交易与批量退款模块，独立设计退款幂等校验与分布式锁，通过事务补偿和重试处理交易状态不一致。</p>
+      </article>
+      <article class="job">
+        <div class="job-title"><h3>上海狄杰斯 · 软件工程师</h3><time>2011.11 — 2013.06</time></div>
+        <p>负责阿斯利康门户网站的前端维护和功能迭代，采用懒加载、图片压缩等方式改善页面加载。</p>
+      </article>
+    </section>
+
+    <section aria-labelledby="projects-title">
+      <h2 id="projects-title">代表项目</h2>
+      <div class="projects">
+        <article class="project">
+          <h3>电销系统架构改造</h3>
+          <p class="meta">奇富科技 · 开发 Leader · 2018.04 — 2026.03</p>
+          <p>主导单体应用向微服务拆分，引入 XXL-JOB 与 Apollo。针对锁竞争、超时和 OOM，调整 JVM 参数、优化 SQL 索引与 Redis 缓存，实施冷热数据分离。</p>
+        </article>
+        <article class="project">
+          <h3>集团营销触达平台</h3>
+          <p class="meta">奇富科技 · 核心开发 · 2020.05 — 2024.07</p>
+          <p>负责平台架构与核心开发，以 Kafka 异步处理触达请求；主导责任链规则引擎，组织黑名单过滤、限流及模板校验，对接 IVR、短信、Push、机器人等渠道。</p>
+        </article>
+        <article class="project">
+          <h3>AI 客服与知识检索平台</h3>
+          <p class="meta">奇富科技 · 参与咨询消息与路由模块开发</p>
+          <p>通过 RabbitMQ 接收咨询，保存处理记录后异步调用模型。结合业务上下文与百炼知识库组织答复，保留引用、Prompt 版本及模型调用信息，支持人工分流。</p>
+        </article>
+        <article class="project">
+          <h3>Dify 运营自助答疑</h3>
+          <p class="meta">奇富科技 · 参与项目建设 · 2025.05 — 2026.03</p>
+          <p>参与运营自助答疑项目。系统面向查数据、查状态、查规则的需求，以 Dify 编排意图识别、参数抽取、内部接口调用及结果回复，接入 360Teams 机器人。</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="education-title">
+      <h2 id="education-title">教育经历</h2>
+      <p class="education"><span>长沙文理专修学院 · 计算机应用技术 · 本科</span><span class="date">2006.09 — 2010.09</span></p>
+    </section>
+  </main>
+</body>
+</html>
