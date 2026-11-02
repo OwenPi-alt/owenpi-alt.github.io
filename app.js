@@ -159,6 +159,14 @@
       heading.append(appendText('span', `CASE ${String(caseIndex).padStart(2, '0')} / ENGINEERING IN DETAIL`, 'case-index'), title);
       if (project.thesis) heading.append(appendText('p', project.thesis, 'case-thesis'));
       heading.append(appendText('p', project.meta, 'dialog-meta'));
+      if (project.decisions.every(decision => typeof decision === 'object')) {
+        const focus = appendText('div', '', 'case-focus');
+        focus.append(appendText('span', '本案技术重点', 'case-focus-label'));
+        const list = document.createElement('ul');
+        project.decisions.forEach(decision => list.append(appendText('li', decision.title)));
+        focus.append(list);
+        heading.append(focus);
+      }
       dialogContent.append(heading);
 
       const addSection = (label, content, className) => {
@@ -267,6 +275,6 @@
         });
       });
     }, { rootMargin: '-18% 0px -65% 0px' });
-    document.querySelectorAll('#home, #services, #about, #projects, #stack, #delivery, #experience, #contact').forEach(section => sectionObserver.observe(section));
+    document.querySelectorAll('#home, #services, #about, #architecture, #projects, #stack, #delivery, #experience, #contact').forEach(section => sectionObserver.observe(section));
   }
 })();

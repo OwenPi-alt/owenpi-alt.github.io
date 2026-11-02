@@ -8,25 +8,129 @@
   text-shadow: 0 0 42px #b5f36b10;
 }
 
-.hero-proofline {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  margin-top: 24px;
-  color: #b8c8ab;
+.tech-art {
+  padding: 23px 22px 20px;
+  border: 1px solid #70857940;
+  border-radius: 14px;
+  background:
+    radial-gradient(ellipse at 65% 10%, #668b9b12, transparent 62%),
+    radial-gradient(ellipse at 20% 85%, #89b3610d, transparent 60%),
+    linear-gradient(145deg, #161e21, #101611 72%);
+  box-shadow: inset 0 1px 0 #c7e4d017, 0 24px 65px #0003;
+  isolation: isolate;
+}
+
+.tech-art .art-top {
+  padding: 0 0 15px;
+  border-bottom: 1px solid #8aa59324;
+  color: #99afa4;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.tech-art .art-coordinate {
+  color: #87a98b;
+  font-size: 7px;
+}
+
+.tech-art .graph-stage {
+  margin: 12px -12px 9px;
+}
+
+.tech-art .graph-orbits {
+  opacity: .55;
+}
+
+.tech-art .graph-paths {
+  stroke: #91b877;
+  stroke-opacity: .56;
+}
+
+.tech-art .graph-packets {
+  stroke: #c4f78d;
+  filter: drop-shadow(0 0 3px #a4d56b55);
+}
+
+.tech-art .graph-core {
+  border-color: #b5f36b8a;
+  background: linear-gradient(140deg, #2c3a29, #162218);
+  box-shadow: 0 0 48px #b5f36b16, inset 0 1px 16px #d5f5b51c;
+}
+
+.tech-art .graph-node {
+  background: linear-gradient(140deg, #25302a, #151e19);
+  border-color: #7d9f6680;
+  color: #d3decf;
   font-size: 11px;
+  box-shadow: 0 8px 23px #0004, inset 0 1px 0 #cde7b90b;
+}
+
+.tech-art .art-bottom {
+  padding-inline: 0;
+}
+
+.tech-art .graph-description {
+  margin-left: 0;
+  color: #a3b19b;
+}
+
+.hero-proofline {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.3fr;
+  gap: 0;
+  max-width: 480px;
+  margin-top: 26px;
+  padding-top: 19px;
+  border-top: 1px solid #849c7338;
+  color: #d3dfc8;
 }
 
 .hero-proofline > span {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
+  display: block;
+  min-width: 0;
+  padding-right: 18px;
+}
+
+.hero-proofline > span + span {
+  padding-left: 20px;
+  border-left: 1px solid #849c7326;
+}
+
+.hero-proofline strong {
+  display: block;
+  color: #e5edde;
+  font-size: 25px;
+  font-weight: 550;
+  line-height: 1.35;
+  letter-spacing: -.6px;
+}
+
+.hero-proofline small {
+  display: block;
+  margin-top: 6px;
+  color: #a6b19e;
+  font-size: 11px;
+  line-height: 1.65;
 }
 
 .hero-proofline > span::before {
-  content: "+";
-  color: var(--lime);
-  font-family: var(--mono);
+  content: none;
+}
+
+.service-description p,
+.project-content > p {
+  color: #b5beb5;
+  font-size: 14px;
+  line-height: 1.95;
+}
+
+.project-content h3 {
+  font-size: 22px;
+}
+
+.project-kicker,
+.project-kicker > span:last-child {
+  font-size: 11px;
 }
 
 .project-angle {
@@ -49,14 +153,6 @@
   font-size: 13px;
   line-height: 1.8;
   font-weight: 500;
-}
-
-.project-content > p.project-summary {
-  max-width: none;
-  margin-top: 12px;
-  color: #9eaba0;
-  font-size: 12px;
-  line-height: 1.95;
 }
 
 .project-open {
@@ -169,8 +265,8 @@
 .lab-panel-heading p {
   margin-top: 10px;
   max-width: 760px;
-  color: #9fada0;
-  font-size: 12px;
+  color: #b5beb5;
+  font-size: 14px;
   line-height: 1.95;
 }
 
@@ -319,9 +415,9 @@
 
 .lab-inspector p {
   margin-top: 12px;
-  color: #a7b5a2;
-  font-size: 12px;
-  line-height: 2;
+  color: #b5beb5;
+  font-size: 14px;
+  line-height: 1.95;
 }
 
 .lab-checks {
@@ -338,7 +434,7 @@
   align-items: baseline;
   gap: 9px;
   color: #bbcab2;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.85;
 }
 
@@ -377,20 +473,20 @@
   position: sticky;
   top: 0;
   z-index: 4;
-  padding: 16px 32px;
+  padding: 12px 32px;
   border-bottom: 1px solid #52654440;
   background: #101611f5;
   backdrop-filter: blur(16px);
 }
 
 .case-dialog .dialog-close {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
 }
 
 .case-dialog #dialog-content {
-  padding: 28px 36px 0;
+  padding: 23px 36px 24px;
 }
 
 .case-index {
@@ -400,10 +496,10 @@
 }
 
 .case-dialog #dialog-content h2 {
-  margin: 13px 0 12px;
+  margin: 10px 0 7px;
   color: #edf3e8;
   font-size: 32px;
-  line-height: 1.5;
+  line-height: 1.4;
   letter-spacing: -.6px;
   font-weight: 600;
 }
@@ -411,15 +507,46 @@
 .case-thesis {
   color: #c3dda8;
   font-size: 17px;
-  line-height: 1.9;
-  margin-top: 10px;
+  line-height: 1.75;
+  margin-top: 6px;
 }
 
 .case-heading .dialog-meta {
   font-size: 11px;
   color: #92a386;
-  margin-top: 14px;
-  line-height: 1.9;
+  margin-top: 9px;
+  line-height: 1.75;
+}
+
+.case-focus {
+  margin-top: 15px;
+  padding-top: 13px;
+  border-top: 1px solid #8fa47c2c;
+}
+
+.case-focus-label {
+  color: #9caf8f;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.case-focus ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 7px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case-focus li {
+  padding: 4px 8px;
+  border: 1px solid #8ca7922d;
+  border-radius: 3px;
+  background: #9fc1ab09;
+  color: #c6d3c1;
+  font-size: 11px;
+  line-height: 1.65;
 }
 
 .case-context,
@@ -428,7 +555,7 @@
 .case-value,
 .case-checklist,
 .case-role {
-  margin-top: 26px;
+  margin-top: 20px;
 }
 
 .case-dialog .section-subtitle {
@@ -437,22 +564,23 @@
   font-weight: 550;
   line-height: 1.7;
   letter-spacing: .2px;
-  margin: 30px 0 12px;
+  margin: 23px 0 10px;
 }
 
 .case-context p,
 .case-value p,
 .case-role p {
-  color: #aebda5;
-  font-size: 13px;
-  line-height: 2.05;
+  color: #b5beb5;
+  font-size: 14px;
+  line-height: 1.95;
 }
 
 .case-flow {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
-  padding: 18px 0;
+  margin-top: 14px;
+  padding: 8px 0;
 }
 
 .case-flow > div {
@@ -484,8 +612,8 @@
 
 .case-flow span {
   display: block;
-  color: #9fae94;
-  font-size: 12px;
+  color: #b0bca7;
+  font-size: 13px;
   line-height: 1.9;
   margin-top: 7px;
   overflow-wrap: anywhere;
@@ -522,9 +650,9 @@
 }
 
 .case-decision p {
-  font-size: 12px;
-  line-height: 2;
-  color: #a7b89c;
+  font-size: 14px;
+  line-height: 1.95;
+  color: #b5beb5;
   margin-top: 14px;
 }
 
@@ -532,7 +660,7 @@
   display: block;
   margin-bottom: 5px;
   color: #d0ddc4;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: .5px;
 }
@@ -579,8 +707,8 @@
   background: #a7cc7e06;
   border: 1px solid #33452a;
   border-radius: 4px;
-  color: #abbda0;
-  font-size: 12px;
+  color: #b5beb5;
+  font-size: 14px;
   line-height: 1.95;
 }
 
@@ -599,7 +727,8 @@
 
 .case-dialog .dialog-stage {
   margin-top: 22px;
-  font-size: 12px;
+  font-size: 14px;
+  color: #b5beb5;
   padding: 14px 17px;
 }
 
@@ -631,16 +760,29 @@
 }
 
 .case-dialog .dialog-bottom {
-  margin: 28px 36px 0;
-  padding: 20px 0 26px;
-  border-top-color: #45583a;
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  min-height: 69px;
+  margin: 0;
+  padding: 12px 32px;
+  border-top: 1px solid #70895d63;
+  background: #111a13f7;
+  box-shadow: 0 -12px 25px #060a0855;
+  backdrop-filter: blur(16px);
   flex-wrap: wrap;
   gap: 14px;
 }
 
 .case-dialog .dialog-bottom .text-link {
-  min-height: 36px;
-  font-size: 12px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--lime);
+  border-radius: 4px;
+  color: #182411;
+  background: var(--lime);
+  font-size: 13px;
+  font-weight: 550;
 }
 
 .case-dialog .dialog-bottom > span {
@@ -648,6 +790,20 @@
 }
 
 @media (max-width: 1100px) {
+  .tech-art {
+    padding: 18px 16px;
+  }
+
+  .tech-art .graph-node {
+    padding: 8px 9px;
+    gap: 6px;
+    font-size: 9px;
+  }
+
+  .hero-proofline strong {
+    font-size: 23px;
+  }
+
   .architecture-panel {
     padding: 27px;
   }
@@ -691,6 +847,21 @@
 }
 
 @media (max-width: 800px) {
+  .tech-art .art-top {
+    font-size: 7px;
+    letter-spacing: .5px;
+  }
+
+  .tech-art .art-coordinate {
+    font-size: 6px;
+  }
+
+  .tech-art .graph-node {
+    padding: 7px;
+    gap: 4px;
+    font-size: 8px;
+  }
+
   .architecture-lab {
     padding-top: 20px;
     padding-bottom: 80px;
@@ -722,7 +893,7 @@
   }
 
   .case-dialog #dialog-content {
-    padding: 24px 26px 0;
+    padding: 20px 26px 24px;
   }
 
   .case-dialog #dialog-content h2 {
@@ -760,15 +931,62 @@
   }
 
   .case-dialog .dialog-bottom {
-    margin-inline: 26px;
+    margin: 0;
+    padding-inline: 24px;
   }
 }
 
 @media (max-width: 650px) {
+  .tech-art {
+    padding: 18px 15px;
+  }
+
+  .tech-art .graph-stage {
+    margin: 12px -10px 10px;
+  }
+
+  .tech-art .node-1 {
+    top: 13%;
+  }
+
+  .tech-art .node-2 {
+    top: 14%;
+  }
+
   .hero-proofline {
     margin-top: 20px;
-    gap: 7px 13px;
+    gap: 0;
+    padding-top: 16px;
+  }
+
+  .hero-proofline > span {
+    padding-right: 10px;
+  }
+
+  .hero-proofline > span + span {
+    padding-left: 12px;
+  }
+
+  .hero-proofline strong {
+    font-size: 21px;
+  }
+
+  .hero-proofline small {
     font-size: 10px;
+  }
+
+  .service-description p,
+  .project-content > p,
+  .lab-panel-heading p,
+  .lab-inspector p,
+  .lab-checks li,
+  .case-checklist li,
+  .case-dialog .dialog-stage {
+    font-size: 13px;
+  }
+
+  .project-content h3 {
+    font-size: 20px;
   }
 
   .project-angle {
@@ -818,7 +1036,7 @@
   }
 
   .lab-panel-heading p {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .lab-workspace {
@@ -885,12 +1103,12 @@
   }
 
   .case-dialog #dialog-content {
-    padding: 22px 19px 0;
+    padding: 18px 19px 22px;
   }
 
   .case-dialog #dialog-content h2 {
     font-size: 25px;
-    line-height: 1.55;
+    line-height: 1.45;
   }
 
   .case-index {
@@ -900,7 +1118,7 @@
 
   .case-thesis {
     font-size: 15px;
-    line-height: 1.9;
+    line-height: 1.75;
   }
 
   .case-heading .dialog-meta {
@@ -909,7 +1127,7 @@
 
   .case-context p,
   .case-role p {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .case-flow {
@@ -928,7 +1146,7 @@
 
   .case-flow b,
   .case-flow span {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .case-decision {
@@ -940,7 +1158,7 @@
   }
 
   .case-decision p {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .case-value {
@@ -952,13 +1170,18 @@
   }
 
   .case-dialog .dialog-bottom {
-    margin-inline: 19px;
-    padding-bottom: 22px;
+    margin: 0;
+    min-height: 65px;
+    padding: 10px 17px;
+  }
+
+  .case-dialog .dialog-bottom .text-link {
+    width: 100%;
+    justify-content: center;
   }
 
   .case-dialog .dialog-bottom > span {
-    display: block;
-    font-size: 8px;
+    display: none;
   }
 }
 
@@ -1003,8 +1226,7 @@
     display: none;
   }
 
-  .project-angle strong,
-  .project-summary {
+  .project-angle strong {
     color: black;
   }
 }
