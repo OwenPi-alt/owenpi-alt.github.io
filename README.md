@@ -9,6 +9,9 @@
 - `index.html`：合作服务、四类技术图谱、七个项目案例、交付流程和职业经历。
 - `styles.css`：深色主题、响应式布局、动效与减少动态效果支持。
 - `portfolio.css`：服务列表、工程原型图示、交付流程与新版响应式样式。
+- `casebook.css`：架构交互面板、技术案例长页与更鲜明的内容层次。
+- `case-studies.js`：七个完整案例的数据，包含问题约束、链路、架构取舍、价值与验收关注点。
+- `architecture-lab.js`：三个可切换的设计场景、十二个可探索的架构节点。
 - `app.js`：本地交互，无后端服务、追踪脚本或第三方运行依赖。
 - `resume.html`：独立精简简历；使用页面按钮打印或保存 PDF。
 - `assets/favicon.svg`：站点图标。
@@ -17,7 +20,7 @@
 
 ## 项目合作入口
 
-业务邮箱：[chuangzaoxingfuvip@gmail.com](mailto:chuangzaoxingfuvip@gmail.com)。可直接邮件沟通项目需求，首页提供发送邮件与复制邮箱入口。
+业务邮箱：[chuangzaoxingfuvip@gmail.com](mailto:chuangzaoxingfuvip@gmail.com)。“聊聊合作”、服务咨询与案例咨询均直接打开邮件撰写窗口；页面同时提供邮箱复制入口。
 
 [提交项目需求](https://github.com/OwenPi-alt/owenpi-alt.github.io/issues/new?template=project-inquiry.yml)
 
@@ -35,7 +38,9 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 仓库的 Pages 来源设置为 `main` 分支的根目录。修改文件后提交并推送，GitHub Pages 自动构建并更新站点。
 
-主页基础文案维护在 `index.html`，项目弹窗内容维护在 `app.js`，打印简历维护在 `resume.html`。修改经历时同步相关页面，保留真实职责及项目归属。
+主页基础文案维护在 `index.html`，完整案例内容维护在 `case-studies.js`，架构设计推演维护在 `architecture-lab.js`，打印简历维护在 `resume.html`。`app.js` 保留简版案例作为跨版本缓存或扩展资源缺失时的兼容内容。修改经历时同步相关页面，保留真实职责及项目归属。
+
+脚本与增量样式的引用带有文件内容哈希 `?v=`，修改后需更新对应 URL 的版本值，并同步到旧址兼容仓库，避免浏览器混用新旧资源。
 
 项目图为技术思路示意。职业案例使用本人提供的事实；AIGC 与量化案例单独标为 AI 协作完成的个人工程 / 研究原型，详情说明当前阶段。页面不将离线原型描述为客户交付或实盘产品，不展示未经确认的吞吐、性能、盈利或业务效果指标。服务方向说明合作范围，不代表每类服务均已有客户案例。联系方式仅公开本人授权的业务邮箱与 GitHub；页面不包含其他私人联系方式、内部源码或源简历文件。
 

@@ -148,25 +148,65 @@
   };
   document.querySelectorAll('[data-project]').forEach(button => {
     button.addEventListener('click', () => {
-      const project = projects[button.dataset.project];
+      const project = window.PORTFOLIO_CASE_STUDIES?.[button.dataset.project] || projects[button.dataset.project];
       if (!project) return;
       dialogTrigger = button;
       dialogContent.replaceChildren();
       const title = appendText('h2', project.title);
       title.id = 'dialog-title';
-      dialogContent.append(title, appendText('p', project.meta, 'dialog-meta'));
-      for (const [heading, content] of [['问题与场景', project.context], ['架构取舍与实现', project.decisions], [project.responsibilityLabel || '我的职责', project.responsibility]]) {
-        const block = appendText('section', '', 'dialog-block');
-        block.append(appendText('h3', heading));
-        if (Array.isArray(content)) {
-          const list = document.createElement('ul');
-          content.forEach(item => list.append(appendText('li', item)));
-          block.append(list);
-        } else {
-          block.append(appendText('p', content));
-        }
-        dialogContent.append(block);
+      const heading = appendText('header', '', 'case-heading');
+      const caseIndex = Object.keys(projects).indexOf(button.dataset.project) + 1;
+      heading.append(appendText('span', `CASE ${String(caseIndex).padStart(2, '0')} / ENGINEERING IN DETAIL`, 'case-index'), title);
+      if (project.thesis) heading.append(appendText('p', project.thesis, 'case-thesis'));
+      heading.append(appendText('p', project.meta, 'dialog-meta'));
+      dialogContent.append(heading);
+
+      const addSection = (label, content, className) => {
+        const section = appendText('section', '', className);
+        section.append(appendText('h3', label, 'section-subtitle'));
+        if (content) section.append(appendText('p', content));
+        dialogContent.append(section);
+        return section;
+      };
+      addSection('问题与约束', project.context, 'case-context');
+      if (project.flow) {
+        const section = addSection('核心链路简化示意', '', 'case-flow-section');
+        const flow = appendText('div', '', 'case-flow');
+        flow.setAttribute('role', 'list');
+        project.flow.forEach((step, index) => {
+          const node = appendText('div', '', 'case-flow-node');
+          node.setAttribute('role', 'listitem');
+          node.append(appendText('b', `${String(index + 1).padStart(2, '0')} / ${step.name}`), appendText('span', step.detail));
+          flow.append(node);
+        });
+        section.append(flow);
       }
+      const decisionSection = addSection('架构取舍与实现', '', 'case-decisions-section');
+      const decisions = appendText('div', '', 'case-decisions');
+      project.decisions.forEach((decision, index) => {
+        const card = appendText('article', '', 'case-decision');
+        card.append(appendText('span', `0${index + 1}`, 'decision-number'));
+        if (typeof decision === 'string') {
+          card.append(appendText('p', decision, 'decision-choice'));
+        } else {
+          card.append(appendText('h3', decision.title));
+          for (const [key, label] of [['problem', '难点'], ['choice', '方案'], ['benefit', '价值']]) {
+            const paragraph = appendText('p', '', `decision-${key}`);
+            paragraph.append(appendText('strong', label), document.createTextNode(decision[key]));
+            card.append(paragraph);
+          }
+        }
+        decisions.append(card);
+      });
+      decisionSection.append(decisions);
+      if (project.outcome) addSection('这套设计的价值', project.outcome, 'case-value');
+      if (project.checks) {
+        const section = addSection('验收时，我会看什么', '', 'case-checklist');
+        const list = document.createElement('ul');
+        project.checks.forEach(item => list.append(appendText('li', item)));
+        section.append(list);
+      }
+      addSection(project.responsibilityLabel || '我的职责', project.responsibility, 'case-role');
       if (project.stage) {
         const stage = appendText('div', '', 'dialog-stage');
         stage.append(appendText('strong', '当前阶段'), appendText('p', project.stage));
@@ -175,6 +215,8 @@
       const tags = appendText('div', '', 'tags');
       project.tags.forEach(tag => tags.append(appendText('span', tag)));
       dialogContent.append(tags);
+      const caseContact = document.querySelector('#case-contact');
+      if (caseContact) caseContact.href = `mailto:chuangzaoxingfuvip@gmail.com?subject=${encodeURIComponent(`项目合作咨询：${project.title}`)}`;
       dialog.showModal();
       document.body.classList.add('dialog-open');
       dialog.scrollTop = 0;
