@@ -1,17 +1,25 @@
-# 王子棋 · Backend × AI
+# 王子棋 · 架构设计 / 全栈开发 / AI 工程
 
-个人简介与技术作品集，使用原生 HTML、CSS 和 JavaScript，由 GitHub Pages 托管。
+个人履历、技术作品集与项目合作参考页，使用原生 HTML、CSS 和 JavaScript，由 GitHub Pages 托管。
 
 **访问地址：[owenpi-alt.github.io](https://owenpi-alt.github.io/)**
 
 ## 页面
 
-- `index.html`：个人主页、技术图谱、项目筛选与详情、技术栈和职业经历。
+- `index.html`：合作服务、四类技术图谱、七个项目案例、交付流程和职业经历。
 - `styles.css`：深色主题、响应式布局、动效与减少动态效果支持。
+- `portfolio.css`：服务列表、工程原型图示、交付流程与新版响应式样式。
 - `app.js`：本地交互，无后端服务、追踪脚本或第三方运行依赖。
 - `resume.html`：独立精简简历；使用页面按钮打印或保存 PDF。
 - `assets/favicon.svg`：站点图标。
 - `.nojekyll`：直接发布静态文件。
+- `.github/ISSUE_TEMPLATE/project-inquiry.yml`：公开项目合作需求表单。
+
+## 项目合作入口
+
+[提交项目需求](https://github.com/OwenPi-alt/owenpi-alt.github.io/issues/new?template=project-inquiry.yml)
+
+表单覆盖服务方向、业务目标、现有系统、交付范围和验收结果，时间与预算可选。提交需要 GitHub 账号，Issue 公开可见，请仅描述可公开的项目概要。
 
 ## 本地预览
 
@@ -27,7 +35,7 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 主页基础文案维护在 `index.html`，项目弹窗内容维护在 `app.js`，打印简历维护在 `resume.html`。修改经历时同步相关页面，保留真实职责及项目归属。
 
-项目图为技术思路示意。履历使用本人提供的事实，不展示未经确认的吞吐、性能或业务效果指标。公开页面不包含私人联系方式或源简历文件。
+项目图为技术思路示意。职业案例使用本人提供的事实；AIGC 与量化案例单独标为 AI 协作完成的个人工程 / 研究原型，详情说明当前阶段。页面不将离线原型描述为客户交付或实盘产品，不展示未经确认的吞吐、性能、盈利或业务效果指标。服务方向说明合作范围，不代表每类服务均已有客户案例。公开页面不包含私人联系方式、内部源码或源简历文件。
 
 ## 后续绑定独立域名
 

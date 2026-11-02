@@ -1,0 +1,79 @@
+name: 项目合作需求
+description: 描述业务目标、交付范围和验收要求，开始项目沟通。
+title: "[项目合作] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        需求会公开显示，请勿填写密码、密钥、客户隐私或未公开源码。
+        简要说明你希望解决的问题即可；暂未确定的内容可以注明「待讨论」。
+
+  - type: dropdown
+    id: service-direction
+    attributes:
+      label: 服务方向
+      description: 可以选择多个相关方向。
+      multiple: true
+      options:
+        - 系统架构与技术咨询
+        - 全栈开发
+        - AI 应用与 AIGC
+        - 量化交易系统开发
+        - 其他
+    validations:
+      required: true
+
+  - type: textarea
+    id: business-goal
+    attributes:
+      label: 业务目标
+      description: 谁会使用这个系统？当前遇到了什么问题？希望达到什么结果？
+      placeholder: 例如：为运营团队建立统一查询入口，减少跨系统查找信息的步骤。
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-system
+    attributes:
+      label: 现有系统与技术环境
+      description: 可描述已有产品、技术栈、部署环境及需要对接的系统；从零开始可直接注明。
+      placeholder: 例如：已有 Java 后端与 Vue 管理端，需要新增业务模块；接口文档可后续沟通。
+    validations:
+      required: false
+
+  - type: textarea
+    id: delivery-scope
+    attributes:
+      label: 希望交付的范围
+      description: 列出本次需要的功能、页面、接口或工程材料；也可以注明暂不包含的内容。
+      placeholder: |
+        主要功能：
+        需要交付：源码 / 页面 / 接口 / 部署说明 / 其他
+        本次不包含：
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 验收结果
+      description: 项目做到什么程度算完成？可用一个具体操作流程或可检查的结果说明。
+      placeholder: 例如：用户能完成指定业务流程，关键失败场景有明确反馈，并附部署与使用说明。
+    validations:
+      required: true
+
+  - type: input
+    id: timeline
+    attributes:
+      label: 期望时间（可选）
+      placeholder: 例如：希望下月完成第一阶段，具体排期可讨论。
+    validations:
+      required: false
+
+  - type: input
+    id: budget
+    attributes:
+      label: 预算范围（可选）
+      placeholder: 可填写大致范围，或注明需要先评估工作量。
+    validations:
+      required: false
