@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c0e11">
+  <title>量化研究与回测框架：LEAN 信号、独立账本与风险验证｜王子棋</title>
+  <meta name="description" content="量化研究原型案例：LEAN / C# 信号计算、Python 独立资金账本、成本与风险约束、逐笔核对和可复现报告。当前为模拟回测研究，展示软件工程设计与验证思路。">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://owenpi-alt.github.io/projects/quant-research-backtesting/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="王子棋的技术作品集">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="量化研究与回测框架：LEAN 信号、独立账本与风险验证｜王子棋">
+  <meta property="og:description" content="量化研究原型案例：LEAN / C# 信号计算、Python 独立资金账本、成本与风险约束、逐笔核对和可复现报告。当前为模拟回测研究，展示软件工程设计与验证思路。">
+  <meta property="og:url" content="https://owenpi-alt.github.io/projects/quant-research-backtesting/">
+  <meta property="og:image" content="https://owenpi-alt.github.io/assets/og-quant.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="量化策略研究与回测框架">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="量化研究与回测框架：LEAN 信号、独立账本与风险验证｜王子棋">
+  <meta name="twitter:description" content="量化研究原型案例：LEAN / C# 信号计算、Python 独立资金账本、成本与风险约束、逐笔核对和可复现报告。当前为模拟回测研究，展示软件工程设计与验证思路。">
+  <meta name="twitter:image" content="https://owenpi-alt.github.io/assets/og-quant.png">
+  <meta name="twitter:image:alt" content="量化策略研究与回测框架">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="stylesheet" href="../../styles.css?v=9fdc5794d01e">
+  <link rel="stylesheet" href="../../seo-pages.css?v=73f137b2ef8d">
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://owenpi-alt.github.io/projects/quant-research-backtesting/#article",
+      "headline": "量化策略研究与回测框架",
+      "description": "量化研究原型案例：LEAN / C# 信号计算、Python 独立资金账本、成本与风险约束、逐笔核对和可复现报告。当前为模拟回测研究，展示软件工程设计与验证思路。",
+      "inLanguage": "zh-CN",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://owenpi-alt.github.io/assets/og-quant.png",
+        "width": 1200,
+        "height": 630
+      },
+      "author": {
+        "@type": "Person",
+        "@id": "https://owenpi-alt.github.io/#person",
+        "name": "王子棋",
+        "url": "https://owenpi-alt.github.io/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://owenpi-alt.github.io/#person",
+        "name": "王子棋",
+        "url": "https://owenpi-alt.github.io/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://owenpi-alt.github.io/projects/quant-research-backtesting/"
+      },
+      "url": "https://owenpi-alt.github.io/projects/quant-research-backtesting/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://owenpi-alt.github.io/projects/quant-research-backtesting/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://owenpi-alt.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "项目案例",
+          "item": "https://owenpi-alt.github.io/projects/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "量化策略研究与回测框架",
+          "item": "https://owenpi-alt.github.io/projects/quant-research-backtesting/"
+        }
+      ]
+    }
+  ]
+}</script>
+</head>
+<body class="seo-page">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="seo-header">
+    <a class="seo-brand" href="../../" aria-label="王子棋，返回首页"><span aria-hidden="true">w.</span><span>王子棋</span></a>
+    <nav aria-label="主导航"><a class="seo-home-link" href="../../">返回作品集</a><a class="button button-primary" href="mailto:chuangzaoxingfuvip@gmail.com">聊聊合作 ↗</a></nav>
+  </header>
+  <main id="main" class="seo-main">
+    <nav class="seo-breadcrumbs" aria-label="面包屑导航"><a href="../../">首页</a><span aria-hidden="true">/</span><a href="../">项目案例</a><span aria-hidden="true">/</span><span aria-current="page">量化策略研究与回测框架</span></nav>
+    <article class="seo-article">
+      <header class="seo-lede">
+        <p class="seo-kicker">CASE 03 / ENGINEERING IN DETAIL</p>
+        <h1>量化策略研究与回测框架</h1>
+        <p class="seo-thesis">让每一个回测结果，都经得起账本追问。</p>
+        <p class="seo-meta">个人研究 · AI 协作 · Quant Research Engineering</p>
+      </header>
+      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">问题与约束</h2><p>回测结果同时受信号计算、成交假设、费用和资金约束影响。这个研究原型把各层分开核对：信号为什么产生，成本何时扣除，风险规则怎样改变现金与持仓，以及更换数据或代码后，结果是否还能复现。展示重点是研究工具的可信工程基础。</p></section>
+      <section class="seo-section" aria-labelledby="flow-title">
+        <h2 id="flow-title">核心链路简化示意</h2>
+        <p>以下图示为技术思路的简化表达。</p>
+        <ol class="seo-case-flow"><li><b>01 / 行情与信号</b><span>LEAN / C# 计算</span></li><li><b>02 / 独立账本</b><span>Python 模拟成交</span></li><li><b>03 / 成本与风险</b><span>费用、现金与约束</span></li><li><b>04 / 交叉核对</b><span>逐笔明细与研究报告</span></li></ol>
+      </section>
+      <section class="seo-section" aria-labelledby="decisions-title">
+        <h2 id="decisions-title">架构取舍与实现</h2>
+        <div class="seo-decision-grid">
+          <article class="seo-decision"><span>01</span><h3>把信号与资金模型解耦</h3><p><strong>难点</strong>只看引擎最终统计，很难区分问题来自信号、成交假设还是资金计算。</p><p><strong>方案</strong>由 LEAN / C# 导出结构化策略信号，独立 Python 账本消费信号并模拟资金与成交路径，再使用独立窗口计算逐行核对。</p><p><strong>价值</strong>每一层都有独立检查入口，能够定位差异来源，信号计算阶段保持零订单。</p></article>
+          <article class="seo-decision"><span>02</span><h3>成本与风控共用资金事实</h3><p><strong>难点</strong>报告扣了费用，实际现金和风险判断却没扣，会使研究结论出现偏差。</p><p><strong>方案</strong>区分交易权益、净权益、实际扣款和收益归因，将手续费、滑点、资金费与结算纳入账本，风险控制使用扣费后净权益。</p><p><strong>价值</strong>让风险规则真正作用于资金模型，同时可以核对成本是否漏算、重复计算或归因错误。</p></article>
+          <article class="seo-decision"><span>03</span><h3>为结果保留复现链路</h3><p><strong>难点</strong>输入、参数和代码变化后，如果只保留汇总图表，就难以解释结果差异。</p><p><strong>方案</strong>保存逐笔交易、决策原因、费用与风险记录，用脚本串联信号校验、回测和账本验收，并校验输入、代码与输出哈希。</p><p><strong>价值</strong>使研究报告能够追溯到具体计算过程，让后续实验有可比较、可复现的基线。</p></article>
+        </div>
+      </section>
+      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">工程价值</h2><p>以明确的账本与成本假设，支撑可解释、可核对、可复现的量化研究。</p></section>
+      <section class="seo-section" aria-labelledby="checks-title"><h2 id="checks-title">验证关注点</h2><ul class="seo-checklist"><li>策略信号与账本逐行核对后，是否存在遗漏、偏移或重复消费？</li><li>费用扣除和风险暂停是否真正改变可用现金、持仓及后续入场？</li><li>冻结同一组输入、代码和参数，能否复现明细与汇总结果？</li></ul></section>
+      <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">研发范围</h2><p>AI 协作完成的个人研究原型，覆盖信号计算、独立资金账本、风险规则、结果核对与 HTML 研究报告。</p></section>
+      <section class="seo-section seo-stage" aria-labelledby="stage-title"><h2 id="stage-title">当前阶段</h2><p>当前为研究与模拟回测阶段，尚未接入券商账户或实盘下单。</p></section>
+      <section class="seo-section" aria-labelledby="tags-title"><h2 id="tags-title">技术与主题</h2><ul class="seo-tags" aria-label="技术与主题"><li>C# / LEAN</li><li>Python</li><li>独立资金账本</li><li>成本模型</li><li>风险规则</li><li>可复现研究</li></ul></section>
+    </article>
+    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">继续看其他案例</h2><div class="seo-related-grid"><a href="../java-telemarketing-architecture/"><strong>电销系统架构改造</strong><span>从单体的压力点，拆出可持续演进的系统。</span></a><a href="../ai-customer-service-rag/"><strong>AI 客服与知识检索平台</strong><span>让知识进入业务，让每次回答留下依据。</span></a><a href="../marketing-messaging-platform/"><strong>集团营销触达平台</strong><span>把多渠道触达，做成有规则、有节奏的系统。</span></a></div><a href="../">查看全部项目案例 ↗</a></nav>
+    <section class="seo-contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">聊聊你的技术需求。</h2>
+      <p>把业务目标、现有系统和交付范围发给我，一起梳理关键问题与实现路径。</p>
+      <a class="button button-primary" href="mailto:chuangzaoxingfuvip@gmail.com">发送合作邮件 ↗</a>
+    </section>
+  </main>
+  <footer class="seo-footer"><span>王子棋 · 架构与工程</span><nav aria-label="页脚导航"><a href="../../">返回作品集</a><a href="mailto:chuangzaoxingfuvip@gmail.com">chuangzaoxingfuvip@gmail.com</a></nav></footer>
+</body>
+</html>

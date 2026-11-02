@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c0e11">
+  <title>AI 客服与 RAG 知识检索：消息路由、上下文与引用追踪｜王子棋</title>
+  <meta name="description" content="AI 客服与知识检索平台案例：咨询消息处理、上下文路由、LangChain4j、百炼知识库、引用与 Prompt 记录。说明参与模块、架构取舍及失败场景的验收关注点。">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://owenpi-alt.github.io/projects/ai-customer-service-rag/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="王子棋的技术作品集">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="AI 客服与 RAG 知识检索：消息路由、上下文与引用追踪｜王子棋">
+  <meta property="og:description" content="AI 客服与知识检索平台案例：咨询消息处理、上下文路由、LangChain4j、百炼知识库、引用与 Prompt 记录。说明参与模块、架构取舍及失败场景的验收关注点。">
+  <meta property="og:url" content="https://owenpi-alt.github.io/projects/ai-customer-service-rag/">
+  <meta property="og:image" content="https://owenpi-alt.github.io/assets/og-customer-ai.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="AI 客服与知识检索平台">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI 客服与 RAG 知识检索：消息路由、上下文与引用追踪｜王子棋">
+  <meta name="twitter:description" content="AI 客服与知识检索平台案例：咨询消息处理、上下文路由、LangChain4j、百炼知识库、引用与 Prompt 记录。说明参与模块、架构取舍及失败场景的验收关注点。">
+  <meta name="twitter:image" content="https://owenpi-alt.github.io/assets/og-customer-ai.png">
+  <meta name="twitter:image:alt" content="AI 客服与知识检索平台">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="stylesheet" href="../../styles.css?v=9fdc5794d01e">
+  <link rel="stylesheet" href="../../seo-pages.css?v=73f137b2ef8d">
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://owenpi-alt.github.io/projects/ai-customer-service-rag/#article",
+      "headline": "AI 客服与知识检索平台",
+      "description": "AI 客服与知识检索平台案例：咨询消息处理、上下文路由、LangChain4j、百炼知识库、引用与 Prompt 记录。说明参与模块、架构取舍及失败场景的验收关注点。",
+      "inLanguage": "zh-CN",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://owenpi-alt.github.io/assets/og-customer-ai.png",
+        "width": 1200,
+        "height": 630
+      },
+      "author": {
+        "@type": "Person",
+        "@id": "https://owenpi-alt.github.io/#person",
+        "name": "王子棋",
+        "url": "https://owenpi-alt.github.io/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://owenpi-alt.github.io/#person",
+        "name": "王子棋",
+        "url": "https://owenpi-alt.github.io/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://owenpi-alt.github.io/projects/ai-customer-service-rag/"
+      },
+      "url": "https://owenpi-alt.github.io/projects/ai-customer-service-rag/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://owenpi-alt.github.io/projects/ai-customer-service-rag/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://owenpi-alt.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "项目案例",
+          "item": "https://owenpi-alt.github.io/projects/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "AI 客服与知识检索平台",
+          "item": "https://owenpi-alt.github.io/projects/ai-customer-service-rag/"
+        }
+      ]
+    }
+  ]
+}</script>
+</head>
+<body class="seo-page">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="seo-header">
+    <a class="seo-brand" href="../../" aria-label="王子棋，返回首页"><span aria-hidden="true">w.</span><span>王子棋</span></a>
+    <nav aria-label="主导航"><a class="seo-home-link" href="../../">返回作品集</a><a class="button button-primary" href="mailto:chuangzaoxingfuvip@gmail.com">聊聊合作 ↗</a></nav>
+  </header>
+  <main id="main" class="seo-main">
+    <nav class="seo-breadcrumbs" aria-label="面包屑导航"><a href="../../">首页</a><span aria-hidden="true">/</span><a href="../">项目案例</a><span aria-hidden="true">/</span><span aria-current="page">AI 客服与知识检索平台</span></nav>
+    <article class="seo-article">
+      <header class="seo-lede">
+        <p class="seo-kicker">CASE 05 / ENGINEERING IN DETAIL</p>
+        <h1>AI 客服与知识检索平台</h1>
+        <p class="seo-thesis">让知识进入业务，让每次回答留下依据。</p>
+        <p class="seo-meta">奇富科技 · 参与咨询消息与路由模块开发</p>
+      </header>
+      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">问题与约束</h2><p>用户咨询带有业务状态、上下文和信息缺口，需要按场景处理。项目将咨询消息、路由判断和知识检索组织在一起，支持信息澄清、状态查询及人工分流；同时保留调用与引用信息，为答复追踪和运营反馈提供依据。</p></section>
+      <section class="seo-section" aria-labelledby="flow-title">
+        <h2 id="flow-title">核心链路简化示意</h2>
+        <p>以下图示为技术思路的简化表达。</p>
+        <ol class="seo-case-flow"><li><b>01 / 消息受理</b><span>接收咨询并保存记录</span></li><li><b>02 / 场景路由</b><span>规则、分类与上下文</span></li><li><b>03 / 知识检索</b><span>检索得分与命中阈值</span></li><li><b>04 / 答复与反馈</b><span>引用、调用与运营记录</span></li></ol>
+      </section>
+      <section class="seo-section" aria-labelledby="decisions-title">
+        <h2 id="decisions-title">架构取舍与实现</h2>
+        <div class="seo-decision-grid">
+          <article class="seo-decision"><span>01</span><h3>先形成任务，再异步处理</h3><p><strong>难点</strong>咨询接收与模型调用速度不同，失败后还需要知道任务停在什么状态。</p><p><strong>方案</strong>通过 RabbitMQ 接收消息，保存处理记录后异步调用模型；结合重复消息判断、状态条件重试与超时清理管理任务。</p><p><strong>价值</strong>让消息受理与生成过程各有记录，为失败排查和重试提供状态依据，避免只依赖一次请求返回。</p></article>
+          <article class="seo-decision"><span>02</span><h3>围绕业务上下文组织路由</h3><p><strong>难点</strong>只用当前一句话判断咨询，容易忽略工单背景和不同业务场景的差异。</p><p><strong>方案</strong>路由按阶段结合规则判断、模型分类与知识检索，并按咨询工单组织有限上下文，支持信息澄清、状态查询和人工分流。</p><p><strong>价值</strong>使处理路径能够利用业务信息，并将不同场景的判断过程拆开，便于理解和追踪。</p></article>
+          <article class="seo-decision"><span>03</span><h3>把生成依据保留在回复旁</h3><p><strong>难点</strong>仅保存最终文本，难以解释答案来源与某次调用出现偏差的原因。</p><p><strong>方案</strong>接入百炼知识库，结合检索得分与阈值组织答复；保存路由、引用片段、Prompt 版本、模型和 Token 信息，并记录运营反馈。</p><p><strong>价值</strong>让问题能够沿引用、提示词和调用记录回溯，为后续评估和改进提供具体材料。</p></article>
+        </div>
+      </section>
+      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">工程价值</h2><p>连接咨询处理、知识引用与运营反馈，让 AI 应用具备可追踪、可评估的迭代基础。</p></section>
+      <section class="seo-section" aria-labelledby="checks-title"><h2 id="checks-title">验证关注点</h2><ul class="seo-checklist"><li>重复消息、超时任务与失败重试，是否按状态条件进入正确处理路径？</li><li>知识未命中、检索异常或上下文不足时，是否给出适当分流或反馈？</li><li>一条答复能否追溯到使用的知识引用、Prompt 版本及模型调用？</li></ul></section>
+      <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">我的职责</h2><p>参与咨询消息与路由模块开发，结合业务上下文区分场景；涉及失败重试、超时状态清理和重复提交控制。</p></section>
+
+      <section class="seo-section" aria-labelledby="tags-title"><h2 id="tags-title">技术与主题</h2><ul class="seo-tags" aria-label="技术与主题"><li>Java 17</li><li>Spring Boot 3</li><li>LangChain4j</li><li>RabbitMQ</li><li>PostgreSQL</li><li>RAG / 百炼</li></ul></section>
+    </article>
+    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">继续看其他案例</h2><div class="seo-related-grid"><a href="../marketing-messaging-platform/"><strong>集团营销触达平台</strong><span>把多渠道触达，做成有规则、有节奏的系统。</span></a><a href="../dify-operations-assistant/"><strong>Dify 运营自助答疑</strong><span>从“帮我查一下”，走向可执行的业务问答。</span></a><a href="../restaurant-order-payment/"><strong>餐饮订单与支付系统</strong><span>让订单、支付与终端触达，成为一套协同运转的业务系统。</span></a></div><a href="../">查看全部项目案例 ↗</a></nav>
+    <section class="seo-contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">聊聊你的技术需求。</h2>
+      <p>把业务目标、现有系统和交付范围发给我，一起梳理关键问题与实现路径。</p>
+      <a class="button button-primary" href="mailto:chuangzaoxingfuvip@gmail.com">发送合作邮件 ↗</a>
+    </section>
+  </main>
+  <footer class="seo-footer"><span>王子棋 · 架构与工程</span><nav aria-label="页脚导航"><a href="../../">返回作品集</a><a href="mailto:chuangzaoxingfuvip@gmail.com">chuangzaoxingfuvip@gmail.com</a></nav></footer>
+</body>
+</html>

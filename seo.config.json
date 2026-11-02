@@ -1,0 +1,53 @@
+{
+  "siteUrl": "https://owenpi-alt.github.io/",
+  "name": "王子棋",
+  "email": "chuangzaoxingfuvip@gmail.com",
+  "github": "https://github.com/OwenPi-alt",
+  "siteName": "王子棋的技术作品集",
+  "language": "zh-CN",
+  "ogImage": "assets/og-card.png",
+  "cases": {
+    "commerce": {
+      "slug": "restaurant-order-payment",
+      "title": "餐饮订单与支付系统：业务架构、消息通知与补偿｜王子棋",
+      "description": "王子棋在百味云的餐饮业务系统案例：订单与支付模块职责、RabbitMQ 通知、Netty 长连接和 Push 回执补偿，展开架构取舍、个人职责与验收关注点。",
+      "image": "assets/og-commerce.png"
+    },
+    "aigc": {
+      "slug": "aigc-production-workflow",
+      "title": "AIGC 内容生产工作流：任务恢复、预算与媒体质检｜王子棋",
+      "description": "AIGC 离线工程原型案例：用 Python、SQLite WAL 和 FFmpeg 组织镜头任务、预算预占、失败恢复及审核版本绑定，展示 AI 协作研发的实现范围与后续集成阶段。",
+      "image": "assets/og-aigc.png"
+    },
+    "quant": {
+      "slug": "quant-research-backtesting",
+      "title": "量化研究与回测框架：LEAN 信号、独立账本与风险验证｜王子棋",
+      "description": "量化研究原型案例：LEAN / C# 信号计算、Python 独立资金账本、成本与风险约束、逐笔核对和可复现报告。当前为模拟回测研究，展示软件工程设计与验证思路。",
+      "image": "assets/og-quant.png"
+    },
+    "telemarketing": {
+      "slug": "java-telemarketing-architecture",
+      "title": "Java 电销系统架构改造：微服务、JVM 与数据访问治理｜王子棋",
+      "description": "王子棋在奇富科技的 Java 电销系统改造案例：微服务拆分、任务与配置管理、并发查询边界、JVM 和 SQL 优化，以及开发 Leader 的核心职责。",
+      "image": "assets/og-telemarketing.png"
+    },
+    "customer-ai": {
+      "slug": "ai-customer-service-rag",
+      "title": "AI 客服与 RAG 知识检索：消息路由、上下文与引用追踪｜王子棋",
+      "description": "AI 客服与知识检索平台案例：咨询消息处理、上下文路由、LangChain4j、百炼知识库、引用与 Prompt 记录。说明参与模块、架构取舍及失败场景的验收关注点。",
+      "image": "assets/og-customer-ai.png"
+    },
+    "messaging": {
+      "slug": "marketing-messaging-platform",
+      "title": "营销触达平台：Kafka 异步链路、规则引擎与多渠道接入｜王子棋",
+      "description": "集团营销触达平台案例：Kafka 异步处理、责任链规则组合、短信与 Push 等渠道接入，展开流量边界、规则职责、渠道策略和核心开发工作。",
+      "image": "assets/og-messaging.png"
+    },
+    "dify": {
+      "slug": "dify-operations-assistant",
+      "title": "Dify 运营自助答疑：意图识别、参数抽取与业务接口｜王子棋",
+      "description": "Dify 运营自助查询案例：通过意图识别、参数抽取、内部接口调用和 360Teams 入口连接运营工作，说明参与范围、工作流设计及上线前验收重点。",
+      "image": "assets/og-dify.png"
+    }
+  }
+}

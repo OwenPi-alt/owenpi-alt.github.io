@@ -147,9 +147,11 @@
     return element;
   };
   document.querySelectorAll('[data-project]').forEach(button => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', event => {
+      if (button.tagName === 'A' && (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)) return;
       const project = window.PORTFOLIO_CASE_STUDIES?.[button.dataset.project] || projects[button.dataset.project];
       if (!project) return;
+      if (button.tagName === 'A') event.preventDefault();
       dialogTrigger = button;
       dialogContent.replaceChildren();
       const title = appendText('h2', project.title);
@@ -225,6 +227,11 @@
       dialogContent.append(tags);
       const caseContact = document.querySelector('#case-contact');
       if (caseContact) caseContact.href = `mailto:chuangzaoxingfuvip@gmail.com?subject=${encodeURIComponent(`项目合作咨询：${project.title}`)}`;
+      const permalink = document.querySelector('#case-permalink');
+      if (permalink) {
+        permalink.hidden = button.tagName !== 'A';
+        if (!permalink.hidden) permalink.href = button.href;
+      }
       dialog.showModal();
       document.body.classList.add('dialog-open');
       dialog.scrollTop = 0;

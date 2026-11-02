@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c0e11">
+  <title>Java 电销系统架构改造：微服务、JVM 与数据访问治理｜王子棋</title>
+  <meta name="description" content="王子棋在奇富科技的 Java 电销系统改造案例：微服务拆分、任务与配置管理、并发查询边界、JVM 和 SQL 优化，以及开发 Leader 的核心职责。">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://owenpi-alt.github.io/projects/java-telemarketing-architecture/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="王子棋的技术作品集">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Java 电销系统架构改造：微服务、JVM 与数据访问治理｜王子棋">
+  <meta property="og:description" content="王子棋在奇富科技的 Java 电销系统改造案例：微服务拆分、任务与配置管理、并发查询边界、JVM 和 SQL 优化，以及开发 Leader 的核心职责。">
+  <meta property="og:url" content="https://owenpi-alt.github.io/projects/java-telemarketing-architecture/">
+  <meta property="og:image" content="https://owenpi-alt.github.io/assets/og-telemarketing.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="电销系统架构改造">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Java 电销系统架构改造：微服务、JVM 与数据访问治理｜王子棋">
+  <meta name="twitter:description" content="王子棋在奇富科技的 Java 电销系统改造案例：微服务拆分、任务与配置管理、并发查询边界、JVM 和 SQL 优化，以及开发 Leader 的核心职责。">
+  <meta name="twitter:image" content="https://owenpi-alt.github.io/assets/og-telemarketing.png">
+  <meta name="twitter:image:alt" content="电销系统架构改造">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="stylesheet" href="../../styles.css?v=9fdc5794d01e">
+  <link rel="stylesheet" href="../../seo-pages.css?v=73f137b2ef8d">
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://owenpi-alt.github.io/projects/java-telemarketing-architecture/#article",
+      "headline": "电销系统架构改造",
+      "description": "王子棋在奇富科技的 Java 电销系统改造案例：微服务拆分、任务与配置管理、并发查询边界、JVM 和 SQL 优化，以及开发 Leader 的核心职责。",
+      "inLanguage": "zh-CN",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://owenpi-alt.github.io/assets/og-telemarketing.png",
+        "width": 1200,
+        "height": 630
+      },
+      "author": {
+        "@type": "Person",
+        "@id": "https://owenpi-alt.github.io/#person",
+        "name": "王子棋",
+        "url": "https://owenpi-alt.github.io/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://owenpi-alt.github.io/#person",
+        "name": "王子棋",
+        "url": "https://owenpi-alt.github.io/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://owenpi-alt.github.io/projects/java-telemarketing-architecture/"
+      },
+      "url": "https://owenpi-alt.github.io/projects/java-telemarketing-architecture/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://owenpi-alt.github.io/projects/java-telemarketing-architecture/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://owenpi-alt.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "项目案例",
+          "item": "https://owenpi-alt.github.io/projects/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "电销系统架构改造",
+          "item": "https://owenpi-alt.github.io/projects/java-telemarketing-architecture/"
+        }
+      ]
+    }
+  ]
+}</script>
+</head>
+<body class="seo-page">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="seo-header">
+    <a class="seo-brand" href="../../" aria-label="王子棋，返回首页"><span aria-hidden="true">w.</span><span>王子棋</span></a>
+    <nav aria-label="主导航"><a class="seo-home-link" href="../../">返回作品集</a><a class="button button-primary" href="mailto:chuangzaoxingfuvip@gmail.com">聊聊合作 ↗</a></nav>
+  </header>
+  <main id="main" class="seo-main">
+    <nav class="seo-breadcrumbs" aria-label="面包屑导航"><a href="../../">首页</a><span aria-hidden="true">/</span><a href="../">项目案例</a><span aria-hidden="true">/</span><span aria-current="page">电销系统架构改造</span></nav>
+    <article class="seo-article">
+      <header class="seo-lede">
+        <p class="seo-kicker">CASE 04 / ENGINEERING IN DETAIL</p>
+        <h1>电销系统架构改造</h1>
+        <p class="seo-thesis">从单体的压力点，拆出可持续演进的系统。</p>
+        <p class="seo-meta">奇富科技 · 开发 Leader · 2018.04 — 2026.03</p>
+      </header>
+      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">问题与约束</h2><p>人工和机器人外呼业务持续迭代，原单体系统出现锁竞争、超时和 OOM。改造需要同时面对服务边界、下游调用和数据访问问题：既要为后续业务留出扩展空间，也要处理当前运行中的具体压力点，并协调任务调度、配置和团队交付。</p></section>
+      <section class="seo-section" aria-labelledby="flow-title">
+        <h2 id="flow-title">核心链路简化示意</h2>
+        <p>以下图示为技术思路的简化表达。</p>
+        <ol class="seo-case-flow"><li><b>01 / 业务受理</b><span>人工与机器人外呼</span></li><li><b>02 / 规则校验</b><span>禁呼、黑名单与限制</span></li><li><b>03 / 服务协作</b><span>业务调用与任务管理</span></li><li><b>04 / 数据支撑</b><span>缓存、查询与冷热分离</span></li></ol>
+      </section>
+      <section class="seo-section" aria-labelledby="decisions-title">
+        <h2 id="decisions-title">架构取舍与实现</h2>
+        <div class="seo-decision-grid">
+          <article class="seo-decision"><span>01</span><h3>按业务职责推进服务拆分</h3><p><strong>难点</strong>单体中多类职责相互影响，局部压力容易变成整体运行问题。</p><p><strong>方案</strong>主导单体向微服务拆分，并引入 XXL-JOB 与 Apollo 管理任务和配置。当前系统设有独立外呼校验服务，处理禁呼、黑名单、号码与次数限制。</p><p><strong>价值</strong>让关键规则与业务执行形成清晰边界，使问题定位和后续变更有明确落点。</p></article>
+          <article class="seo-decision"><span>02</span><h3>控制并行调用的资源边界</h3><p><strong>难点</strong>坐席标签依赖多个下游查询，串行等待与单项失败都会影响结果整理。</p><p><strong>方案</strong>标签查询采用有界线程池和 CompletableFuture 并行获取下游结果；单项异常时，继续整理已有信息。</p><p><strong>价值</strong>在利用并行能力的同时限制资源使用，并保留部分结果处理路径，避免把所有依赖绑成同一成败。</p></article>
+          <article class="seo-decision"><span>03</span><h3>把性能治理落到具体访问路径</h3><p><strong>难点</strong>锁竞争、慢查询和内存压力交织，单一参数调整难以覆盖所有问题。</p><p><strong>方案</strong>围绕并发访问调整 JVM 参数，优化 SQL 索引与 Redis 缓存，并进行冷热数据分离，分别处理运行时、查询和数据规模问题。</p><p><strong>价值</strong>让每项治理动作对应具体压力来源，便于比较改动效果并观察新的瓶颈。</p></article>
+        </div>
+      </section>
+      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">工程价值</h2><p>把架构演进与具体稳定性问题连接起来，让系统改造既有清晰边界，也有可验证的实施抓手。</p></section>
+      <section class="seo-section" aria-labelledby="checks-title"><h2 id="checks-title">验证关注点</h2><ul class="seo-checklist"><li>服务拆分前后的规则、异常返回和业务限制是否保持一致？</li><li>下游慢响应或单项失败时，线程资源与部分结果处理是否符合预期？</li><li>JVM、SQL、缓存和冷热分离的调整，是否在可比较负载下验证？</li></ul></section>
+      <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">我的职责</h2><p>主导单体向微服务拆分，承担技术方案、核心开发和团队交付，协同产品、测试与运维处理迭代和线上问题。</p></section>
+
+      <section class="seo-section" aria-labelledby="tags-title"><h2 id="tags-title">技术与主题</h2><ul class="seo-tags" aria-label="技术与主题"><li>Java / Dubbo</li><li>微服务</li><li>CompletableFuture</li><li>JVM</li><li>MySQL / Redis</li><li>XXL-JOB / Apollo</li></ul></section>
+    </article>
+    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">继续看其他案例</h2><div class="seo-related-grid"><a href="../ai-customer-service-rag/"><strong>AI 客服与知识检索平台</strong><span>让知识进入业务，让每次回答留下依据。</span></a><a href="../marketing-messaging-platform/"><strong>集团营销触达平台</strong><span>把多渠道触达，做成有规则、有节奏的系统。</span></a><a href="../dify-operations-assistant/"><strong>Dify 运营自助答疑</strong><span>从“帮我查一下”，走向可执行的业务问答。</span></a></div><a href="../">查看全部项目案例 ↗</a></nav>
+    <section class="seo-contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">聊聊你的技术需求。</h2>
+      <p>把业务目标、现有系统和交付范围发给我，一起梳理关键问题与实现路径。</p>
+      <a class="button button-primary" href="mailto:chuangzaoxingfuvip@gmail.com">发送合作邮件 ↗</a>
+    </section>
+  </main>
+  <footer class="seo-footer"><span>王子棋 · 架构与工程</span><nav aria-label="页脚导航"><a href="../../">返回作品集</a><a href="mailto:chuangzaoxingfuvip@gmail.com">chuangzaoxingfuvip@gmail.com</a></nav></footer>
+</body>
+</html>
