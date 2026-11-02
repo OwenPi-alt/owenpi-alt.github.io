@@ -190,7 +190,7 @@
     dialogTrigger?.focus({ preventScroll: true });
   });
 
-  document.querySelector('#copy-email').addEventListener('click', async () => {
+  document.querySelector('#copy-email')?.addEventListener('click', async () => {
     const email = document.querySelector('#contact-email').textContent.trim();
     const status = document.querySelector('#copy-status');
     try {
