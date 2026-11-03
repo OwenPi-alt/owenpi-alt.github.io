@@ -8,6 +8,87 @@
   text-shadow: 0 0 42px #b5f36b10;
 }
 
+.about {
+  row-gap: 40px;
+}
+
+.personal-note {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(40px, 7vw, 95px);
+  padding-top: 36px;
+  border-top: 1px solid #8da27935;
+}
+
+.personal-note-intro,
+.working-notes {
+  min-width: 0;
+}
+
+.personal-note-intro .eyebrow {
+  color: #93a786;
+  font-size: 9px;
+}
+
+.personal-note-intro h3 {
+  margin: 17px 0 20px;
+  color: #e1e8db;
+  font-size: 26px;
+  line-height: 1.55;
+  font-weight: 500;
+  letter-spacing: -.5px;
+}
+
+.personal-note-intro > p:not(.eyebrow) {
+  max-width: 350px;
+  color: #b5beb0;
+  font-size: 14px;
+  line-height: 2;
+}
+
+.personal-signoff {
+  display: block;
+  margin-top: 23px;
+  color: #d2dec7;
+  font-family: "Songti SC", "Noto Serif CJK SC", serif;
+  font-size: 21px;
+  line-height: 1.5;
+  letter-spacing: 3px;
+}
+
+.working-notes {
+  margin: 0;
+}
+
+.working-notes > div {
+  padding: 21px 0;
+  border-bottom: 1px solid #8da27926;
+}
+
+.working-notes > div:first-child {
+  padding-top: 0;
+}
+
+.working-notes > div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.working-notes dt {
+  color: #d2dfc7;
+  font-size: 14px;
+  font-weight: 550;
+  line-height: 1.8;
+}
+
+.working-notes dd {
+  margin: 8px 0 0;
+  color: #aebba5;
+  font-size: 14px;
+  line-height: 2;
+}
+
 .tech-art {
   padding: 23px 22px 20px;
   border: 1px solid #70857940;
@@ -967,6 +1048,36 @@
 }
 
 @media (max-width: 650px) {
+  .personal-note {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+    padding-top: 30px;
+  }
+
+  .personal-note-intro h3 {
+    margin: 15px 0 17px;
+    font-size: 24px;
+  }
+
+  .personal-note-intro > p:not(.eyebrow) {
+    max-width: none;
+    font-size: 13px;
+  }
+
+  .personal-signoff {
+    margin-top: 19px;
+    font-size: 20px;
+  }
+
+  .working-notes > div {
+    padding: 19px 0;
+  }
+
+  .working-notes dd {
+    font-size: 13px;
+  }
+
   .tech-art {
     padding: 18px 15px;
   }
@@ -1218,6 +1329,10 @@
 }
 
 @media (max-width: 360px) {
+  .hero h1 {
+    font-size: 32px;
+  }
+
   .architecture-panel {
     padding-inline: 15px;
   }
