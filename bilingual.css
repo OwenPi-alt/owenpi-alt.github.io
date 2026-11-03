@@ -1,4 +1,4 @@
-/* Explicit language URLs keep Chinese as the default and both versions readable. */
+/* Fixed language URLs stay stable; the neutral entry selects a preference. */
 .language-switch {
   display: inline-flex;
   align-items: center;

@@ -15,7 +15,7 @@ const cases=sandbox.window.PORTFOLIO_CASE_STUDIES;
 const englishSandbox={window:{}};
 vm.runInNewContext(fs.readFileSync(path.join(root,'case-studies.en.js'),'utf8'),englishSandbox,{timeout:1000});
 const englishCases=englishSandbox.window.PORTFOLIO_CASE_STUDIES;
-const locales=[{prefix:'',config,cases},{prefix:'en/',config:englishConfig,cases:englishCases}];
+const locales=[{prefix:'',home:'zh/',config,cases},{prefix:'en/',home:'en/',config:englishConfig,cases:englishCases}];
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
 const decode=text=>text.replace(/&(?:amp|lt|gt|quot|#39);/g,s=>({'&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&#39;':"'"}[s]));
 const attrs=tag=>Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map(m=>[m[1],decode(m[2])]));
@@ -30,7 +30,7 @@ const localPath=url=>{
 };
 const sitemap=read('sitemap.xml');
 const urls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>decode(m[1]));
-const expected=locales.flatMap(locale=>[locale.prefix,locale.prefix+'resume.html',locale.prefix+'projects/',...Object.values(locale.config.cases).map(m=>locale.prefix+'projects/'+m.slug+'/')].map(route=>new URL(route,base).href));
+const expected=locales.flatMap(locale=>[locale.home,locale.prefix+'resume.html',locale.prefix+'projects/',...Object.values(locale.config.cases).map(m=>locale.prefix+'projects/'+m.slug+'/')].map(route=>new URL(route,base).href));
 assert.equal(urls.length,20);assert.deepEqual(new Set(urls),new Set(expected));
 assert.ok(!/<lastmod|<priority|<changefreq/.test(sitemap),'Avoid fabricated freshness or unsupported ranking hints');
 assert.ok(read('robots.txt').includes('Allow: /'));
@@ -41,7 +41,7 @@ const result=[];
 for(const url of urls){
   const file=localPath(url),html=read(file);
   const locale=file.startsWith('en/')?locales[1]:locales[0];
-  const localFile=file.slice(locale.prefix.length);
+  const localFile=file===locale.home+'index.html'?'index.html':file.slice(locale.prefix.length);
   const route=localFile==='index.html'?'':localFile.replace(/index\.html$/,'');
   assert.equal(html.match(/<html\b[^>]*lang="([^"]+)"/)?.[1],locale.config.language,file+' language');
   const title=decode(html.match(/<title>([\s\S]*?)<\/title>/)?.[1]||'');
@@ -51,7 +51,7 @@ for(const url of urls){
   const canonical=links.filter(l=>l.rel==='canonical');
   assert.equal(canonical.length,1,file);assert.equal(canonical[0].href,url,file);
   const alternate=links.filter(l=>l.rel==='alternate'&&l.hreflang);
-  const paired={ 'zh-CN':new URL(route,base).href, en:new URL('en/'+route,base).href, 'x-default':new URL(route,base).href };
+  const paired={ 'zh-CN':new URL(route||'zh/',base).href, en:new URL('en/'+route,base).href, 'x-default':new URL(route,base).href };
   assert.equal(alternate.length,3,file+' three language alternates');
   for(const [lang,href] of Object.entries(paired))assert.equal(alternate.find(l=>l.hreflang===lang)?.href,href,file+' reciprocal '+lang);
   assert.equal((html.match(/<h1\b/g)||[]).length,1,file+' must have one visible h1');
@@ -72,7 +72,8 @@ for(const url of urls){
   else {
     assert.ok(nodes.some(n=>n['@type']==='Article'));
     assert.ok(nodes.some(n=>n['@type']==='BreadcrumbList'));
-    assert.ok(!/<script\b[^>]*\bsrc=/.test(html),'Case body has no executable JavaScript dependency');
+    const executable=[...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map(m=>m[1]);
+    assert.ok(executable.every(src=>new URL(src,url).pathname.endsWith('/language-preference.js')),'Case body only has optional language preference enhancement');
     const key=Object.keys(locale.config.cases).find(k=>localFile==='projects/'+locale.config.cases[k].slug+'/index.html');
     const data=locale.cases[key];const body=decode(html.slice(html.indexOf('<body')));
     for(const value of [data.context,data.responsibility,data.outcome,...data.decisions.flatMap(d=>[d.problem,d.choice,d.benefit]),...data.checks])assert.ok(body.includes(value),file+' preserves narrative');
@@ -91,11 +92,17 @@ for(const url of urls){
   result.push({page:url,title,descriptionLength:description.length});
 }
 for(const locale of locales){
-  const home=read(locale.prefix+'index.html');
+  const home=read(locale.home+'index.html');
   for(const [key,meta] of Object.entries(locale.config.cases)){
     const tag=[...home.matchAll(/<a\b[^>]*>/g)].map(m=>attrs(m[0])).find(a=>a['data-project']===key);
     assert.ok(tag?.href,key+' has a real preview link');
-    assert.equal(new URL(tag.href,new URL(locale.prefix,base)).href,new URL(locale.prefix+'projects/'+meta.slug+'/',base).href);
+    assert.equal(new URL(tag.href,new URL(locale.home,base)).href,new URL(locale.prefix+'projects/'+meta.slug+'/',base).href);
   }
 }
-console.log(JSON.stringify({pagesChecked:result.length,canonicalUrls:urls.length,defaultLanguage:'zh-CN',reciprocalLanguageAlternates:true,sourceNarrativesPreserved:true,structuredDataParsed:true,internalLinksResolved:true,pages:result},null,2));
+const gateway=read('index.html');
+assert.ok(gateway.includes(`<link rel="canonical" href="${new URL('zh/',base).href}">`));
+assert.ok(gateway.includes('<html lang="zh-CN">'));
+assert.ok(!urls.includes(base.href),'Neutral gateway is not a duplicate canonical entry');
+const bodyText=html=>decode(html.slice(html.indexOf('<body')).replace(/<[^>]+>/g,'')).replace(/\s+/g,' ').trim();
+assert.equal(bodyText(gateway),bodyText(read('zh/index.html')),'Gateway keeps the complete Chinese no-JS fallback');
+console.log(JSON.stringify({pagesChecked:result.length,canonicalUrls:urls.length,neutralGateway:base.href,fallbackLanguage:'zh-CN',reciprocalLanguageAlternates:true,sourceNarrativesPreserved:true,structuredDataParsed:true,internalLinksResolved:true,pages:result},null,2));

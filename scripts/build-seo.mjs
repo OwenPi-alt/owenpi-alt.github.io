@@ -14,6 +14,7 @@ const cssVersions = new Map(['styles.css', 'seo-pages.css', 'bilingual.css'].map
   const asset = path.join(root, file);
   return [file, fs.existsSync(asset) ? `?v=${createHash('sha256').update(fs.readFileSync(asset)).digest('hex').slice(0, 12)}` : ''];
 }));
+const languageScriptVersion = `?v=${createHash('sha256').update(fs.readFileSync(path.join(root, 'language-preference.js'))).digest('hex').slice(0, 12)}`;
 
 function createLocale({ configFile, dataFile, base, english }) {
 const config = JSON.parse(fs.readFileSync(path.join(root, configFile), 'utf8'));
@@ -90,9 +91,10 @@ const cases = keys.map((key, index) => {
 });
 
 const absolute = route => new URL(route, siteUrl).href;
+const homeRoute = english ? base : 'zh/';
 const mailto = `mailto:${config.email}`;
 const imageUrl = absolute(config.ogImage);
-const person = { '@type': 'Person', '@id': absolute('#person'), name: config.name, url: absolute(base) };
+const person = { '@type': 'Person', '@id': absolute('#person'), name: config.name, url: absolute(homeRoute) };
 const imageObject = imagePath => ({ '@type': 'ImageObject', url: absolute(imagePath), width: 1200, height: 630 });
 const image = imageObject(config.ogImage);
 const label = (zh, en) => english ? en : zh;
@@ -107,7 +109,7 @@ const relativeRoute = (from, to) => `${path.posix.relative(from, to) || '.'}/`;
 const assetPrefix = route => '../'.repeat(route.split('/').filter(Boolean).length);
 
 function breadcrumbs(route, title) {
-  const entries = [{ name: label('首页', 'Home'), route: base }, { name: label('项目案例', 'Projects'), route: hubRoute }];
+  const entries = [{ name: label('首页', 'Home'), route: homeRoute }, { name: label('项目案例', 'Projects'), route: hubRoute }];
   if (route !== hubRoute) entries.push({ name: title, route });
   return {
     '@type': 'BreadcrumbList',
@@ -150,6 +152,7 @@ function head({ title, description, route, prefix, type, schema, shareImage = im
   <link rel="stylesheet" href="${prefix}styles.css${cssVersions.get('styles.css')}">
   <link rel="stylesheet" href="${prefix}seo-pages.css${cssVersions.get('seo-pages.css')}">
   <link rel="stylesheet" href="${prefix}bilingual.css${cssVersions.get('bilingual.css')}">
+  <script src="${prefix}language-preference.js${languageScriptVersion}" defer></script>
   <script type="application/ld+json">${jsonLd({ '@context': 'https://schema.org', '@graph': schema })}</script>
 </head>`;
 }
@@ -183,7 +186,7 @@ function tags(values) {
 function renderCase(entry) {
   const { data, seo, route, index } = entry;
   const prefix = assetPrefix(route);
-  const homeHref = '../../';
+  const homeHref = relativeRoute(route, homeRoute);
   const related = [1, 2, 3].map(offset => cases[(index + offset) % cases.length]);
   const schema = [{
     '@type': 'Article', '@id': `${absolute(route)}#article`, headline: data.title, description: seo.description,
@@ -228,7 +231,7 @@ function renderCase(entry) {
 function renderHub() {
   const route = hubRoute;
   const prefix = assetPrefix(route);
-  const homeHref = '../';
+  const homeHref = relativeRoute(route, homeRoute);
   const schema = [{
     '@type': 'CollectionPage', '@id': absolute(route), name: hubTitle, description: hubDescription,
     inLanguage: config.language, url: absolute(route), image, author: person, publisher: person,
@@ -249,7 +252,7 @@ function renderHub() {
     ${contactAndFooter(homeHref)}`;
 }
 
-return { config, cases, base, absolute, renderHub, renderCase };
+return { config, cases, base, homeRoute, absolute, renderHub, renderCase };
 }
 
 // Validate both languages and render every page before writing any output.
@@ -266,11 +269,17 @@ for (const entry of zh.cases) {
   if (!counterpart || counterpart.seo.slug !== entry.seo.slug) throw new Error(`${entry.key}: both languages must use the same case key and slug`);
 }
 const outputs = new Map();
+// Keep the Chinese entry and its fixed language URL from one authoring source.
+const neutralHome = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+const fixedChineseHome = neutralHome
+  .replace(/\b(href|src)="\.\//g, '$1="../')
+  .replace(/(<script src="\.\.\/language-preference\.js[^\"]*")>/, '$1 defer>');
+outputs.set('zh/index.html', fixedChineseHome);
 const canonicalRoutes = [];
 for (const locale of locales) {
   outputs.set(`${locale.base}projects/index.html`, locale.renderHub());
   for (const entry of locale.cases) outputs.set(`${entry.route}index.html`, locale.renderCase(entry));
-  canonicalRoutes.push(locale.base, `${locale.base}resume.html`, `${locale.base}projects/`, ...locale.cases.map(entry => entry.route));
+  canonicalRoutes.push(locale.homeRoute, `${locale.base}resume.html`, `${locale.base}projects/`, ...locale.cases.map(entry => entry.route));
 }
 outputs.set('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

@@ -4,11 +4,17 @@
 
 **访问地址：[owenpi-alt.github.io](https://owenpi-alt.github.io/)**
 
-默认中文；英文版：[owenpi-alt.github.io/en/](https://owenpi-alt.github.io/en/)。顶部 `中文 / EN` 可主动切换，不根据浏览器语言自动跳转，也不保存会覆盖中文默认入口的语言偏好。
+通用入口会自动选择语言：[owenpi-alt.github.io](https://owenpi-alt.github.io/)。固定中文版在 [/zh/](https://owenpi-alt.github.io/zh/)，英文版在 [/en/](https://owenpi-alt.github.io/en/)。顶部 `中文 / EN` 始终可主动切换。
+
+通用入口 `/`（包括 `/index.html`）的选择顺序：已手动选择的语言 → 浏览器语言偏好中第一个支持的中文或英文 → 默认中文。支持 `zh-*`、`en-*` 等语言标签；没有匹配或读取失败时使用中文。跳转保留查询参数和页内锚点，并用 `location.replace` 避免后退反复跳转。
+
+固定 `/zh/`、`/en/`、案例和简历页面不自动改变语言，即使浏览器或已保存偏好不同也保留链接语言。手动点击、键盘选择、修饰键点击或中键打开语言链接时，会尝试在本机 `localStorage` 保存 `zh` / `en`；不阻止原生链接操作。浏览器禁止存储时，语言切换仍然可用，但不能持久记忆。无 JavaScript 时，通用入口保留完整中文内容，真实语言链接仍然可用。
 
 ## 页面
 
-- `index.html`：合作服务、四类技术图谱、七个项目案例、交付流程和职业经历。
+- `index.html`：中文首页的内容源，同时是自动语言入口的完整中文备用页面。
+- `zh/index.html`：由生成器输出的固定中文首页，不在此文件单独编辑文案。
+- `language-preference.js`：入口语言选择与本地手动偏好；不使用 IP 定位或外部服务。
 - `en/index.html` / `en/resume.html`：完整英文首页和可打印英文简历。
 - `bilingual.css`：语言切换与英文长文本的响应式排版。
 - `styles.css`：深色主题、响应式布局、动效与减少动态效果支持。
@@ -51,7 +57,7 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 中文主页和简历维护在 `index.html` / `resume.html`，英文版本维护在 `en/` 的对应文件。案例源分别是 `case-studies.js` / `case-studies.en.js`；架构推演的英文数据位于 `architecture-lab.en.js`。更新事实、职责或阶段时，两种语言一起维护。
 
-`app.js` 根据文档 `lang` 选择交互文案，不负责自动切换语言。中文保留简版案例作为兼容内容；英文案例数据未加载时，真实链接会进入英文静态页，避免回退成中文弹窗。
+`app.js` 根据文档 `lang` 选择交互文案；`language-preference.js` 只在通用入口自动跳转。中文保留简版案例作为兼容内容；英文案例数据未加载时，真实链接会进入英文静态页，避免回退成中文弹窗。
 
 脚本与增量样式的引用带有文件内容哈希 `?v=`，修改后需更新对应 URL 的版本值，并同步到旧址兼容仓库，避免浏览器混用新旧资源。
 
@@ -64,13 +70,14 @@ python3 -m http.server 8080 --bind 127.0.0.1
 ```sh
 node scripts/build-seo.mjs
 node scripts/check-seo.mjs
+node --test scripts/test-language-preference.mjs
 ```
 
-生成器不依赖 npm 包。`projects/` 为生成文件，不单独改写，以免与首页案例内容漂移。生成后的 HTML 与 sitemap 一起提交，GitHub Pages 直接发布。
+生成器不依赖 npm 包。`zh/index.html`、`projects/` 和 `en/projects/` 为生成文件，不单独改写，以免与来源内容漂移。生成后的 HTML 与 sitemap 一起提交，GitHub Pages 直接发布。
 
 中英文各八张分享图均为 1200×630。中文位于 `assets/og-*.png`，英文位于 `assets/og-en-*.png`。源模板是 `scripts/social-card.template.html`；执行 `node scripts/build-social-previews.mjs` 后，使用浏览器把 `output/social/` 与 `output/social/en/` 的对应 HTML 渲染为配置指定的 PNG。标题、结构化数据和图片须与可见内容一致。
 
-中英文各页使用自己的 canonical；英文页不指向中文版作为 canonical。每页提供互指的 `zh-CN`、`en` 和指向中文同篇的 `x-default` alternates。语言切换保留对应案例或简历，不一律跳回首页。
+中英文各页使用自己的 canonical；中文首页为 `/zh/`，英文首页为 `/en/`。两种首页的 `x-default` 指向通用入口 `/`，该入口不作为重复 canonical 页加入 sitemap。案例和简历的路径保持原样，其 `x-default` 仍指向对应中文内容页。每页提供互指的 `zh-CN`、`en` alternates，语言切换保留对应案例或简历。
 
 旧址兼容页指向主站对应语言、对应内容的 URL。sitemap 只包含主站二十个页面，旧址不使用 robots 阻止抓取，以便搜索引擎能读取 canonical。`robots.txt` 只有主域根路径生效。
 
