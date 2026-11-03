@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Wang Ziqi | Résumé — Java, Architecture &amp; Full-Stack Development</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <style>
+    :root { color-scheme: light; --ink: #18251f; --muted: #58645e; --line: #dce4df; --accent: #24734b; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: #eaf0ec; font: 14px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+    .toolbar { max-width: 900px; margin: 24px auto 16px; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .toolbar a { text-decoration: none; font-size: 13px; }
+    .toolbar button { border: 0; border-radius: 6px; background: #173f2b; color: #fff; padding: 11px 17px; font: inherit; font-size: 13px; cursor: pointer; }
+    .toolbar button:hover { background: #24613f; }
+    .sheet { width: min(900px, calc(100% - 32px)); margin: 0 auto 40px; padding: 44px 50px; background: #fff; border-top: 5px solid var(--accent); box-shadow: 0 8px 40px #18251f0a; }
+    .masthead { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+    .masthead > div { min-width: 0; }
+    h1 { margin: 0 0 5px; font-size: 34px; line-height: 1.2; letter-spacing: .015em; }
+    .role { margin: 0; font-size: 15px; letter-spacing: .06em; }
+    .contact { text-align: right; font-size: 12px; color: var(--muted); line-height: 1.9; }
+    .contact p { margin: 0; }
+    .contact a { overflow-wrap: anywhere; }
+    .intro { margin: 19px 0 0; }
+    .intro strong { font-weight: 650; }
+    h2 { margin: 25px 0 11px; padding-bottom: 7px; border-bottom: 1px solid var(--line); color: var(--accent); font-size: 14px; font-weight: 700; letter-spacing: .04em; }
+    .skill-list { display: grid; grid-template-columns: 120px 1fr; gap: 5px 10px; margin: 0; font-size: 13px; }
+    .skill-list dt { font-weight: 650; }
+    .skill-list dd { margin: 0; color: #35453c; }
+    .job { margin: 0 0 12px; break-inside: avoid; }
+    .job-title { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    h3 { margin: 0; font-size: 13px; line-height: 1.55; font-weight: 650; }
+    .job time, .date { flex-shrink: 0; color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .job p { margin: 3px 0 0; font-size: 12.5px; line-height: 1.65; color: #35453c; }
+    .projects { display: grid; grid-template-columns: 1fr 1fr; gap: 17px 24px; }
+    .project { break-inside: avoid; }
+    .project .meta { margin: 3px 0 6px; color: var(--muted); font-size: 11px; }
+    .project p { margin: 0; color: #35453c; font-size: 12.5px; line-height: 1.7; }
+    .education { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; margin: 0; font-size: 12.5px; }
+    .education span { display: block; }
+    .education .date { white-space: nowrap; }
+    @media (max-width: 600px) {
+      .sheet { padding: 28px 22px; width: calc(100% - 20px); }
+      .toolbar { margin-top: 16px; padding: 0 16px; }
+      .masthead { display: block; }
+      .contact { text-align: left; margin-top: 14px; }
+      .contact p { display: inline; }
+      .contact p + p::before { content: " · "; }
+      .contact p.email-line { display: block; margin-top: 3px; }
+      .contact p.email-line::before { content: none; }
+      h1 { font-size: 30px; }
+      .role { font-size: 13px; }
+      .projects { grid-template-columns: 1fr; }
+      .job-title { display: block; }
+      .skill-list { grid-template-columns: 100px 1fr; font-size: 12px; }
+      .education { display: block; }
+    }
+    .toolbar { flex-wrap: wrap; }
+    .job-title { flex-wrap: wrap; gap: 2px 12px; }
+    @page { size: A4; margin: 13mm 14mm; }
+    @media print {
+      :root { --ink: #111; --muted: #444; --line: #bbb; --accent: #111; }
+      body { background: #fff; font-size: 9pt; line-height: 1.5; }
+      .toolbar { display: none; }
+      .sheet { width: 100%; margin: 0; padding: 0; border: 0; box-shadow: none; }
+      .masthead { padding-bottom: 11px; }
+      h1 { font-size: 25pt; }
+      .role { font-size: 10pt; }
+      .contact { font-size: 8pt; }
+      .intro { margin-top: 12px; }
+      h2 { margin: 12px 0 6px; padding-bottom: 4px; font-size: 9.5pt; break-after: avoid; }
+      .skill-list { font-size: 8.5pt; gap: 3px 9px; }
+      .job { margin-bottom: 6px; }
+      .job-title { flex-wrap: nowrap; align-items: flex-start; }
+      .job-title h3 { max-width: 78%; }
+      .skill-list { grid-template-columns: 94px 1fr; }
+      h3 { font-size: 9pt; }
+      .job time, .date, .project .meta { font-size: 7.5pt; }
+      .job p, .project p, .education { font-size: 8.5pt; line-height: 1.45; color: #222; }
+      .projects { gap: 12px 20px; }
+      .project .meta { margin: 2px 0 4px; }
+      a { text-decoration: none; }
+    }
+  </style>
+  <link rel="stylesheet" href="../bilingual.css?v=016f0b4336c4">
+  <meta name="description" content="Wang Ziqi's résumé: nearly 15 years in software, five years as a technical team lead, and experience in Java, architecture, full-stack development and AI.">
+  <meta name="author" content="Wang Ziqi">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://owenpi-alt.github.io/en/resume.html">
+  <link rel="alternate" hreflang="zh-CN" href="https://owenpi-alt.github.io/resume.html">
+  <link rel="alternate" hreflang="en" href="https://owenpi-alt.github.io/en/resume.html">
+  <link rel="alternate" hreflang="x-default" href="https://owenpi-alt.github.io/resume.html">
+  <link rel="sitemap" type="application/xml" href="https://owenpi-alt.github.io/sitemap.xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Wang Ziqi | Résumé — Java, Architecture &amp; Full-Stack Development">
+  <meta property="og:description" content="Wang Ziqi's résumé: nearly 15 years in software, five years as a technical team lead, and experience in Java, architecture, full-stack development and AI.">
+  <meta property="og:url" content="https://owenpi-alt.github.io/en/resume.html">
+  <meta property="og:site_name" content="Wang Ziqi — Engineering Portfolio">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta property="og:image" content="https://owenpi-alt.github.io/assets/og-en-card.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Wang Ziqi — Java architecture, full-stack development, and AI applications">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Wang Ziqi | Résumé — Java, Architecture &amp; Full-Stack Development">
+  <meta name="twitter:description" content="Wang Ziqi's résumé: nearly 15 years in software, five years as a technical team lead, and experience in Java, architecture, full-stack development and AI.">
+  <meta name="twitter:image" content="https://owenpi-alt.github.io/assets/og-en-card.png">
+  <meta name="twitter:image:alt" content="Wang Ziqi — Engineering Portfolio">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://owenpi-alt.github.io/#website","url":"https://owenpi-alt.github.io/","name":"Wang Ziqi — Engineering Portfolio","inLanguage":["zh-CN","en"],"publisher":{"@id":"https://owenpi-alt.github.io/#person"}},{"@type":"Person","@id":"https://owenpi-alt.github.io/#person","name":"Wang Ziqi","alternateName":"王子棋","url":"https://owenpi-alt.github.io/en/","email":"chuangzaoxingfuvip@gmail.com","sameAs":["https://github.com/OwenPi-alt"],"jobTitle":"Java Technical Expert & Full-Stack Developer","knowsAbout":["Java","System architecture","Microservices","Full-stack development","AI applications","RAG","Dify"]},{"@type":"ProfilePage","@id":"https://owenpi-alt.github.io/en/resume.html#webpage","url":"https://owenpi-alt.github.io/en/resume.html","name":"Wang Ziqi | Résumé — Java, Architecture & Full-Stack Development","description":"Wang Ziqi's résumé: nearly 15 years in software, five years as a technical team lead, and experience in Java, architecture, full-stack development and AI.","inLanguage":"en","isPartOf":{"@id":"https://owenpi-alt.github.io/#website"},"mainEntity":{"@id":"https://owenpi-alt.github.io/#person"}}]}</script>
+</head>
+<body>
+  <nav class="toolbar" aria-label="Résumé actions">
+    <a href="./">← Back to portfolio</a>
+    <span class="language-switch" role="group" aria-label="Language"><a href="../resume.html" lang="zh-CN" hreflang="zh-CN">中文</a><a href="./resume.html" lang="en" hreflang="en" aria-current="page">EN</a></span>
+    <button type="button" onclick="window.print()">Print / Save as PDF</button>
+  </nav>
+  <main class="sheet">
+    <header class="masthead">
+      <div>
+        <h1>Wang Ziqi</h1>
+        <p class="role">Java · Architecture · Full-stack Development · AI Applications</p>
+      </div>
+      <div class="contact">
+        <p>Shanghai</p>
+        <p><a href="https://github.com/OwenPi-alt">github.com/OwenPi-alt</a></p>
+        <p class="email-line"><a href="mailto:chuangzaoxingfuvip@gmail.com">chuangzaoxingfuvip@gmail.com</a></p>
+      </div>
+    </header>
+
+    <p class="intro"><strong>Nearly 15 years in software development, including 5 years as a technical team lead.</strong> Work spans telemarketing, messaging, orders and payments, with contributions to AI customer support and operations tools. Led a team of around 8, covering code reviews, planning, technical guidance, hiring and performance reviews.</p>
+
+    <section aria-labelledby="skills-title">
+      <h2 id="skills-title">Technical skills</h2>
+      <dl class="skill-list">
+        <dt>Java backend</dt><dd>Java · Spring Boot · Spring Cloud · Dubbo · MyBatis · JVM tuning · SQL optimization</dd>
+        <dt>Data &amp; messaging</dt><dd>MySQL · PostgreSQL · Redis · Elasticsearch · Kafka · RabbitMQ</dd>
+        <dt>AI applications</dt><dd>LangChain4j · RAG · Dify · Alibaba Cloud Bailian knowledge bases · Codex · Claude · Copilot</dd>
+        <dt>Engineering</dt><dd>Docker · Linux · Git · Maven · Apollo · XXL-JOB; also develop with Python, PHP, and Vue</dd>
+      </dl>
+    </section>
+
+    <section aria-labelledby="experience-title">
+      <h2 id="experience-title">Professional experience</h2>
+      <article class="job">
+        <div class="job-title"><h3>Qifu Technology · Java Technical Expert / Technical Team Lead</h3><time>2018.04 — 2026.03</time></div>
+        <p>Owned technical design and core development for telemarketing and messaging systems; contributed to AI customer service and operations self-service projects. Led a team of around 8, organizing requirements reviews, development iterations, and code reviews while coordinating delivery with product, QA, and operations.</p>
+      </article>
+      <article class="job">
+        <div class="job-title"><h3>Baiweiyun · Senior Software Engineer / Technical Team Lead</h3><time>2016.10 — 2018.04</time></div>
+        <p>Responsible for architecture and core development for Yun Xiao Er and Yun Zhang Gui. Led the order module, developed the payment gateway, and contributed to risk control. Delivered order notifications through persistent Netty connections and JPush.</p>
+      </article>
+      <article class="job">
+        <div class="job-title"><h3>Shanghai Youle · Senior Software Engineer</h3><time>2015.04 — 2016.09</time></div>
+        <p>Contributed to frontend development for the Youle Wang, You Sheng Huo, and You E Dai apps. Improved initial loading through code splitting, lazy loading, image compression, and CDN delivery, and addressed list scrolling performance.</p>
+      </article>
+      <article class="job">
+        <div class="job-title"><h3>Neusoft · Senior Software Engineer</h3><time>2013.08 — 2015.04</time></div>
+        <p>Responsible for Alipay external escrow transaction and batch refund modules. Independently designed refund idempotency checks and distributed locking; used transaction compensation and retries to handle inconsistent transaction states.</p>
+      </article>
+      <article class="job">
+        <div class="job-title"><h3>Shanghai Dijiesi · Software Engineer</h3><time>2011.11 — 2013.06</time></div>
+        <p>Maintained and developed frontend features for AstraZeneca's portal, improving page loading through lazy loading and image compression.</p>
+      </article>
+    </section>
+
+    <section aria-labelledby="projects-title">
+      <h2 id="projects-title">Selected projects</h2>
+      <div class="projects">
+        <article class="project">
+          <h3>Telemarketing system modernization</h3>
+          <p class="meta">Qifu Technology · Development lead · 2018.04 — 2026.03</p>
+          <p>Led the migration from a monolith to microservices and introduced XXL-JOB and Apollo. Addressed lock contention, timeouts, and out-of-memory failures through JVM tuning, SQL index and Redis cache optimization, and hot/cold data separation.</p>
+        </article>
+        <article class="project">
+          <h3>Multichannel marketing platform</h3>
+          <p class="meta">Qifu Technology · Core development · 2020.05 — 2024.07</p>
+          <p>Responsible for platform architecture and core development, using Kafka for asynchronous delivery requests. Led the chain-of-responsibility rule engine for blocklists, rate limits, and template checks, and integrated IVR, SMS, push, and bot channels.</p>
+        </article>
+        <article class="project">
+          <h3>AI customer service &amp; knowledge retrieval</h3>
+          <p class="meta">Qifu Technology · Contributor to inquiry messaging &amp; routing</p>
+          <p>The workflow receives inquiries through RabbitMQ, records processing state, and calls the model asynchronously. It combines business context with Bailian knowledge retrieval, preserving citations, prompt versions, and model-call details, with routing to human support.</p>
+        </article>
+        <article class="project">
+          <h3>Dify operations assistant</h3>
+          <p class="meta">Qifu Technology · Project contributor · 2025.05 — 2026.03</p>
+          <p>Contributed to an operations self-service assistant for querying business data, statuses, and rules. The system uses Dify to orchestrate intent recognition, parameter extraction, internal API calls, and responses through a 360Teams bot.</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="education-title">
+      <h2 id="education-title">Education</h2>
+      <p class="education"><span>长沙文理专修学院 · Computer Applications (undergraduate program)</span><span class="date">2006.09 — 2010.09</span></p>
+    </section>
+  </main>
+</body>
+</html>

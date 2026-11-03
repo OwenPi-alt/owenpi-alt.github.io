@@ -1,6 +1,23 @@
 (() => {
   'use strict';
 
+  const isEnglish = document.documentElement.lang.toLowerCase().startsWith('en');
+  const ui = isEnglish ? {
+    openMenu: 'Open menu', closeMenu: 'Close menu', focus: 'Key decisions',
+    context: 'The problem and constraints', flow: 'Architecture overview (simplified)',
+    decisions: 'Design decisions and implementation', problem: 'Problem', choice: 'Approach', benefit: 'Why it matters',
+    outcome: 'Engineering value', checks: 'Questions to validate', role: 'My role', stage: 'Current stage',
+    enquiry: 'Project enquiry: ', emailCopied: 'Email copied. Feel free to send a short project brief.',
+    emailFallback: 'Copy this email: ', linkCopied: 'Portfolio link copied.', linkFallback: 'Copy this link: '
+  } : {
+    openMenu: '打开导航', closeMenu: '关闭导航', focus: '本案技术重点',
+    context: '问题与约束', flow: '核心链路简化示意', decisions: '架构取舍与实现',
+    problem: '难点', choice: '方案', benefit: '价值', outcome: '这套设计的价值',
+    checks: '验收时，我会看什么', role: '我的职责', stage: '当前阶段', enquiry: '项目合作咨询：',
+    emailCopied: '邮箱已复制，欢迎发送项目需求。', emailFallback: '请复制邮箱：',
+    linkCopied: '主页链接已复制，可以分享了。', linkFallback: '请复制这个地址：'
+  };
+
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const revealElements = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && !reducedMotion.matches) {
@@ -20,7 +37,7 @@
   const mobileNav = document.querySelector('#mobile-nav');
   const setMenu = open => {
     menuButton.setAttribute('aria-expanded', String(open));
-    menuButton.setAttribute('aria-label', open ? '关闭导航' : '打开导航');
+    menuButton.setAttribute('aria-label', open ? ui.closeMenu : ui.openMenu);
     mobileNav.hidden = !open;
   };
   menuButton.addEventListener('click', () => setMenu(mobileNav.hidden));
@@ -46,6 +63,15 @@
     ai: { core: 'AI', caption: 'INTO BUSINESS', nodes: ['LangChain4j', 'RAG', '任务编排', '百炼知识库', 'Dify', 'FFmpeg'], description: '连接知识、模型与内容工作流，关注过程可控与结果可追踪。' },
     quant: { core: 'Quant', caption: 'RESEARCH SYSTEM', nodes: ['LEAN / C#', '策略信号', 'Python', '风险规则', '成本账本', '研究报告'], description: '策略、账本与验证分层，让研究结果能够解释和复现。' }
   };
+  if (isEnglish) {
+    graphModes.backend.description = 'Java at the center, with services, data and delivery around it.';
+    graphModes.fullstack.nodes = ['Vue', 'Java API', 'Workflows', 'MySQL', 'Docker', 'Python'];
+    graphModes.fullstack.description = 'Connect the interface, business APIs, data and deployment.';
+    graphModes.ai.nodes = ['LangChain4j', 'RAG', 'Task workflows', 'Bailian KB', 'Dify', 'FFmpeg'];
+    graphModes.ai.description = 'Connect models and knowledge to workflows that can be traced and reviewed.';
+    graphModes.quant.nodes = ['LEAN / C#', 'Signals', 'Python', 'Risk rules', 'Cost ledger', 'Reports'];
+    graphModes.quant.description = 'Separate signals, accounting and validation to make research reproducible.';
+  }
   document.querySelectorAll('[data-graph]').forEach(button => {
     button.addEventListener('click', () => {
       const mode = graphModes[button.dataset.graph];
@@ -78,7 +104,7 @@
           visibleCount += 1;
         }
       });
-      document.querySelector('.result-count').textContent = `${visibleCount} 个案例`;
+      document.querySelector('.result-count').textContent = isEnglish ? `${visibleCount} ${visibleCount === 1 ? 'case study' : 'case studies'}` : `${visibleCount} 个案例`;
     });
   });
 
@@ -149,7 +175,7 @@
   document.querySelectorAll('[data-project]').forEach(button => {
     button.addEventListener('click', event => {
       if (button.tagName === 'A' && (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)) return;
-      const project = window.PORTFOLIO_CASE_STUDIES?.[button.dataset.project] || projects[button.dataset.project];
+      const project = window.PORTFOLIO_CASE_STUDIES?.[button.dataset.project] || (isEnglish ? null : projects[button.dataset.project]);
       if (!project) return;
       if (button.tagName === 'A') event.preventDefault();
       dialogTrigger = button;
@@ -163,7 +189,7 @@
       heading.append(appendText('p', project.meta, 'dialog-meta'));
       if (project.decisions.every(decision => typeof decision === 'object')) {
         const focus = appendText('div', '', 'case-focus');
-        focus.append(appendText('span', '本案技术重点', 'case-focus-label'));
+        focus.append(appendText('span', ui.focus, 'case-focus-label'));
         const list = document.createElement('ul');
         project.decisions.forEach(decision => list.append(appendText('li', decision.title)));
         focus.append(list);
@@ -178,9 +204,9 @@
         dialogContent.append(section);
         return section;
       };
-      addSection('问题与约束', project.context, 'case-context');
+      addSection(ui.context, project.context, 'case-context');
       if (project.flow) {
-        const section = addSection('核心链路简化示意', '', 'case-flow-section');
+        const section = addSection(ui.flow, '', 'case-flow-section');
         const flow = appendText('div', '', 'case-flow');
         flow.setAttribute('role', 'list');
         project.flow.forEach((step, index) => {
@@ -191,7 +217,7 @@
         });
         section.append(flow);
       }
-      const decisionSection = addSection('架构取舍与实现', '', 'case-decisions-section');
+      const decisionSection = addSection(ui.decisions, '', 'case-decisions-section');
       const decisions = appendText('div', '', 'case-decisions');
       project.decisions.forEach((decision, index) => {
         const card = appendText('article', '', 'case-decision');
@@ -200,7 +226,7 @@
           card.append(appendText('p', decision, 'decision-choice'));
         } else {
           card.append(appendText('h3', decision.title));
-          for (const [key, label] of [['problem', '难点'], ['choice', '方案'], ['benefit', '价值']]) {
+          for (const [key, label] of [['problem', ui.problem], ['choice', ui.choice], ['benefit', ui.benefit]]) {
             const paragraph = appendText('p', '', `decision-${key}`);
             paragraph.append(appendText('strong', label), document.createTextNode(decision[key]));
             card.append(paragraph);
@@ -209,24 +235,24 @@
         decisions.append(card);
       });
       decisionSection.append(decisions);
-      if (project.outcome) addSection('这套设计的价值', project.outcome, 'case-value');
+      if (project.outcome) addSection(ui.outcome, project.outcome, 'case-value');
       if (project.checks) {
-        const section = addSection('验收时，我会看什么', '', 'case-checklist');
+        const section = addSection(ui.checks, '', 'case-checklist');
         const list = document.createElement('ul');
         project.checks.forEach(item => list.append(appendText('li', item)));
         section.append(list);
       }
-      addSection(project.responsibilityLabel || '我的职责', project.responsibility, 'case-role');
+      addSection(project.responsibilityLabel || ui.role, project.responsibility, 'case-role');
       if (project.stage) {
         const stage = appendText('div', '', 'dialog-stage');
-        stage.append(appendText('strong', '当前阶段'), appendText('p', project.stage));
+        stage.append(appendText('strong', ui.stage), appendText('p', project.stage));
         dialogContent.append(stage);
       }
       const tags = appendText('div', '', 'tags');
       project.tags.forEach(tag => tags.append(appendText('span', tag)));
       dialogContent.append(tags);
       const caseContact = document.querySelector('#case-contact');
-      if (caseContact) caseContact.href = `mailto:chuangzaoxingfuvip@gmail.com?subject=${encodeURIComponent(`项目合作咨询：${project.title}`)}`;
+      if (caseContact) caseContact.href = `mailto:chuangzaoxingfuvip@gmail.com?subject=${encodeURIComponent(ui.enquiry + project.title)}`;
       const permalink = document.querySelector('#case-permalink');
       if (permalink) {
         permalink.hidden = button.tagName !== 'A';
@@ -252,9 +278,9 @@
     const status = document.querySelector('#copy-status');
     try {
       await navigator.clipboard.writeText(email);
-      status.textContent = '邮箱已复制，欢迎发送项目需求。';
+      status.textContent = ui.emailCopied;
     } catch {
-      status.textContent = `请复制邮箱：${email}`;
+      status.textContent = ui.emailFallback + email;
     }
   });
   document.querySelector('#copy-link').addEventListener('click', async () => {
@@ -262,9 +288,9 @@
     const status = document.querySelector('#copy-status');
     try {
       await navigator.clipboard.writeText(url);
-      status.textContent = '主页链接已复制，可以分享了。';
+      status.textContent = ui.linkCopied;
     } catch {
-      status.textContent = `请复制这个地址：${url}`;
+      status.textContent = ui.linkFallback + url;
     }
   });
   document.querySelector('#year').textContent = new Date().getFullYear();

@@ -6,10 +6,16 @@ import {fileURLToPath} from 'node:url';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const config=JSON.parse(fs.readFileSync(path.join(root,'seo.config.json'),'utf8'));
+const englishConfig=JSON.parse(fs.readFileSync(path.join(root,'seo.en.config.json'),'utf8'));
 const base=new URL(config.siteUrl);
+assert.equal(englishConfig.siteUrl,config.siteUrl,'Both languages must share the configured primary origin');
 const sandbox={window:{}};
 vm.runInNewContext(fs.readFileSync(path.join(root,'case-studies.js'),'utf8'),sandbox,{timeout:1000});
 const cases=sandbox.window.PORTFOLIO_CASE_STUDIES;
+const englishSandbox={window:{}};
+vm.runInNewContext(fs.readFileSync(path.join(root,'case-studies.en.js'),'utf8'),englishSandbox,{timeout:1000});
+const englishCases=englishSandbox.window.PORTFOLIO_CASE_STUDIES;
+const locales=[{prefix:'',config,cases},{prefix:'en/',config:englishConfig,cases:englishCases}];
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
 const decode=text=>text.replace(/&(?:amp|lt|gt|quot|#39);/g,s=>({'&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&#39;':"'"}[s]));
 const attrs=tag=>Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map(m=>[m[1],decode(m[2])]));
@@ -24,8 +30,8 @@ const localPath=url=>{
 };
 const sitemap=read('sitemap.xml');
 const urls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>decode(m[1]));
-const expected=[base.href,new URL('resume.html',base).href,new URL('projects/',base).href,...Object.values(config.cases).map(m=>new URL('projects/'+m.slug+'/',base).href)];
-assert.equal(urls.length,10);assert.deepEqual(new Set(urls),new Set(expected));
+const expected=locales.flatMap(locale=>[locale.prefix,locale.prefix+'resume.html',locale.prefix+'projects/',...Object.values(locale.config.cases).map(m=>locale.prefix+'projects/'+m.slug+'/')].map(route=>new URL(route,base).href));
+assert.equal(urls.length,20);assert.deepEqual(new Set(urls),new Set(expected));
 assert.ok(!/<lastmod|<priority|<changefreq/.test(sitemap),'Avoid fabricated freshness or unsupported ranking hints');
 assert.ok(read('robots.txt').includes('Allow: /'));
 assert.ok(read('robots.txt').includes('Sitemap: '+new URL('sitemap.xml',base).href));
@@ -34,12 +40,20 @@ const titles=new Set(),descriptions=new Set();
 const result=[];
 for(const url of urls){
   const file=localPath(url),html=read(file);
+  const locale=file.startsWith('en/')?locales[1]:locales[0];
+  const localFile=file.slice(locale.prefix.length);
+  const route=localFile==='index.html'?'':localFile.replace(/index\.html$/,'');
+  assert.equal(html.match(/<html\b[^>]*lang="([^"]+)"/)?.[1],locale.config.language,file+' language');
   const title=decode(html.match(/<title>([\s\S]*?)<\/title>/)?.[1]||'');
   const metas=[...html.matchAll(/<meta\b[^>]*>/g)].map(m=>attrs(m[0]));
   const meta=(key,value)=>metas.find(m=>m[key]===value)?.content;
   const links=[...html.matchAll(/<link\b[^>]*>/g)].map(m=>attrs(m[0]));
   const canonical=links.filter(l=>l.rel==='canonical');
   assert.equal(canonical.length,1,file);assert.equal(canonical[0].href,url,file);
+  const alternate=links.filter(l=>l.rel==='alternate'&&l.hreflang);
+  const paired={ 'zh-CN':new URL(route,base).href, en:new URL('en/'+route,base).href, 'x-default':new URL(route,base).href };
+  assert.equal(alternate.length,3,file+' three language alternates');
+  for(const [lang,href] of Object.entries(paired))assert.equal(alternate.find(l=>l.hreflang===lang)?.href,href,file+' reciprocal '+lang);
   assert.equal((html.match(/<h1\b/g)||[]).length,1,file+' must have one visible h1');
   assert.ok(title&&!titles.has(title),file+' unique title');titles.add(title);
   const description=meta('name','description');assert.ok(description&&!descriptions.has(description),file+' unique description');descriptions.add(description);
@@ -52,17 +66,22 @@ for(const url of urls){
   const schemas=[...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m=>JSON.parse(m[1]));
   assert.ok(schemas.length,file+' JSON-LD present');
   const nodes=schemas.flatMap(s=>s['@graph']||[s]);
-  if(file==='index.html')assert.ok(nodes.some(n=>n['@type']==='Person')&&nodes.some(n=>n['@type']==='WebSite'));
-  else if(file==='resume.html')assert.ok(nodes.some(n=>n['@type']==='ProfilePage'));
-  else if(file==='projects/index.html')assert.ok(nodes.some(n=>n['@type']==='CollectionPage'));
+  if(localFile==='index.html')assert.ok(nodes.some(n=>n['@type']==='Person')&&nodes.some(n=>n['@type']==='WebSite'));
+  else if(localFile==='resume.html')assert.ok(nodes.some(n=>n['@type']==='ProfilePage'));
+  else if(localFile==='projects/index.html')assert.ok(nodes.some(n=>n['@type']==='CollectionPage'));
   else {
     assert.ok(nodes.some(n=>n['@type']==='Article'));
     assert.ok(nodes.some(n=>n['@type']==='BreadcrumbList'));
     assert.ok(!/<script\b[^>]*\bsrc=/.test(html),'Case body has no executable JavaScript dependency');
-    const key=Object.keys(config.cases).find(k=>file==='projects/'+config.cases[k].slug+'/index.html');
-    const data=cases[key];const body=decode(html.slice(html.indexOf('<body')));
+    const key=Object.keys(locale.config.cases).find(k=>localFile==='projects/'+locale.config.cases[k].slug+'/index.html');
+    const data=locale.cases[key];const body=decode(html.slice(html.indexOf('<body')));
     for(const value of [data.context,data.responsibility,data.outcome,...data.decisions.flatMap(d=>[d.problem,d.choice,d.benefit]),...data.checks])assert.ok(body.includes(value),file+' preserves narrative');
     if(data.stage)assert.ok(body.includes(data.stage),file+' preserves prototype stage');
+  }
+  const renderedText=decode(html.slice(html.indexOf('<body')).replace(/<script\b[\s\S]*?<\/script>/g,'').replace(/<[^>]+>/g,''));
+  if(locale.prefix){
+    const stripped=renderedText.replace(/中文|奇富科技|百味云|长沙文理专修学院|上海邮乐网络技术有限公司|上海狄杰斯|东软集团|王子棋/g,'');
+    assert.ok(!/[\u3400-\u9fff]/.test(stripped),file+' untranslated visible Chinese text');
   }
   for(const match of html.matchAll(/<(?:a|link|script|img)\b[^>]*>/g)){
     const a=attrs(match[0]),ref=a.href||a.src;if(!ref||ref.startsWith('mailto:')||ref.startsWith('#'))continue;
@@ -71,10 +90,12 @@ for(const url of urls){
   }
   result.push({page:url,title,descriptionLength:description.length});
 }
-const home=read('index.html');
-for(const [key,meta] of Object.entries(config.cases)){
-  const tag=[...home.matchAll(/<a\b[^>]*>/g)].map(m=>attrs(m[0])).find(a=>a['data-project']===key);
-  assert.ok(tag?.href,key+' has a real preview link');
-  assert.equal(new URL(tag.href,base).href,new URL('projects/'+meta.slug+'/',base).href);
+for(const locale of locales){
+  const home=read(locale.prefix+'index.html');
+  for(const [key,meta] of Object.entries(locale.config.cases)){
+    const tag=[...home.matchAll(/<a\b[^>]*>/g)].map(m=>attrs(m[0])).find(a=>a['data-project']===key);
+    assert.ok(tag?.href,key+' has a real preview link');
+    assert.equal(new URL(tag.href,new URL(locale.prefix,base)).href,new URL(locale.prefix+'projects/'+meta.slug+'/',base).href);
+  }
 }
-console.log(JSON.stringify({pagesChecked:result.length,canonicalUrls:urls.length,sourceNarrativesPreserved:true,structuredDataParsed:true,internalLinksResolved:true,pages:result},null,2));
+console.log(JSON.stringify({pagesChecked:result.length,canonicalUrls:urls.length,defaultLanguage:'zh-CN',reciprocalLanguageAlternates:true,sourceNarrativesPreserved:true,structuredDataParsed:true,internalLinksResolved:true,pages:result},null,2));

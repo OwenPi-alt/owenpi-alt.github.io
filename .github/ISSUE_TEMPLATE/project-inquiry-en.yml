@@ -1,0 +1,73 @@
+name: Project collaboration (English)
+description: Share the problem, scope, and acceptance criteria to start a project conversation.
+title: "[Project enquiry] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This enquiry will be public. Do not include passwords, API keys, private customer data, or unpublished source code.
+        A short description is enough to start. Mark anything undecided as "to discuss".
+        For a private project conversation, email [chuangzaoxingfuvip@gmail.com](mailto:chuangzaoxingfuvip@gmail.com).
+  - type: dropdown
+    id: service-direction
+    attributes:
+      label: Area of work
+      description: Select every area relevant to your project.
+      multiple: true
+      options:
+        - Software architecture and technical consulting
+        - Full-stack development
+        - AI applications and AIGC workflows
+        - Quantitative research and trading software
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: business-goal
+    attributes:
+      label: The problem to solve
+      description: Who will use the system, what is difficult today, and what would a useful outcome look like?
+      placeholder: For example, an internal query tool that helps operations staff find information across existing systems.
+    validations:
+      required: true
+  - type: textarea
+    id: current-system
+    attributes:
+      label: Existing system and environment
+      description: Describe the product, stack, deployment environment, and integrations. If this is a new product, say so.
+      placeholder: For example, an existing Java backend and Vue admin interface that need a new business module.
+    validations:
+      required: false
+  - type: textarea
+    id: delivery-scope
+    attributes:
+      label: Expected scope
+      description: List the features, pages, APIs, or engineering materials you need. Mention anything outside this phase.
+      placeholder: |
+        Main features:
+        Deliverables: source code / pages / APIs / deployment notes / other
+        Outside this phase:
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: How will you know the work is complete? A concrete workflow or checkable outcome is helpful.
+      placeholder: For example, users can complete the main workflow, failure cases have clear feedback, and deployment instructions are included.
+    validations:
+      required: true
+  - type: input
+    id: timeline
+    attributes:
+      label: Preferred timeline (optional)
+      placeholder: For example, a first phase next month; the detailed schedule can be discussed.
+    validations:
+      required: false
+  - type: input
+    id: budget
+    attributes:
+      label: Budget range (optional)
+      placeholder: A rough range is useful, or say that you need an initial scope estimate.
+    validations:
+      required: false

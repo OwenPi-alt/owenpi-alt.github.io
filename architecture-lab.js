@@ -2,6 +2,8 @@
   'use strict';
   const root = document.querySelector('#architecture');
   if (!root) return;
+  const isEnglish = document.documentElement.lang.toLowerCase().startsWith('en');
+  if (isEnglish && !window.PORTFOLIO_ARCHITECTURE_SCENARIOS) return;
 
   const scenarios = {
     business: {
@@ -38,6 +40,7 @@
       ]
     }
   };
+  if (isEnglish) Object.assign(scenarios, window.PORTFOLIO_ARCHITECTURE_SCENARIOS);
 
   const tabs = [...root.querySelectorAll('[data-lab]')];
   const panel = root.querySelector('#architecture-panel');

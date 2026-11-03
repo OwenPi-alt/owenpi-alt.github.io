@@ -1,0 +1,53 @@
+{
+  "siteUrl": "https://owenpi-alt.github.io/",
+  "name": "Wang Ziqi",
+  "email": "chuangzaoxingfuvip@gmail.com",
+  "github": "https://github.com/OwenPi-alt",
+  "siteName": "Wang Ziqi — Software Engineering Portfolio",
+  "language": "en",
+  "ogImage": "assets/og-en-card.png",
+  "cases": {
+    "commerce": {
+      "slug": "restaurant-order-payment",
+      "title": "Restaurant Orders and Payments: Messaging and Recovery | Wang Ziqi",
+      "description": "Order and payment architecture at Baiweiyun: RabbitMQ, Netty and bounded push retries. Design decisions, my role and validation questions.",
+      "image": "assets/og-en-commerce.png"
+    },
+    "aigc": {
+      "slug": "aigc-production-workflow",
+      "title": "AIGC Production Workflow: Recovery, Budgets, and Media Review | Wang Ziqi",
+      "description": "An AI-assisted offline AIGC prototype: Python tasks, SQLite budget reservations, recovery and FFmpeg checks. Scope, decisions and validation questions.",
+      "image": "assets/og-en-aigc.png"
+    },
+    "quant": {
+      "slug": "quant-research-backtesting",
+      "title": "Quantitative Research: LEAN Signals and Backtest Validation | Wang Ziqi",
+      "description": "An AI-assisted research prototype: LEAN signals, a Python ledger, cost and risk checks, and reproducible simulated backtests. No live trading.",
+      "image": "assets/og-en-quant.png"
+    },
+    "telemarketing": {
+      "slug": "java-telemarketing-architecture",
+      "title": "Java Telemarketing Architecture: Services, JVM, and Data Access | Wang Ziqi",
+      "description": "Java modernization at Qifu Technology: service boundaries, JVM and SQL tuning, concurrent queries, and my work as a development lead.",
+      "image": "assets/og-en-telemarketing.png"
+    },
+    "customer-ai": {
+      "slug": "ai-customer-service-rag",
+      "title": "AI Customer Support and RAG: Routing, Context, and Citations | Wang Ziqi",
+      "description": "My contributions to AI support messaging and routing: LangChain4j, RAG, context and citations, with design decisions and failure cases to validate.",
+      "image": "assets/og-en-customer-ai.png"
+    },
+    "messaging": {
+      "slug": "marketing-messaging-platform",
+      "title": "Marketing Messaging: Kafka, Rules, and Channel Integration | Wang Ziqi",
+      "description": "A Kafka-based marketing messaging platform: composable rules, traffic limits and SMS/push integration. Architecture choices and core development work.",
+      "image": "assets/og-en-messaging.png"
+    },
+    "dify": {
+      "slug": "dify-operations-assistant",
+      "title": "Dify Operations Assistant: Intent, Parameters, and Business APIs | Wang Ziqi",
+      "description": "A Dify operations assistant connecting intent recognition, parameters and internal APIs. My contributions, workflow design and validation priorities.",
+      "image": "assets/og-en-dify.png"
+    }
+  }
+}

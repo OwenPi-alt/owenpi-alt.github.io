@@ -4,24 +4,30 @@
 
 **访问地址：[owenpi-alt.github.io](https://owenpi-alt.github.io/)**
 
+默认中文；英文版：[owenpi-alt.github.io/en/](https://owenpi-alt.github.io/en/)。顶部 `中文 / EN` 可主动切换，不根据浏览器语言自动跳转，也不保存会覆盖中文默认入口的语言偏好。
+
 ## 页面
 
 - `index.html`：合作服务、四类技术图谱、七个项目案例、交付流程和职业经历。
+- `en/index.html` / `en/resume.html`：完整英文首页和可打印英文简历。
+- `bilingual.css`：语言切换与英文长文本的响应式排版。
 - `styles.css`：深色主题、响应式布局、动效与减少动态效果支持。
 - `portfolio.css`：服务列表、工程原型图示、交付流程与新版响应式样式。
 - `casebook.css`：架构交互面板、技术案例长页与更鲜明的内容层次。
 - `case-studies.js`：七个完整案例的数据，包含问题约束、链路、架构取舍、价值与验收关注点。
+- `case-studies.en.js`：对应英文案例，保持同样的案例 key、职责和研发阶段边界。
 - `architecture-lab.js`：三个可切换的设计场景、十二个可探索的架构节点。
+- `architecture-lab.en.js`：英文设计场景与节点说明，供共享交互脚本使用。
 - `app.js`：本地交互，无后端服务、追踪脚本或第三方运行依赖。
 - `resume.html`：独立精简简历；使用页面按钮打印或保存 PDF。
 - `assets/favicon.svg`：站点图标。
-- `projects/`：案例汇总与七个完整静态案例页，无需 JavaScript 即可阅读。
+- `projects/` / `en/projects/`：中英文案例汇总及完整静态案例页，无需 JavaScript 即可阅读。
 - `seo-pages.css`：独立案例页的排版和打印样式。
-- `seo.config.json`：主站地址、案例 slug、搜索标题、摘要与分享图片配置。
-- `robots.txt` / `sitemap.xml`：抓取说明与十个主站规范网址。
+- `seo.config.json` / `seo.en.config.json`：两种语言的站点资料、同名案例 slug、搜索标题、摘要与分享图。
+- `robots.txt` / `sitemap.xml`：抓取说明与二十个主站规范网址。
 - `scripts/build-seo.mjs` / `scripts/check-seo.mjs`：生成静态案例并检查 SEO 结构。
 - `.nojekyll`：直接发布静态文件。
-- `.github/ISSUE_TEMPLATE/project-inquiry.yml`：公开项目合作需求表单。
+- `.github/ISSUE_TEMPLATE/project-inquiry.yml` / `project-inquiry-en.yml`：中英文公开项目合作需求表单。
 
 ## 项目合作入口
 
@@ -43,7 +49,9 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 仓库的 Pages 来源设置为 `main` 分支的根目录。修改文件后提交并推送，GitHub Pages 自动构建并更新站点。
 
-主页基础文案维护在 `index.html`，完整案例内容维护在 `case-studies.js`，架构设计推演维护在 `architecture-lab.js`，打印简历维护在 `resume.html`。`app.js` 保留简版案例作为跨版本缓存或扩展资源缺失时的兼容内容。修改经历时同步相关页面，保留真实职责及项目归属。
+中文主页和简历维护在 `index.html` / `resume.html`，英文版本维护在 `en/` 的对应文件。案例源分别是 `case-studies.js` / `case-studies.en.js`；架构推演的英文数据位于 `architecture-lab.en.js`。更新事实、职责或阶段时，两种语言一起维护。
+
+`app.js` 根据文档 `lang` 选择交互文案，不负责自动切换语言。中文保留简版案例作为兼容内容；英文案例数据未加载时，真实链接会进入英文静态页，避免回退成中文弹窗。
 
 脚本与增量样式的引用带有文件内容哈希 `?v=`，修改后需更新对应 URL 的版本值，并同步到旧址兼容仓库，避免浏览器混用新旧资源。
 
@@ -51,7 +59,7 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 首页案例标题是可抓取链接；“展开架构案例”链接支持普通点击预览、修饰键/新标签打开独立页面，关闭 JavaScript 时也能直接阅读。弹窗提供“独立阅读”入口。
 
-修改 `case-studies.js`、`seo.config.json` 或独立页样式后，运行：
+修改任一语言的案例源、SEO 配置或独立页样式后，运行：
 
 ```sh
 node scripts/build-seo.mjs
@@ -60,9 +68,11 @@ node scripts/check-seo.mjs
 
 生成器不依赖 npm 包。`projects/` 为生成文件，不单独改写，以免与首页案例内容漂移。生成后的 HTML 与 sitemap 一起提交，GitHub Pages 直接发布。
 
-`assets/og-card.png` 与七张案例分享图为 1200×630 的本地设计图片。源模板是 `scripts/social-card.template.html`；执行 `node scripts/build-social-previews.mjs` 后，使用浏览器把 `output/social/` 对应 HTML 渲染为配置指定的 PNG。标题、结构化数据和图片须与可见内容一致。
+中英文各八张分享图均为 1200×630。中文位于 `assets/og-*.png`，英文位于 `assets/og-en-*.png`。源模板是 `scripts/social-card.template.html`；执行 `node scripts/build-social-previews.mjs` 后，使用浏览器把 `output/social/` 与 `output/social/en/` 的对应 HTML 渲染为配置指定的 PNG。标题、结构化数据和图片须与可见内容一致。
 
-主站各页使用自己的 canonical，旧址兼容页指向主站对应 URL。sitemap 只包含主站十个页面，旧址不使用 robots 阻止抓取，以便搜索引擎能读取 canonical。`robots.txt` 只有主域根路径生效。
+中英文各页使用自己的 canonical；英文页不指向中文版作为 canonical。每页提供互指的 `zh-CN`、`en` 和指向中文同篇的 `x-default` alternates。语言切换保留对应案例或简历，不一律跳回首页。
+
+旧址兼容页指向主站对应语言、对应内容的 URL。sitemap 只包含主站二十个页面，旧址不使用 robots 阻止抓取，以便搜索引擎能读取 canonical。`robots.txt` 只有主域根路径生效。
 
 ### 搜索平台验证与提交
 
@@ -81,7 +91,7 @@ Google Search Console 的站点所有权验证、站点地图提交及收录监�
 1. 在仓库 Settings → Pages → Custom domain 填入自己的域名。
 2. 若使用子域名（例如 `www.example.com`），在域名服务商配置 CNAME，目标为 `owenpi-alt.github.io`。
 3. 等待 GitHub DNS 检查和证书准备完成，再启用 Enforce HTTPS。
-4. 更新 `seo.config.json` 的 `siteUrl`，并更新主页、简历的 canonical、OG、JSON-LD 和相关主站地址；重建静态案例与 sitemap，再更新旧址副本。复制主页按钮自动读取 canonical。
+4. 同步更新两个 `seo*.config.json` 的 `siteUrl`，并更新中英文主页、简历的 canonical、hreflang、OG、JSON-LD 和相关主站地址；重建静态案例、分享图与 sitemap，再更新旧址副本。复制主页按钮自动读取当前语言的 canonical。
 5. 若使用根域名，按 GitHub 当时的官方文档设置 A / AAAA 或 ALIAS 记录，不从示例猜测地址。
 
 [GitHub Pages 自定义域名官方说明](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site)
