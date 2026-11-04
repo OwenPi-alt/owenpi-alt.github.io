@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0c0e11">
   <title>营销触达平台：Kafka 异步链路、规则引擎与多渠道接入｜王子棋</title>
-  <meta name="description" content="集团营销触达平台案例：Kafka 异步处理、责任链规则组合、短信与 Push 等渠道接入，展开流量边界、规则职责、渠道策略和核心开发工作。">
+  <meta name="description" content="负责集团营销触达平台架构与核心开发：Kafka 缓冲请求，责任链组合校验规则，按渠道分发，并依据运营商、权重和配额选择短信供应商。">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://owenpi-alt.github.io/projects/marketing-messaging-platform/">
   <link rel="alternate" hreflang="zh-CN" href="https://owenpi-alt.github.io/projects/marketing-messaging-platform/">
@@ -15,7 +15,7 @@
   <meta property="og:site_name" content="王子棋的技术作品集">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:title" content="营销触达平台：Kafka 异步链路、规则引擎与多渠道接入｜王子棋">
-  <meta property="og:description" content="集团营销触达平台案例：Kafka 异步处理、责任链规则组合、短信与 Push 等渠道接入，展开流量边界、规则职责、渠道策略和核心开发工作。">
+  <meta property="og:description" content="负责集团营销触达平台架构与核心开发：Kafka 缓冲请求，责任链组合校验规则，按渠道分发，并依据运营商、权重和配额选择短信供应商。">
   <meta property="og:url" content="https://owenpi-alt.github.io/projects/marketing-messaging-platform/">
   <meta property="og:image" content="https://owenpi-alt.github.io/assets/og-messaging.png">
   <meta property="og:image:width" content="1200">
@@ -23,13 +23,14 @@
   <meta property="og:image:alt" content="集团营销触达平台">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="营销触达平台：Kafka 异步链路、规则引擎与多渠道接入｜王子棋">
-  <meta name="twitter:description" content="集团营销触达平台案例：Kafka 异步处理、责任链规则组合、短信与 Push 等渠道接入，展开流量边界、规则职责、渠道策略和核心开发工作。">
+  <meta name="twitter:description" content="负责集团营销触达平台架构与核心开发：Kafka 缓冲请求，责任链组合校验规则，按渠道分发，并依据运营商、权重和配额选择短信供应商。">
   <meta name="twitter:image" content="https://owenpi-alt.github.io/assets/og-messaging.png">
   <meta name="twitter:image:alt" content="集团营销触达平台">
   <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
   <link rel="stylesheet" href="../../styles.css?v=9fdc5794d01e">
   <link rel="stylesheet" href="../../seo-pages.css?v=73f137b2ef8d">
   <link rel="stylesheet" href="../../bilingual.css?v=280c2246b661">
+  <link rel="stylesheet" href="../../workbench.css?v=3039f7da7660">
   <script src="../../language-preference.js?v=357a76922256" defer></script>
   <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -38,7 +39,7 @@
       "@type": "Article",
       "@id": "https://owenpi-alt.github.io/projects/marketing-messaging-platform/#article",
       "headline": "集团营销触达平台",
-      "description": "集团营销触达平台案例：Kafka 异步处理、责任链规则组合、短信与 Push 等渠道接入，展开流量边界、规则职责、渠道策略和核心开发工作。",
+      "description": "负责集团营销触达平台架构与核心开发：Kafka 缓冲请求，责任链组合校验规则，按渠道分发，并依据运营商、权重和配额选择短信供应商。",
       "inLanguage": "zh-CN",
       "image": {
         "@type": "ImageObject",
@@ -101,12 +102,12 @@
     <nav class="seo-breadcrumbs" aria-label="面包屑导航"><a href="../../zh/">首页</a><span aria-hidden="true">/</span><a href="../">项目案例</a><span aria-hidden="true">/</span><span aria-current="page">集团营销触达平台</span></nav>
     <article class="seo-article">
       <header class="seo-lede">
-        <p class="seo-kicker">CASE 06 / ENGINEERING IN DETAIL</p>
+        <p class="seo-kicker">CASE 02 / ENGINEERING IN DETAIL</p>
         <h1>集团营销触达平台</h1>
-        <p class="seo-thesis">这套平台里，我主要处理异步请求、业务规则和渠道接入。</p>
+        <p class="seo-thesis">用 Kafka 承接请求，用规则链组织校验，再按渠道分发。</p>
         <p class="seo-meta">奇富科技 · 架构与核心开发 · 2020.05 — 2024.07</p>
       </header>
-      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">问题与约束</h2><p>集团业务需要通过 IVR、短信、Push 和机器人触达用户。面对集中请求、业务过滤规则以及不同供应商的能力限制，平台需要承接流量、组织校验并处理渠道差异，让新增业务和渠道接入沿着清晰的职责扩展。</p></section>
+      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">问题与约束</h2><p>集团业务通过 IVR、短信、Push 和机器人触达用户。请求可能集中到达，各渠道的配额和处理速度却不同。我负责平台架构与核心开发，重点处理异步请求、规则组合和供应商接入。</p></section>
       <section class="seo-section" aria-labelledby="flow-title">
         <h2 id="flow-title">核心链路简化示意</h2>
         <p>以下图示为技术思路的简化表达。</p>
@@ -115,18 +116,18 @@
       <section class="seo-section" aria-labelledby="decisions-title">
         <h2 id="decisions-title">架构取舍与实现</h2>
         <div class="seo-decision-grid">
-          <article class="seo-decision"><span>01</span><h3>在流量入口建立缓冲层</h3><p><strong>难点</strong>请求可能集中到达，而下游渠道有自己的处理节奏和接入限制。</p><p><strong>方案</strong>使用 Kafka 异步处理触达请求，将业务请求的受理与下游执行分开组织，缓解集中流量对后续链路的冲击。</p><p><strong>价值</strong>给处理速度差异留下缓冲空间，也把后续对积压、限流和失败恢复的检查边界明确下来。</p></article>
-          <article class="seo-decision"><span>02</span><h3>让规则以职责组合</h3><p><strong>难点</strong>黑名单、流量限制、号码获取和模板要求混在一起，会让规则变化难以管理。</p><p><strong>方案</strong>主导规则引擎开发，用责任链组织黑名单过滤、流量限流、手机号获取、批次拆分和模板校验，按业务场景组合处理职责。</p><p><strong>价值</strong>规则可以按场景组合，便于追踪每项校验的职责与变更影响，为业务扩展保留空间。</p></article>
-          <article class="seo-decision"><span>03</span><h3>将供应商差异收敛到渠道层</h3><p><strong>难点</strong>不同渠道与短信供应商涉及运营商、权重、额度和不可用通道等差异。</p><p><strong>方案</strong>按渠道类别解析输入并通过渠道策略分发；短信供应商选择考虑运营商、权重和发送配额，无可用通道时进入配置对应的异常处理。</p><p><strong>价值</strong>使上层业务保持相对统一的接入方式，将供应商选择和异常细节放到对应渠道职责中处理。</p></article>
+          <article class="seo-decision"><span>01</span><h3>Kafka 缓冲集中到达的请求</h3><p><strong>难点</strong>请求可能集中到达，而下游渠道有自己的处理节奏和接入限制。</p><p><strong>方案</strong>使用 Kafka 异步处理触达请求，将业务请求的受理与下游执行分开组织，缓解集中流量对后续链路的冲击。</p><p><strong>考虑</strong>请求受理与渠道发送可以按各自速度处理；队列只能暂存速度差，仍需结合积压和渠道配额检查消费能力。</p></article>
+          <article class="seo-decision"><span>02</span><h3>用责任链组合校验规则</h3><p><strong>难点</strong>黑名单、流量限制、号码获取和模板要求混在一起，会让规则变化难以管理。</p><p><strong>方案</strong>主导规则引擎开发，用责任链组织黑名单过滤、流量限流、手机号获取、批次拆分和模板校验，按业务场景组合处理职责。</p><p><strong>考虑</strong>业务场景可选择需要的规则；调整组合时仍需检查先后顺序，以及号码获取、拆批和模板校验的数据依赖。</p></article>
+          <article class="seo-decision"><span>03</span><h3>在渠道层处理供应商选择</h3><p><strong>难点</strong>不同渠道与短信供应商涉及运营商、权重、额度和不可用通道等差异。</p><p><strong>方案</strong>按渠道类别解析输入并通过渠道策略分发；短信供应商选择考虑运营商、权重和发送配额，无可用通道时进入配置对应的异常处理。</p><p><strong>考虑</strong>上层按渠道提交请求，运营商匹配、供应商权重和配额检查留在渠道实现中处理。</p></article>
         </div>
       </section>
-      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">工程价值</h2><p>将流量、规则和供应商差异分层处理，为多业务、多渠道的持续接入提供可演进的结构。</p></section>
+      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">这套设计解决了什么</h2><p>实现 Kafka 异步请求处理、责任链规则引擎和多渠道接入，短信分发按运营商、权重与配额选择供应商。</p></section>
       <section class="seo-section" aria-labelledby="checks-title"><h2 id="checks-title">验证关注点</h2><ul class="seo-checklist"><li>集中请求进入后，队列积压、消费速度与渠道配额是否能够对应检查？</li><li>规则组合改变时，过滤、批次拆分和模板校验是否保持预期语义？</li><li>供应商额度不足或无可用通道时，是否进入明确的异常处理路径？</li></ul></section>
       <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">我的职责</h2><p>负责平台架构与核心开发，主导规则引擎开发，对接第三方消息服务并处理渠道接入和推送问题。</p></section>
 
       <section class="seo-section" aria-labelledby="tags-title"><h2 id="tags-title">技术与主题</h2><ul class="seo-tags" aria-label="技术与主题"><li>Java</li><li>Kafka</li><li>责任链</li><li>渠道策略</li><li>异步处理</li><li>多供应商接入</li></ul></section>
     </article>
-    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">继续看其他案例</h2><div class="seo-related-grid"><a href="../dify-operations-assistant/"><strong>Dify 运营自助答疑</strong><span>运营常问的数据和状态，尝试让机器人直接查出来。</span></a><a href="../restaurant-order-payment/"><strong>餐饮订单与支付系统</strong><span>通知发出去了，门店有没有收到，还得分开看。</span></a><a href="../aigc-production-workflow/"><strong>AIGC 内容生产工作流</strong><span>这个原型主要在验证：生成中断以后，任务和预算怎样接着处理。</span></a></div><a href="../">查看全部项目案例 ↗</a></nav>
+    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">继续看其他案例</h2><div class="seo-related-grid"><a href="../java-telemarketing-architecture/"><strong>电销系统架构改造</strong><span>在拆分单体的同时，处理锁竞争、超时和 OOM。</span></a><a href="../ai-customer-service-rag/"><strong>AI 客服与知识检索平台</strong><span>参与咨询消息与路由开发，处理上下文、重试和任务状态。</span></a><a href="../dify-operations-assistant/"><strong>Dify 运营自助答疑</strong><span>把运营日常查询接入 360Teams：理解问题，再调用内部接口。</span></a></div><a href="../">查看全部项目案例 ↗</a></nav>
     <section class="seo-contact" aria-labelledby="contact-title">
       <h2 id="contact-title">聊聊你的技术需求。</h2>
       <p>把业务目标、现有系统和交付范围发给我，一起梳理关键问题与实现路径。</p>

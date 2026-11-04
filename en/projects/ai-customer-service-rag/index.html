@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0c0e11">
   <title>AI Customer Support and RAG: Routing, Context, and Citations | Wang Ziqi</title>
-  <meta name="description" content="My contributions to AI support messaging and routing: LangChain4j, RAG, context and citations, with design decisions and failure cases to validate.">
+  <meta name="description" content="My contributions to support messages and routing: RabbitMQ task state, ticket context, retries, and timeout handling within an AI support platform.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://owenpi-alt.github.io/en/projects/ai-customer-service-rag/">
   <link rel="alternate" hreflang="zh-CN" href="https://owenpi-alt.github.io/projects/ai-customer-service-rag/">
@@ -15,7 +15,7 @@
   <meta property="og:site_name" content="Wang Ziqi — Software Engineering Portfolio">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="AI Customer Support and RAG: Routing, Context, and Citations | Wang Ziqi">
-  <meta property="og:description" content="My contributions to AI support messaging and routing: LangChain4j, RAG, context and citations, with design decisions and failure cases to validate.">
+  <meta property="og:description" content="My contributions to support messages and routing: RabbitMQ task state, ticket context, retries, and timeout handling within an AI support platform.">
   <meta property="og:url" content="https://owenpi-alt.github.io/en/projects/ai-customer-service-rag/">
   <meta property="og:image" content="https://owenpi-alt.github.io/assets/og-en-customer-ai.png">
   <meta property="og:image:width" content="1200">
@@ -23,13 +23,14 @@
   <meta property="og:image:alt" content="AI Customer Support &amp; Knowledge Retrieval">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AI Customer Support and RAG: Routing, Context, and Citations | Wang Ziqi">
-  <meta name="twitter:description" content="My contributions to AI support messaging and routing: LangChain4j, RAG, context and citations, with design decisions and failure cases to validate.">
+  <meta name="twitter:description" content="My contributions to support messages and routing: RabbitMQ task state, ticket context, retries, and timeout handling within an AI support platform.">
   <meta name="twitter:image" content="https://owenpi-alt.github.io/assets/og-en-customer-ai.png">
   <meta name="twitter:image:alt" content="AI Customer Support &amp; Knowledge Retrieval">
   <link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
   <link rel="stylesheet" href="../../../styles.css?v=9fdc5794d01e">
   <link rel="stylesheet" href="../../../seo-pages.css?v=73f137b2ef8d">
   <link rel="stylesheet" href="../../../bilingual.css?v=280c2246b661">
+  <link rel="stylesheet" href="../../../workbench.css?v=3039f7da7660">
   <script src="../../../language-preference.js?v=357a76922256" defer></script>
   <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -38,7 +39,7 @@
       "@type": "Article",
       "@id": "https://owenpi-alt.github.io/en/projects/ai-customer-service-rag/#article",
       "headline": "AI Customer Support & Knowledge Retrieval",
-      "description": "My contributions to AI support messaging and routing: LangChain4j, RAG, context and citations, with design decisions and failure cases to validate.",
+      "description": "My contributions to support messages and routing: RabbitMQ task state, ticket context, retries, and timeout handling within an AI support platform.",
       "inLanguage": "en",
       "image": {
         "@type": "ImageObject",
@@ -101,12 +102,12 @@
     <nav class="seo-breadcrumbs" aria-label="Breadcrumbs"><a href="../../">Home</a><span aria-hidden="true">/</span><a href="../">Projects</a><span aria-hidden="true">/</span><span aria-current="page">AI Customer Support &amp; Knowledge Retrieval</span></nav>
     <article class="seo-article">
       <header class="seo-lede">
-        <p class="seo-kicker">CASE 05 / ENGINEERING IN DETAIL</p>
+        <p class="seo-kicker">CASE 04 / ENGINEERING IN DETAIL</p>
         <h1>AI Customer Support &amp; Knowledge Retrieval</h1>
-        <p class="seo-thesis">My contribution connected support messages and routing with business context and retrieved knowledge.</p>
+        <p class="seo-thesis">I contributed to support-message processing and routing, including context, retries, and task state.</p>
         <p class="seo-meta">Qifu Technology (奇富科技) · Contributor to message processing and routing</p>
       </header>
-      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">Context and constraints</h2><p>Customer inquiries arrive with business state, conversation history, and missing information. The project connects message processing, routing, and knowledge retrieval to support clarification, status queries, and human handoff. It also retains model-call and citation records to help trace answers and incorporate operational feedback.</p></section>
+      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">Context and constraints</h2><p>Support inquiries need ticket context to choose among clarification, status queries, knowledge retrieval, and human handoff. The platform retains model calls and citations for answer investigation and operational feedback. My contributions were in message processing and routing; the following also describes the wider workflow those modules participate in.</p></section>
       <section class="seo-section" aria-labelledby="flow-title">
         <h2 id="flow-title">Core workflow</h2>
         <p>This diagram is a simplified view of the technical approach.</p>
@@ -115,18 +116,18 @@
       <section class="seo-section" aria-labelledby="decisions-title">
         <h2 id="decisions-title">Design decisions and implementation</h2>
         <div class="seo-decision-grid">
-          <article class="seo-decision"><span>01</span><h3>Record the task before asynchronous processing</h3><p><strong>Challenge</strong>Message intake and model calls run at different speeds. After a failure, the system also needs to know which state the task reached.</p><p><strong>Approach</strong>The system receives messages through RabbitMQ, persists processing records, and invokes the model asynchronously. Duplicate-message checks, state-conditioned retries, and timeout cleanup manage the task lifecycle.</p><p><strong>Value</strong>Gives intake and generation their own records, with state evidence for diagnosis and retries beyond the result of a single request.</p></article>
-          <article class="seo-decision"><span>02</span><h3>Route with business context</h3><p><strong>Challenge</strong>Classifying only the latest sentence can miss the support ticket’s background and differences between business scenarios.</p><p><strong>Approach</strong>The routing pipeline combines rules, model classification, and knowledge retrieval in stages, with bounded context organized by support ticket. Routes support clarification, status queries, and human handoff.</p><p><strong>Value</strong>Uses business information in routing while keeping the decisions for different scenarios understandable and traceable.</p></article>
-          <article class="seo-decision"><span>03</span><h3>Keep the evidence behind each answer</h3><p><strong>Challenge</strong>The final reply alone cannot explain its source or why a particular model call produced an unsuitable result.</p><p><strong>Approach</strong>The system integrates the Bailian knowledge base and uses retrieval scores and thresholds to inform replies. It retains routes, cited passages, prompt versions, model and token information, and operational feedback.</p><p><strong>Value</strong>Makes it possible to trace issues through citations, prompts, and model calls, providing concrete material for evaluation and improvement.</p></article>
+          <article class="seo-decision"><span>01</span><h3>Persist processing records before calling the model</h3><p><strong>Challenge</strong>Message intake and model calls run at different speeds. After a failure, the system also needs to know which state the task reached.</p><p><strong>Approach</strong>The system receives messages through RabbitMQ, persists processing records, and invokes the model asynchronously. Duplicate-message checks, state-conditioned retries, and timeout cleanup manage the task lifecycle.</p><p><strong>Reasoning</strong>After a model-call failure, task records help determine whether to retry or clear a timed-out state, beyond the response from a single request.</p></article>
+          <article class="seo-decision"><span>02</span><h3>Organize context and routing by support ticket</h3><p><strong>Challenge</strong>Classifying only the latest sentence can miss the support ticket’s background and differences between business scenarios.</p><p><strong>Approach</strong>The routing pipeline combines rules, model classification, and knowledge retrieval in stages, with bounded context organized by support ticket. Routes support clarification, status queries, and human handoff.</p><p><strong>Reasoning</strong>Routing can use ticket history while retaining stage-by-stage decisions, helping locate classification or retrieval errors.</p></article>
+          <article class="seo-decision"><span>03</span><h3>Retain citations, prompts, and model-call details</h3><p><strong>Challenge</strong>The final reply alone cannot explain its source or why a particular model call produced an unsuitable result.</p><p><strong>Approach</strong>The system integrates the Bailian knowledge base and uses retrieval scores and thresholds to inform replies. It retains routes, cited passages, prompt versions, model and token information, and operational feedback.</p><p><strong>Reasoning</strong>An answer can be checked against its cited passages, prompt, and model call to investigate whether an issue arose in retrieval or generation.</p></article>
         </div>
       </section>
-      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">Engineering value</h2><p>Connects inquiry handling, knowledge evidence, and operational feedback to support traceable evaluation and iteration.</p></section>
+      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">What the design addresses</h2><p>Contributed to message handling and scenario routing, using ticket context and handling duplicate submissions, failed attempts, and timed-out tasks.</p></section>
       <section class="seo-section" aria-labelledby="checks-title"><h2 id="checks-title">Validation focus</h2><ul class="seo-checklist"><li>Do duplicate messages, timed-out tasks, and failed retries follow the correct state-dependent paths?</li><li>Do missing knowledge, retrieval failures, and insufficient context lead to appropriate routing or feedback?</li><li>Can an answer be traced to its knowledge citations, prompt version, and model call?</li></ul></section>
       <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">My contribution</h2><p>Contributed to support-message processing and routing, using business context to distinguish scenarios. Work included failure retries, timeout-state cleanup, and duplicate-submission controls.</p></section>
 
       <section class="seo-section" aria-labelledby="tags-title"><h2 id="tags-title">Technologies and topics</h2><ul class="seo-tags" aria-label="Technologies and topics"><li>Java 17</li><li>Spring Boot 3</li><li>LangChain4j</li><li>RabbitMQ</li><li>PostgreSQL</li><li>RAG / Bailian</li></ul></section>
     </article>
-    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">Explore more projects</h2><div class="seo-related-grid"><a href="../marketing-messaging-platform/"><strong>Enterprise Customer Messaging Platform</strong><span>My focus was the connection between asynchronous requests, business rules, and delivery channels.</span></a><a href="../dify-operations-assistant/"><strong>Dify Self-Service Assistant for Operations</strong><span>The aim was to let operations ask a bot for the data and status checks they routinely needed.</span></a><a href="../restaurant-order-payment/"><strong>Restaurant Orders &amp; Payments</strong><span>An order notification needs a delivery path—and a way to know whether it arrived.</span></a></div><a href="../">View all projects ↗</a></nav>
+    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">Explore more projects</h2><div class="seo-related-grid"><a href="../dify-operations-assistant/"><strong>Dify Self-Service Assistant for Operations</strong><span>Let operations query internal systems from 360Teams by translating questions into API calls.</span></a><a href="../aigc-production-workflow/"><strong>AIGC Production Workflow</strong><span>When a generation request times out, how can the task recover without reserving the same budget twice?</span></a><a href="../quant-research-backtesting/"><strong>Quant Research &amp; Backtesting</strong><span>Reconcile signals, costs, and cash movements before interpreting a backtest.</span></a></div><a href="../">View all projects ↗</a></nav>
     <section class="seo-contact" aria-labelledby="contact-title">
       <h2 id="contact-title">Let’s talk about what you’re building.</h2>
       <p>Share your goals, current systems, and delivery scope. We can work through the key technical questions and a practical path forward.</p>

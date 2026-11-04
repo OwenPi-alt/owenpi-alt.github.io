@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0c0e11">
   <title>Restaurant Orders and Payments: Messaging and Recovery | Wang Ziqi</title>
-  <meta name="description" content="Order and payment architecture at Baiweiyun: RabbitMQ, Netty and bounded push retries. Design decisions, my role and validation questions.">
+  <meta name="description" content="Restaurant order and payment work at Baiweiyun, with RabbitMQ, Netty, JPush, application acknowledgments, and Redis controls for repeated notifications.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://owenpi-alt.github.io/en/projects/restaurant-order-payment/">
   <link rel="alternate" hreflang="zh-CN" href="https://owenpi-alt.github.io/projects/restaurant-order-payment/">
@@ -15,7 +15,7 @@
   <meta property="og:site_name" content="Wang Ziqi — Software Engineering Portfolio">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="Restaurant Orders and Payments: Messaging and Recovery | Wang Ziqi">
-  <meta property="og:description" content="Order and payment architecture at Baiweiyun: RabbitMQ, Netty and bounded push retries. Design decisions, my role and validation questions.">
+  <meta property="og:description" content="Restaurant order and payment work at Baiweiyun, with RabbitMQ, Netty, JPush, application acknowledgments, and Redis controls for repeated notifications.">
   <meta property="og:url" content="https://owenpi-alt.github.io/en/projects/restaurant-order-payment/">
   <meta property="og:image" content="https://owenpi-alt.github.io/assets/og-en-commerce.png">
   <meta property="og:image:width" content="1200">
@@ -23,13 +23,14 @@
   <meta property="og:image:alt" content="Restaurant Orders &amp; Payments">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Restaurant Orders and Payments: Messaging and Recovery | Wang Ziqi">
-  <meta name="twitter:description" content="Order and payment architecture at Baiweiyun: RabbitMQ, Netty and bounded push retries. Design decisions, my role and validation questions.">
+  <meta name="twitter:description" content="Restaurant order and payment work at Baiweiyun, with RabbitMQ, Netty, JPush, application acknowledgments, and Redis controls for repeated notifications.">
   <meta name="twitter:image" content="https://owenpi-alt.github.io/assets/og-en-commerce.png">
   <meta name="twitter:image:alt" content="Restaurant Orders &amp; Payments">
   <link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
   <link rel="stylesheet" href="../../../styles.css?v=9fdc5794d01e">
   <link rel="stylesheet" href="../../../seo-pages.css?v=73f137b2ef8d">
   <link rel="stylesheet" href="../../../bilingual.css?v=280c2246b661">
+  <link rel="stylesheet" href="../../../workbench.css?v=3039f7da7660">
   <script src="../../../language-preference.js?v=357a76922256" defer></script>
   <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -38,7 +39,7 @@
       "@type": "Article",
       "@id": "https://owenpi-alt.github.io/en/projects/restaurant-order-payment/#article",
       "headline": "Restaurant Orders & Payments",
-      "description": "Order and payment architecture at Baiweiyun: RabbitMQ, Netty and bounded push retries. Design decisions, my role and validation questions.",
+      "description": "Restaurant order and payment work at Baiweiyun, with RabbitMQ, Netty, JPush, application acknowledgments, and Redis controls for repeated notifications.",
       "inLanguage": "en",
       "image": {
         "@type": "ImageObject",
@@ -103,10 +104,10 @@
       <header class="seo-lede">
         <p class="seo-kicker">CASE 01 / ENGINEERING IN DETAIL</p>
         <h1>Restaurant Orders &amp; Payments</h1>
-        <p class="seo-thesis">An order notification needs a delivery path—and a way to know whether it arrived.</p>
+        <p class="seo-thesis">An order can be processed while its notification is still waiting for a device acknowledgment.</p>
         <p class="seo-meta">Baiweiyun (百味云) · Senior Software Engineer / Technical Team Lead · 2016.10 — 2018.04</p>
       </header>
-      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">Context and constraints</h2><p>Yunxiaoer and Yunzhanggui connected restaurant orders, payments, and notifications. Each operation crossed business logic, payment channels, and store devices. A failure at any point could leave staff unsure what to do next. The design focused on clear module responsibilities and explicit boundaries between processing an order and confirming its delivery to a device.</p></section>
+      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">Context and constraints</h2><p>Yunxiaoer and Yunzhanggui handled restaurant orders, payments, and store notifications. After an order was processed, store printers and staff still needed to be notified. Disconnections and missing acknowledgments required a decision about retries. I was responsible for architecture setup and core development; this case focuses on orders, payments, and notification handling.</p></section>
       <section class="seo-section" aria-labelledby="flow-title">
         <h2 id="flow-title">Core workflow</h2>
         <p>This diagram is a simplified view of the technical approach.</p>
@@ -115,18 +116,18 @@
       <section class="seo-section" aria-labelledby="decisions-title">
         <h2 id="decisions-title">Design decisions and implementation</h2>
         <div class="seo-decision-grid">
-          <article class="seo-decision"><span>01</span><h3>Organize modules around business responsibilities</h3><p><strong>Challenge</strong>Orders, payments, and risk controls were closely connected. Mixing their responsibilities would make changes and integration work harder to contain.</p><p><strong>Approach</strong>Used the order module to coordinate the core workflow, developed the payment gateway, and worked with the risk-control module, keeping business orchestration distinct from external channel integration.</p><p><strong>Value</strong>Gave each change a clear place in the system, making its impact easier to assess and development and acceptance work easier to coordinate.</p></article>
-          <article class="seo-decision"><span>02</span><h3>Give notification delivery its own design</h3><p><strong>Challenge</strong>Completing an order did not establish whether the store or its staff had received the notification.</p><p><strong>Approach</strong>The notification path consumes new-order messages through RabbitMQ, prioritizes Netty persistent connections, and uses JPush as a fallback for store printing and staff notifications.</p><p><strong>Value</strong>Separated order processing from device delivery while retaining both an immediate connection and an alternative notification path.</p></article>
-          <article class="seo-decision"><span>03</span><h3>Bound retries using application acknowledgments</h3><p><strong>Challenge</strong>Network changes and device availability could leave notifications unconfirmed, while retries from multiple nodes could create duplicates.</p><p><strong>Approach</strong>The notification path uses application acknowledgments to trigger limited retries for unconfirmed orders, with Redis counters restricting repeated JPush notifications across nodes.</p><p><strong>Value</strong>Made retry limits and duplicate controls explicit while preserving the distinction between server-side processing and completion at the device.</p></article>
+          <article class="seo-decision"><span>01</span><h3>Separate order workflows from payment integration</h3><p><strong>Challenge</strong>Orders, payments, and risk controls were closely connected. Mixing their responsibilities would make changes and integration work harder to contain.</p><p><strong>Approach</strong>Used the order module to coordinate the core workflow, developed the payment gateway, and worked with the risk-control module, keeping business orchestration distinct from external channel integration.</p><p><strong>Reasoning</strong>Order changes and payment integrations have separate implementation points. Integration checks can examine business state and channel responses independently.</p></article>
+          <article class="seo-decision"><span>02</span><h3>Use persistent connections first, with push as a fallback</h3><p><strong>Challenge</strong>Completing an order did not establish whether the store or its staff had received the notification.</p><p><strong>Approach</strong>The notification path consumes new-order messages through RabbitMQ, prioritizes Netty persistent connections, and uses JPush as a fallback for store printing and staff notifications.</p><p><strong>Reasoning</strong>Persistent connections provide the immediate path and push provides a fallback. Both still need application acknowledgments to establish delivery.</p></article>
+          <article class="seo-decision"><span>03</span><h3>Retry unconfirmed notifications with duplicate controls</h3><p><strong>Challenge</strong>Network changes and device availability could leave notifications unconfirmed, while retries from multiple nodes could create duplicates.</p><p><strong>Approach</strong>The notification path uses application acknowledgments to trigger limited retries for unconfirmed orders, with Redis counters restricting repeated JPush notifications across nodes.</p><p><strong>Reasoning</strong>Missing acknowledgments can trigger limited retries, while Redis counters restrict repeated push attempts across nodes. Sending a notification still does not establish that printing finished.</p></article>
         </div>
       </section>
-      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">Engineering value</h2><p>Established clear boundaries for orders, payments, and notifications, providing a structure for continued development and failure diagnosis.</p></section>
+      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">What the design addresses</h2><p>Combined a persistent-connection-first notification path with push fallback, application acknowledgments, and Redis counters for unconfirmed orders.</p></section>
       <section class="seo-section" aria-labelledby="checks-title"><h2 id="checks-title">Validation focus</h2><ul class="seo-checklist"><li>Are successful order processing and confirmed device delivery represented as distinct states?</li><li>Are retry limits and stopping conditions explicit when a device disconnects or an acknowledgment is missing?</li><li>Are duplicate notifications controlled when multiple nodes process the same event?</li></ul></section>
       <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">My contribution</h2><p>Responsible for architecture setup and core development of Yunxiaoer and Yunzhanggui. Led the order module, developed the payment gateway, and contributed to the risk-control module.</p></section>
 
       <section class="seo-section" aria-labelledby="tags-title"><h2 id="tags-title">Technologies and topics</h2><ul class="seo-tags" aria-label="Technologies and topics"><li>Business architecture</li><li>Orders / Payments</li><li>RabbitMQ</li><li>Netty</li><li>Redis</li><li>JPush</li></ul></section>
     </article>
-    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">Explore more projects</h2><div class="seo-related-grid"><a href="../aigc-production-workflow/"><strong>AIGC Production Workflow</strong><span>The central question: how should tasks and budgets recover when generation is interrupted?</span></a><a href="../quant-research-backtesting/"><strong>Quant Research &amp; Backtesting</strong><span>Reconcile signals, costs, and cash movements before interpreting a backtest.</span></a><a href="../java-telemarketing-architecture/"><strong>Outbound Calling Platform Modernization</strong><span>Service boundaries had to improve alongside lock contention, timeouts, and out-of-memory failures.</span></a></div><a href="../">View all projects ↗</a></nav>
+    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">Explore more projects</h2><div class="seo-related-grid"><a href="../marketing-messaging-platform/"><strong>Enterprise Customer Messaging Platform</strong><span>Kafka accepts the requests, a rule chain validates them, and channel strategies handle dispatch.</span></a><a href="../java-telemarketing-architecture/"><strong>Outbound Calling Platform Modernization</strong><span>The monolith needed service decomposition alongside fixes for lock contention, timeouts, and out-of-memory failures.</span></a><a href="../ai-customer-service-rag/"><strong>AI Customer Support &amp; Knowledge Retrieval</strong><span>I contributed to support-message processing and routing, including context, retries, and task state.</span></a></div><a href="../">View all projects ↗</a></nav>
     <section class="seo-contact" aria-labelledby="contact-title">
       <h2 id="contact-title">Let’s talk about what you’re building.</h2>
       <p>Share your goals, current systems, and delivery scope. We can work through the key technical questions and a practical path forward.</p>

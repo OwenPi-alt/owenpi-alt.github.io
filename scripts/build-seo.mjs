@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
 const jsonLd = value => JSON.stringify(value, null, 2).replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
-const cssVersions = new Map(['styles.css', 'seo-pages.css', 'bilingual.css'].map(file => {
+const cssVersions = new Map(['styles.css', 'seo-pages.css', 'bilingual.css', 'workbench.css'].map(file => {
   const asset = path.join(root, file);
   return [file, fs.existsSync(asset) ? `?v=${createHash('sha256').update(fs.readFileSync(asset)).digest('hex').slice(0, 12)}` : ''];
 }));
@@ -57,7 +57,8 @@ requireAssetPath(config.ogImage, 'ogImage');
 if (!caseStudies || typeof caseStudies !== 'object' || Array.isArray(caseStudies)) throw new Error(`${dataFile} must define window.PORTFOLIO_CASE_STUDIES`);
 if (!config.cases || typeof config.cases !== 'object' || Array.isArray(config.cases)) throw new Error(`${configFile} must define cases`);
 
-const keys = Object.keys(caseStudies);
+const caseOrder = ['commerce', 'messaging', 'telemarketing', 'customer-ai', 'dify', 'aigc', 'quant'];
+const keys = Object.keys(caseStudies).sort((a, b) => caseOrder.indexOf(a) - caseOrder.indexOf(b));
 if (keys.length !== 7) throw new Error(`Expected 7 source cases; found ${keys.length}`);
 if (Object.keys(config.cases).length !== keys.length || keys.some(key => !Object.hasOwn(config.cases, key))) {
   throw new Error(`${configFile} cases must match ${dataFile} exactly`);
@@ -152,6 +153,7 @@ function head({ title, description, route, prefix, type, schema, shareImage = im
   <link rel="stylesheet" href="${prefix}styles.css${cssVersions.get('styles.css')}">
   <link rel="stylesheet" href="${prefix}seo-pages.css${cssVersions.get('seo-pages.css')}">
   <link rel="stylesheet" href="${prefix}bilingual.css${cssVersions.get('bilingual.css')}">
+  <link rel="stylesheet" href="${prefix}workbench.css${cssVersions.get('workbench.css')}">
   <script src="${prefix}language-preference.js${languageScriptVersion}" defer></script>
   <script type="application/ld+json">${jsonLd({ '@context': 'https://schema.org', '@graph': schema })}</script>
 </head>`;
@@ -215,10 +217,10 @@ function renderCase(entry) {
       <section class="seo-section" aria-labelledby="decisions-title">
         <h2 id="decisions-title">${label('架构取舍与实现', 'Design decisions and implementation')}</h2>
         <div class="seo-decision-grid">${data.decisions.map((decision, decisionIndex) => `
-          <article class="seo-decision"><span>${String(decisionIndex + 1).padStart(2, '0')}</span><h3>${escapeHtml(decision.title)}</h3><p><strong>${label('难点', 'Challenge')}</strong>${escapeHtml(decision.problem)}</p><p><strong>${label('方案', 'Approach')}</strong>${escapeHtml(decision.choice)}</p><p><strong>${label('价值', 'Value')}</strong>${escapeHtml(decision.benefit)}</p></article>`).join('')}
+          <article class="seo-decision"><span>${String(decisionIndex + 1).padStart(2, '0')}</span><h3>${escapeHtml(decision.title)}</h3><p><strong>${label('难点', 'Challenge')}</strong>${escapeHtml(decision.problem)}</p><p><strong>${label('方案', 'Approach')}</strong>${escapeHtml(decision.choice)}</p><p><strong>${label('考虑', 'Reasoning')}</strong>${escapeHtml(decision.benefit)}</p></article>`).join('')}
         </div>
       </section>
-      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">${label('工程价值', 'Engineering value')}</h2><p>${escapeHtml(data.outcome)}</p></section>
+      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">${label('这套设计解决了什么', 'What the design addresses')}</h2><p>${escapeHtml(data.outcome)}</p></section>
       <section class="seo-section" aria-labelledby="checks-title"><h2 id="checks-title">${label('验证关注点', 'Validation focus')}</h2><ul class="seo-checklist">${data.checks.map(check => `<li>${escapeHtml(check)}</li>`).join('')}</ul></section>
       <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">${escapeHtml(data.responsibilityLabel || label('我的职责', 'My contribution'))}</h2><p>${escapeHtml(data.responsibility)}</p></section>
       ${data.stage ? `<section class="seo-section seo-stage" aria-labelledby="stage-title"><h2 id="stage-title">${label('当前阶段', 'Current stage')}</h2><p>${escapeHtml(data.stage)}</p></section>` : ''}
@@ -245,7 +247,7 @@ function renderHub() {
   ${siteHeader(homeHref, route)}
   <main id="main" class="seo-main">
     <nav class="seo-breadcrumbs" aria-label="${label('面包屑导航', 'Breadcrumbs')}"><a href="${homeHref}">${label('首页', 'Home')}</a><span aria-hidden="true">/</span><span aria-current="page">${label('项目案例', 'Projects')}</span></nav>
-    <header class="seo-lede"><p class="seo-kicker">PROJECTS / ENGINEERING IN DETAIL</p><h1>${label('项目案例与工程原型', 'Projects and engineering prototypes')}</h1><p class="seo-thesis">${label('从业务问题，到架构取舍与实现。', 'From business problems to design decisions and implementation.')}</p><p class="seo-meta">${label('业务案例保留实际职责；研发原型标注当前阶段。图示为技术思路简化表达。', 'Business case studies describe my actual contributions; research prototypes state their current stage. Diagrams simplify the technical approach.')}</p></header>
+    <header class="seo-lede"><p class="seo-kicker">PROJECTS / ENGINEERING IN DETAIL</p><h1>${label('项目案例与工程原型', 'Projects and engineering prototypes')}</h1><p class="seo-thesis">${label('从业务问题，到架构取舍与实现。', 'From business problems to design decisions and implementation.')}</p><p class="seo-meta">${label('这里收录工作项目和两个个人原型，分别说明我的工作与当前进展。图示经过简化。', 'Work projects and two personal prototypes, with my role and the current stage noted for each. Diagrams are simplified.')}</p></header>
     <section class="seo-section" aria-labelledby="cases-title"><h2 id="cases-title">${label('七个案例，展开看工程细节。', 'Seven case studies, with the engineering details.')}</h2><div class="seo-hub-grid">${cases.map(entry => `
       <article class="seo-hub-card"><p class="seo-kicker">CASE ${String(entry.index + 1).padStart(2, '0')}</p><h2><a href="./${escapeHtml(entry.seo.slug)}/">${escapeHtml(entry.data.title)}</a></h2><p class="seo-meta">${escapeHtml(entry.data.meta)}</p><p>${escapeHtml(entry.data.thesis)}</p><p>${escapeHtml(entry.seo.description)}</p>${entry.data.stage ? `<p class="seo-stage">${escapeHtml(entry.data.stage)}</p>` : ''}${tags(entry.data.tags)}<a href="./${escapeHtml(entry.seo.slug)}/">${label('阅读完整案例 ↗', 'Read the full case study ↗')}</a></article>`).join('')}
     </div></section>

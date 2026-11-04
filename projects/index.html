@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="../styles.css?v=9fdc5794d01e">
   <link rel="stylesheet" href="../seo-pages.css?v=73f137b2ef8d">
   <link rel="stylesheet" href="../bilingual.css?v=280c2246b661">
+  <link rel="stylesheet" href="../workbench.css?v=3039f7da7660">
   <script src="../language-preference.js?v=357a76922256" defer></script>
   <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -77,38 +78,38 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "AIGC 内容生产工作流",
-          "url": "https://owenpi-alt.github.io/projects/aigc-production-workflow/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "量化策略研究与回测框架",
-          "url": "https://owenpi-alt.github.io/projects/quant-research-backtesting/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 4,
-          "name": "电销系统架构改造",
-          "url": "https://owenpi-alt.github.io/projects/java-telemarketing-architecture/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 5,
-          "name": "AI 客服与知识检索平台",
-          "url": "https://owenpi-alt.github.io/projects/ai-customer-service-rag/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 6,
           "name": "集团营销触达平台",
           "url": "https://owenpi-alt.github.io/projects/marketing-messaging-platform/"
         },
         {
           "@type": "ListItem",
-          "position": 7,
+          "position": 3,
+          "name": "电销系统架构改造",
+          "url": "https://owenpi-alt.github.io/projects/java-telemarketing-architecture/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "AI 客服与知识检索平台",
+          "url": "https://owenpi-alt.github.io/projects/ai-customer-service-rag/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
           "name": "Dify 运营自助答疑",
           "url": "https://owenpi-alt.github.io/projects/dify-operations-assistant/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "AIGC 内容生产工作流",
+          "url": "https://owenpi-alt.github.io/projects/aigc-production-workflow/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "量化策略研究与回测框架",
+          "url": "https://owenpi-alt.github.io/projects/quant-research-backtesting/"
         }
       ]
     },
@@ -141,15 +142,15 @@
   </header>
   <main id="main" class="seo-main">
     <nav class="seo-breadcrumbs" aria-label="面包屑导航"><a href="../zh/">首页</a><span aria-hidden="true">/</span><span aria-current="page">项目案例</span></nav>
-    <header class="seo-lede"><p class="seo-kicker">PROJECTS / ENGINEERING IN DETAIL</p><h1>项目案例与工程原型</h1><p class="seo-thesis">从业务问题，到架构取舍与实现。</p><p class="seo-meta">业务案例保留实际职责；研发原型标注当前阶段。图示为技术思路简化表达。</p></header>
+    <header class="seo-lede"><p class="seo-kicker">PROJECTS / ENGINEERING IN DETAIL</p><h1>项目案例与工程原型</h1><p class="seo-thesis">从业务问题，到架构取舍与实现。</p><p class="seo-meta">这里收录工作项目和两个个人原型，分别说明我的工作与当前进展。图示经过简化。</p></header>
     <section class="seo-section" aria-labelledby="cases-title"><h2 id="cases-title">七个案例，展开看工程细节。</h2><div class="seo-hub-grid">
-      <article class="seo-hub-card"><p class="seo-kicker">CASE 01</p><h2><a href="./restaurant-order-payment/">餐饮订单与支付系统</a></h2><p class="seo-meta">百味云 · 资深软件工程师 / 技术组长 · 2016.10 — 2018.04</p><p>通知发出去了，门店有没有收到，还得分开看。</p><p>王子棋在百味云的餐饮业务系统案例：订单与支付模块职责、RabbitMQ 通知、Netty 长连接和 Push 回执补偿，展开架构取舍、个人职责与验收关注点。</p><ul class="seo-tags" aria-label="技术与主题"><li>业务架构</li><li>订单 / 支付</li><li>RabbitMQ</li><li>Netty</li><li>Redis</li><li>极光 Push</li></ul><a href="./restaurant-order-payment/">阅读完整案例 ↗</a></article>
-      <article class="seo-hub-card"><p class="seo-kicker">CASE 02</p><h2><a href="./aigc-production-workflow/">AIGC 内容生产工作流</a></h2><p class="seo-meta">个人研发 · AI 协作 · 离线工程原型</p><p>这个原型主要在验证：生成中断以后，任务和预算怎样接着处理。</p><p>AIGC 离线工程原型案例：用 Python、SQLite WAL 和 FFmpeg 组织镜头任务、预算预占、失败恢复及审核版本绑定，展示 AI 协作研发的实现范围与后续集成阶段。</p><p class="seo-stage">已完成离线流程与模拟供应商验证；真实模型接入与生成质量评估属于后续集成阶段。</p><ul class="seo-tags" aria-label="技术与主题"><li>Python</li><li>SQLite WAL</li><li>FFmpeg / ffprobe</li><li>状态机</li><li>预算预占</li><li>任务恢复</li></ul><a href="./aigc-production-workflow/">阅读完整案例 ↗</a></article>
-      <article class="seo-hub-card"><p class="seo-kicker">CASE 03</p><h2><a href="./quant-research-backtesting/">量化策略研究与回测框架</a></h2><p class="seo-meta">个人研究 · AI 协作 · Quant Research Engineering</p><p>先把信号、费用和资金变化对上，再看回测结果。</p><p>量化研究原型案例：LEAN / C# 信号计算、Python 独立资金账本、成本与风险约束、逐笔核对和可复现报告。当前为模拟回测研究，展示软件工程设计与验证思路。</p><p class="seo-stage">当前为研究与模拟回测阶段，尚未接入券商账户或实盘下单。</p><ul class="seo-tags" aria-label="技术与主题"><li>C# / LEAN</li><li>Python</li><li>独立资金账本</li><li>成本模型</li><li>风险规则</li><li>可复现研究</li></ul><a href="./quant-research-backtesting/">阅读完整案例 ↗</a></article>
-      <article class="seo-hub-card"><p class="seo-kicker">CASE 04</p><h2><a href="./java-telemarketing-architecture/">电销系统架构改造</a></h2><p class="seo-meta">奇富科技 · 开发 Leader · 2018.04 — 2026.03</p><p>当时既要拆分服务，也要处理锁竞争、超时和 OOM。</p><p>王子棋在奇富科技的 Java 电销系统改造案例：微服务拆分、任务与配置管理、并发查询边界、JVM 和 SQL 优化，以及开发 Leader 的核心职责。</p><ul class="seo-tags" aria-label="技术与主题"><li>Java / Dubbo</li><li>微服务</li><li>CompletableFuture</li><li>JVM</li><li>MySQL / Redis</li><li>XXL-JOB / Apollo</li></ul><a href="./java-telemarketing-architecture/">阅读完整案例 ↗</a></article>
-      <article class="seo-hub-card"><p class="seo-kicker">CASE 05</p><h2><a href="./ai-customer-service-rag/">AI 客服与知识检索平台</a></h2><p class="seo-meta">奇富科技 · 参与咨询消息与路由模块开发</p><p>我参与咨询消息与路由开发，把上下文和检索结果接起来。</p><p>AI 客服与知识检索平台案例：咨询消息处理、上下文路由、LangChain4j、百炼知识库、引用与 Prompt 记录。说明参与模块、架构取舍及失败场景的验收关注点。</p><ul class="seo-tags" aria-label="技术与主题"><li>Java 17</li><li>Spring Boot 3</li><li>LangChain4j</li><li>RabbitMQ</li><li>PostgreSQL</li><li>RAG / 百炼</li></ul><a href="./ai-customer-service-rag/">阅读完整案例 ↗</a></article>
-      <article class="seo-hub-card"><p class="seo-kicker">CASE 06</p><h2><a href="./marketing-messaging-platform/">集团营销触达平台</a></h2><p class="seo-meta">奇富科技 · 架构与核心开发 · 2020.05 — 2024.07</p><p>这套平台里，我主要处理异步请求、业务规则和渠道接入。</p><p>集团营销触达平台案例：Kafka 异步处理、责任链规则组合、短信与 Push 等渠道接入，展开流量边界、规则职责、渠道策略和核心开发工作。</p><ul class="seo-tags" aria-label="技术与主题"><li>Java</li><li>Kafka</li><li>责任链</li><li>渠道策略</li><li>异步处理</li><li>多供应商接入</li></ul><a href="./marketing-messaging-platform/">阅读完整案例 ↗</a></article>
-      <article class="seo-hub-card"><p class="seo-kicker">CASE 07</p><h2><a href="./dify-operations-assistant/">Dify 运营自助答疑</a></h2><p class="seo-meta">奇富科技 · 参与项目建设 · 2025.05 — 2026.03</p><p>运营常问的数据和状态，尝试让机器人直接查出来。</p><p>Dify 运营自助查询案例：通过意图识别、参数抽取、内部接口调用和 360Teams 入口连接运营工作，说明参与范围、工作流设计及上线前验收重点。</p><ul class="seo-tags" aria-label="技术与主题"><li>Dify</li><li>意图识别</li><li>参数抽取</li><li>业务 API</li><li>工作流编排</li><li>360Teams</li></ul><a href="./dify-operations-assistant/">阅读完整案例 ↗</a></article>
+      <article class="seo-hub-card"><p class="seo-kicker">CASE 01</p><h2><a href="./restaurant-order-payment/">餐饮订单与支付系统</a></h2><p class="seo-meta">百味云 · 资深软件工程师 / 技术组长 · 2016.10 — 2018.04</p><p>订单已经处理，门店是否收到通知，要靠应用回执确认。</p><p>百味云餐饮系统案例：负责云小二、云掌柜架构与核心开发。介绍订单和支付处理，以及 RabbitMQ、Netty、极光 Push、应用回执和 Redis 重复通知控制。</p><ul class="seo-tags" aria-label="技术与主题"><li>业务架构</li><li>订单 / 支付</li><li>RabbitMQ</li><li>Netty</li><li>Redis</li><li>极光 Push</li></ul><a href="./restaurant-order-payment/">阅读完整案例 ↗</a></article>
+      <article class="seo-hub-card"><p class="seo-kicker">CASE 02</p><h2><a href="./marketing-messaging-platform/">集团营销触达平台</a></h2><p class="seo-meta">奇富科技 · 架构与核心开发 · 2020.05 — 2024.07</p><p>用 Kafka 承接请求，用规则链组织校验，再按渠道分发。</p><p>负责集团营销触达平台架构与核心开发：Kafka 缓冲请求，责任链组合校验规则，按渠道分发，并依据运营商、权重和配额选择短信供应商。</p><ul class="seo-tags" aria-label="技术与主题"><li>Java</li><li>Kafka</li><li>责任链</li><li>渠道策略</li><li>异步处理</li><li>多供应商接入</li></ul><a href="./marketing-messaging-platform/">阅读完整案例 ↗</a></article>
+      <article class="seo-hub-card"><p class="seo-kicker">CASE 03</p><h2><a href="./java-telemarketing-architecture/">电销系统架构改造</a></h2><p class="seo-meta">奇富科技 · 开发 Leader · 2018.04 — 2026.03</p><p>在拆分单体的同时，处理锁竞争、超时和 OOM。</p><p>奇富科技 Java 电销系统改造：主导微服务拆分，处理并行查询、JVM、SQL、缓存和冷热数据问题，介绍任务配置管理及开发 Leader 的具体职责。</p><ul class="seo-tags" aria-label="技术与主题"><li>Java / Dubbo</li><li>微服务</li><li>CompletableFuture</li><li>JVM</li><li>MySQL / Redis</li><li>XXL-JOB / Apollo</li></ul><a href="./java-telemarketing-architecture/">阅读完整案例 ↗</a></article>
+      <article class="seo-hub-card"><p class="seo-kicker">CASE 04</p><h2><a href="./ai-customer-service-rag/">AI 客服与知识检索平台</a></h2><p class="seo-meta">奇富科技 · 参与咨询消息与路由模块开发</p><p>参与咨询消息与路由开发，处理上下文、重试和任务状态。</p><p>参与奇富科技 AI 客服的咨询消息与路由模块开发：RabbitMQ 任务状态、工单上下文、失败重试和超时处理。介绍所在平台的知识检索与引用记录。</p><ul class="seo-tags" aria-label="技术与主题"><li>Java 17</li><li>Spring Boot 3</li><li>LangChain4j</li><li>RabbitMQ</li><li>PostgreSQL</li><li>RAG / 百炼</li></ul><a href="./ai-customer-service-rag/">阅读完整案例 ↗</a></article>
+      <article class="seo-hub-card"><p class="seo-kicker">CASE 05</p><h2><a href="./dify-operations-assistant/">Dify 运营自助答疑</a></h2><p class="seo-meta">奇富科技 · 参与项目建设 · 2025.05 — 2026.03</p><p>把运营日常查询接入 360Teams：理解问题，再调用内部接口。</p><p>参与 Dify 运营自助答疑项目，通过意图识别、参数抽取和内部接口调用处理查询，由 360Teams 机器人返回数据、状态与规则信息。</p><ul class="seo-tags" aria-label="技术与主题"><li>Dify</li><li>意图识别</li><li>参数抽取</li><li>业务 API</li><li>工作流编排</li><li>360Teams</li></ul><a href="./dify-operations-assistant/">阅读完整案例 ↗</a></article>
+      <article class="seo-hub-card"><p class="seo-kicker">CASE 06</p><h2><a href="./aigc-production-workflow/">AIGC 内容生产工作流</a></h2><p class="seo-meta">个人研发 · AI 协作 · 离线工程原型</p><p>生成请求超时后，怎样恢复任务，又不重复占用预算？</p><p>与 AI 协作完成的个人离线原型，用 Python、SQLite WAL 和 FFmpeg 检查任务恢复、模拟预算与媒体审核。已验证 mock provider，尚未验证真实供应商或用于商业交付。</p><p class="seo-stage">已完成离线流程和模拟供应商（mock provider）验证；尚未调用真实供应商评估生成质量，未用于商业交付。</p><ul class="seo-tags" aria-label="技术与主题"><li>Python</li><li>SQLite WAL</li><li>FFmpeg / ffprobe</li><li>状态机</li><li>预算预占</li><li>任务恢复</li></ul><a href="./aigc-production-workflow/">阅读完整案例 ↗</a></article>
+      <article class="seo-hub-card"><p class="seo-kicker">CASE 07</p><h2><a href="./quant-research-backtesting/">量化策略研究与回测框架</a></h2><p class="seo-meta">个人研究 · AI 协作 · 模拟回测原型</p><p>先把信号、费用和资金变化对上，再看回测结果。</p><p>与 AI 协作完成的个人量化研究原型：LEAN / C# 信号、Python 独立账本、费用与风险规则的逐笔核对。仅用于模拟回测，未接入实盘，回测结果不代表未来收益。</p><p class="seo-stage">当前为研究与模拟回测阶段，未接入券商账户或实盘下单；回测结果不代表未来收益。</p><ul class="seo-tags" aria-label="技术与主题"><li>C# / LEAN</li><li>Python</li><li>独立资金账本</li><li>成本模型</li><li>风险规则</li><li>可复现研究</li></ul><a href="./quant-research-backtesting/">阅读完整案例 ↗</a></article>
     </div></section>
     <section class="seo-contact" aria-labelledby="contact-title">
       <h2 id="contact-title">聊聊你的技术需求。</h2>

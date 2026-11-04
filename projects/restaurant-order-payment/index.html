@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0c0e11">
   <title>餐饮订单与支付系统：业务架构、消息通知与补偿｜王子棋</title>
-  <meta name="description" content="王子棋在百味云的餐饮业务系统案例：订单与支付模块职责、RabbitMQ 通知、Netty 长连接和 Push 回执补偿，展开架构取舍、个人职责与验收关注点。">
+  <meta name="description" content="百味云餐饮系统案例：负责云小二、云掌柜架构与核心开发。介绍订单和支付处理，以及 RabbitMQ、Netty、极光 Push、应用回执和 Redis 重复通知控制。">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://owenpi-alt.github.io/projects/restaurant-order-payment/">
   <link rel="alternate" hreflang="zh-CN" href="https://owenpi-alt.github.io/projects/restaurant-order-payment/">
@@ -15,7 +15,7 @@
   <meta property="og:site_name" content="王子棋的技术作品集">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:title" content="餐饮订单与支付系统：业务架构、消息通知与补偿｜王子棋">
-  <meta property="og:description" content="王子棋在百味云的餐饮业务系统案例：订单与支付模块职责、RabbitMQ 通知、Netty 长连接和 Push 回执补偿，展开架构取舍、个人职责与验收关注点。">
+  <meta property="og:description" content="百味云餐饮系统案例：负责云小二、云掌柜架构与核心开发。介绍订单和支付处理，以及 RabbitMQ、Netty、极光 Push、应用回执和 Redis 重复通知控制。">
   <meta property="og:url" content="https://owenpi-alt.github.io/projects/restaurant-order-payment/">
   <meta property="og:image" content="https://owenpi-alt.github.io/assets/og-commerce.png">
   <meta property="og:image:width" content="1200">
@@ -23,13 +23,14 @@
   <meta property="og:image:alt" content="餐饮订单与支付系统">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="餐饮订单与支付系统：业务架构、消息通知与补偿｜王子棋">
-  <meta name="twitter:description" content="王子棋在百味云的餐饮业务系统案例：订单与支付模块职责、RabbitMQ 通知、Netty 长连接和 Push 回执补偿，展开架构取舍、个人职责与验收关注点。">
+  <meta name="twitter:description" content="百味云餐饮系统案例：负责云小二、云掌柜架构与核心开发。介绍订单和支付处理，以及 RabbitMQ、Netty、极光 Push、应用回执和 Redis 重复通知控制。">
   <meta name="twitter:image" content="https://owenpi-alt.github.io/assets/og-commerce.png">
   <meta name="twitter:image:alt" content="餐饮订单与支付系统">
   <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
   <link rel="stylesheet" href="../../styles.css?v=9fdc5794d01e">
   <link rel="stylesheet" href="../../seo-pages.css?v=73f137b2ef8d">
   <link rel="stylesheet" href="../../bilingual.css?v=280c2246b661">
+  <link rel="stylesheet" href="../../workbench.css?v=3039f7da7660">
   <script src="../../language-preference.js?v=357a76922256" defer></script>
   <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -38,7 +39,7 @@
       "@type": "Article",
       "@id": "https://owenpi-alt.github.io/projects/restaurant-order-payment/#article",
       "headline": "餐饮订单与支付系统",
-      "description": "王子棋在百味云的餐饮业务系统案例：订单与支付模块职责、RabbitMQ 通知、Netty 长连接和 Push 回执补偿，展开架构取舍、个人职责与验收关注点。",
+      "description": "百味云餐饮系统案例：负责云小二、云掌柜架构与核心开发。介绍订单和支付处理，以及 RabbitMQ、Netty、极光 Push、应用回执和 Redis 重复通知控制。",
       "inLanguage": "zh-CN",
       "image": {
         "@type": "ImageObject",
@@ -103,10 +104,10 @@
       <header class="seo-lede">
         <p class="seo-kicker">CASE 01 / ENGINEERING IN DETAIL</p>
         <h1>餐饮订单与支付系统</h1>
-        <p class="seo-thesis">通知发出去了，门店有没有收到，还得分开看。</p>
+        <p class="seo-thesis">订单已经处理，门店是否收到通知，要靠应用回执确认。</p>
         <p class="seo-meta">百味云 · 资深软件工程师 / 技术组长 · 2016.10 — 2018.04</p>
       </header>
-      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">问题与约束</h2><p>云小二、云掌柜连接餐饮经营中的订单、支付与消息通知。一个操作背后涉及业务处理、渠道接入和终端反馈，任何一段出现异常，都可能让业务人员难以判断下一步。设计重点是理清模块职责，并为跨环节协作保留明确的处理边界。</p></section>
+      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">问题与约束</h2><p>云小二、云掌柜涉及餐饮订单、支付和门店通知。订单处理完成后，还要通知门店打印和服务员接单；终端断连或回执缺失时，服务端需要判断是否重推。我负责架构搭建与核心开发，这里重点说明订单、支付和通知的处理方式。</p></section>
       <section class="seo-section" aria-labelledby="flow-title">
         <h2 id="flow-title">核心链路简化示意</h2>
         <p>以下图示为技术思路的简化表达。</p>
@@ -115,18 +116,18 @@
       <section class="seo-section" aria-labelledby="decisions-title">
         <h2 id="decisions-title">架构取舍与实现</h2>
         <div class="seo-decision-grid">
-          <article class="seo-decision"><span>01</span><h3>以业务职责组织模块</h3><p><strong>难点</strong>订单、支付与风控彼此关联，混在一起会放大修改和联调的影响。</p><p><strong>方案</strong>以订单模块组织核心业务，承担支付网关开发，并与风控模块协作，分别处理业务流程与外部渠道接入。</p><p><strong>价值</strong>让需求变更能够落到具体职责，便于定位影响范围、协调开发和安排验收。</p></article>
-          <article class="seo-decision"><span>02</span><h3>把通知链路作为独立问题处理</h3><p><strong>难点</strong>订单处理完成，并不等于门店或服务员已经收到通知。</p><p><strong>方案</strong>系统通过 RabbitMQ 消费新订单通知，采用 Netty 长连接优先、极光 Push 兜底，串联门店打印与服务员推送。</p><p><strong>价值</strong>将业务处理与终端触达分层考虑，既能发挥长连接的即时性，也保留另一条通知路径。</p></article>
-          <article class="seo-decision"><span>03</span><h3>围绕回执做有限补偿</h3><p><strong>难点</strong>网络变化和终端状态会造成未确认通知，多节点重推又可能带来重复。</p><p><strong>方案</strong>通知链路结合应用回执对未确认订单有限重推，并利用 Redis 计数限制多个节点重复发起极光通知。</p><p><strong>价值</strong>把补偿范围和重复控制落到具体机制，同时保留服务端处理与终端实际完成之间的区别。</p></article>
+          <article class="seo-decision"><span>01</span><h3>订单流程与支付接入分开处理</h3><p><strong>难点</strong>订单、支付与风控彼此关联，混在一起会放大修改和联调的影响。</p><p><strong>方案</strong>以订单模块组织核心业务，承担支付网关开发，并与风控模块协作，分别处理业务流程与外部渠道接入。</p><p><strong>考虑</strong>订单流程调整和支付渠道接入有各自的修改位置，联调时也能分别检查业务状态与渠道返回。</p></article>
+          <article class="seo-decision"><span>02</span><h3>长连接优先，Push 作为备用通道</h3><p><strong>难点</strong>订单处理完成，并不等于门店或服务员已经收到通知。</p><p><strong>方案</strong>系统通过 RabbitMQ 消费新订单通知，采用 Netty 长连接优先、极光 Push 兜底，串联门店打印与服务员推送。</p><p><strong>考虑</strong>长连接承担即时通知，Push 提供备用路径；两条通道仍需配合回执判断通知结果。</p></article>
+          <article class="seo-decision"><span>03</span><h3>按回执重推，并限制重复通知</h3><p><strong>难点</strong>网络变化和终端状态会造成未确认通知，多节点重推又可能带来重复。</p><p><strong>方案</strong>通知链路结合应用回执对未确认订单有限重推，并利用 Redis 计数限制多个节点重复发起极光通知。</p><p><strong>考虑</strong>缺少回执时可以有限重推，Redis 计数用于限制跨节点的重复 Push；通知发出仍不能当作打印完成。</p></article>
         </div>
       </section>
-      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">工程价值</h2><p>把订单、支付与通知各自的复杂度放在明确边界内，为持续迭代和异常定位提供结构基础。</p></section>
+      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">这套设计解决了什么</h2><p>订单通知采用长连接优先、Push 兜底的方式，并结合应用回执和 Redis 计数处理未确认通知。</p></section>
       <section class="seo-section" aria-labelledby="checks-title"><h2 id="checks-title">验证关注点</h2><ul class="seo-checklist"><li>订单处理成功与终端收到通知，是否有清晰的状态区分？</li><li>终端断连或回执缺失时，补偿次数和停止条件是否明确？</li><li>多个节点同时处理通知时，重复推送是否得到控制？</li></ul></section>
       <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">我的职责</h2><p>负责云小二、云掌柜的架构搭建与核心开发，主导订单模块，承担支付网关开发并参与风控模块。</p></section>
 
       <section class="seo-section" aria-labelledby="tags-title"><h2 id="tags-title">技术与主题</h2><ul class="seo-tags" aria-label="技术与主题"><li>业务架构</li><li>订单 / 支付</li><li>RabbitMQ</li><li>Netty</li><li>Redis</li><li>极光 Push</li></ul></section>
     </article>
-    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">继续看其他案例</h2><div class="seo-related-grid"><a href="../aigc-production-workflow/"><strong>AIGC 内容生产工作流</strong><span>这个原型主要在验证：生成中断以后，任务和预算怎样接着处理。</span></a><a href="../quant-research-backtesting/"><strong>量化策略研究与回测框架</strong><span>先把信号、费用和资金变化对上，再看回测结果。</span></a><a href="../java-telemarketing-architecture/"><strong>电销系统架构改造</strong><span>当时既要拆分服务，也要处理锁竞争、超时和 OOM。</span></a></div><a href="../">查看全部项目案例 ↗</a></nav>
+    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">继续看其他案例</h2><div class="seo-related-grid"><a href="../marketing-messaging-platform/"><strong>集团营销触达平台</strong><span>用 Kafka 承接请求，用规则链组织校验，再按渠道分发。</span></a><a href="../java-telemarketing-architecture/"><strong>电销系统架构改造</strong><span>在拆分单体的同时，处理锁竞争、超时和 OOM。</span></a><a href="../ai-customer-service-rag/"><strong>AI 客服与知识检索平台</strong><span>参与咨询消息与路由开发，处理上下文、重试和任务状态。</span></a></div><a href="../">查看全部项目案例 ↗</a></nav>
     <section class="seo-contact" aria-labelledby="contact-title">
       <h2 id="contact-title">聊聊你的技术需求。</h2>
       <p>把业务目标、现有系统和交付范围发给我，一起梳理关键问题与实现路径。</p>

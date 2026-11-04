@@ -5,33 +5,18 @@
   const ui = isEnglish ? {
     openMenu: 'Open menu', closeMenu: 'Close menu', focus: 'Key decisions',
     context: 'The problem and constraints', flow: 'Architecture overview (simplified)',
-    decisions: 'Design decisions and implementation', problem: 'Problem', choice: 'Approach', benefit: 'Why it matters',
-    outcome: 'Engineering value', checks: 'Questions to validate', role: 'My role', stage: 'Current stage',
+    decisions: 'Design decisions and implementation', problem: 'Problem', choice: 'Approach', benefit: 'Reasoning',
+    outcome: 'What the design addresses', checks: 'Questions to validate', role: 'My role', stage: 'Current stage',
     enquiry: 'Project enquiry: ', emailCopied: 'Email copied. Feel free to send a short project brief.',
     emailFallback: 'Copy this email: ', linkCopied: 'Portfolio link copied.', linkFallback: 'Copy this link: '
   } : {
     openMenu: '打开导航', closeMenu: '关闭导航', focus: '本案技术重点',
     context: '问题与约束', flow: '核心链路简化示意', decisions: '架构取舍与实现',
-    problem: '难点', choice: '方案', benefit: '价值', outcome: '这套设计的价值',
+    problem: '难点', choice: '方案', benefit: '考虑', outcome: '这套设计解决了什么',
     checks: '验收时，我会看什么', role: '我的职责', stage: '当前阶段', enquiry: '项目合作咨询：',
     emailCopied: '邮箱已复制，欢迎发送项目需求。', emailFallback: '请复制邮箱：',
     linkCopied: '主页链接已复制，可以分享了。', linkFallback: '请复制这个地址：'
   };
-
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const revealElements = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window && !reducedMotion.matches) {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08 });
-    revealElements.forEach(element => observer.observe(element));
-    document.documentElement.classList.add('motion-ready');
-  }
 
   const menuButton = document.querySelector('.menu-toggle');
   const mobileNav = document.querySelector('#mobile-nav');
@@ -57,36 +42,49 @@
     if (event.matches) setMenu(false);
   });
 
-  const graphModes = {
-    backend: { core: 'Java', caption: 'THE CORE', nodes: ['Spring Boot', 'Microservices', 'Kafka', 'Redis', 'Docker', 'MySQL'], description: '以 Java 为核心，连接服务、数据与交付。' },
-    fullstack: { core: 'Web', caption: 'END TO END', nodes: ['Vue', 'Java API', '业务流程', 'MySQL', 'Docker', 'Python'], description: '从交互页面、业务接口，到数据和部署，贯通产品交付。' },
-    ai: { core: 'AI', caption: 'INTO BUSINESS', nodes: ['LangChain4j', 'RAG', '任务编排', '百炼知识库', 'Dify', 'FFmpeg'], description: '连接知识、模型与内容工作流，关注过程可控与结果可追踪。' },
-    quant: { core: 'Quant', caption: 'RESEARCH SYSTEM', nodes: ['LEAN / C#', '策略信号', 'Python', '风险规则', '成本账本', '研究报告'], description: '策略、账本与验证分层，让研究结果能够解释和复现。' }
-  };
-  if (isEnglish) {
-    graphModes.backend.description = 'Java at the center, with services, data and delivery around it.';
-    graphModes.fullstack.nodes = ['Vue', 'Java API', 'Workflows', 'MySQL', 'Docker', 'Python'];
-    graphModes.fullstack.description = 'Connect the interface, business APIs, data and deployment.';
-    graphModes.ai.nodes = ['LangChain4j', 'RAG', 'Task workflows', 'Bailian KB', 'Dify', 'FFmpeg'];
-    graphModes.ai.description = 'Connect models and knowledge to workflows that can be traced and reviewed.';
-    graphModes.quant.nodes = ['LEAN / C#', 'Signals', 'Python', 'Risk rules', 'Cost ledger', 'Reports'];
-    graphModes.quant.description = 'Separate signals, accounting and validation to make research reproducible.';
-  }
-  document.querySelectorAll('[data-graph]').forEach(button => {
-    button.addEventListener('click', () => {
-      const mode = graphModes[button.dataset.graph];
-      document.querySelectorAll('[data-graph]').forEach(other => {
-        const active = other === button;
-        other.classList.toggle('active', active);
-        other.setAttribute('aria-pressed', String(active));
-      });
-      document.querySelector('#graph-stage').dataset.mode = button.dataset.graph;
-      document.querySelector('#core-label').textContent = mode.core;
-      document.querySelector('#core-caption').textContent = mode.caption;
-      document.querySelector('#graph-description').textContent = mode.description;
-      mode.nodes.forEach((text, index) => { document.querySelector(`#node-${index + 1}`).textContent = text; });
+  // Preview the same project narratives used by the case pages.
+  const previewKeys = { backend: 'messaging', fullstack: 'commerce', ai: 'aigc', quant: 'quant' };
+  const previewLinks = Object.fromEntries([...document.querySelectorAll('[data-project]')].map(link => [link.dataset.project, link.getAttribute('href')]));
+  const previewData = window.PORTFOLIO_CASE_STUDIES;
+  const previewButtons = document.querySelectorAll('[data-graph]');
+  document.querySelector('.preview-controls').hidden = !previewData;
+  const renderPreview = mode => {
+    const key = previewKeys[mode];
+    const data = previewData?.[key];
+    if (!data || !previewLinks[key]) return;
+    previewButtons.forEach(button => {
+      const active = button.dataset.graph === mode;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
     });
+    document.querySelector('#preview-title').textContent = data.title;
+    document.querySelector('#preview-meta').textContent = data.meta;
+    const flow = document.querySelector('#preview-flow');
+    flow.replaceChildren();
+    data.flow.forEach((step, index) => {
+      const item = document.createElement('li');
+      const number = document.createElement('span');
+      number.textContent = String(index + 1).padStart(2, '0');
+      number.setAttribute('aria-hidden', 'true');
+      const content = document.createElement('div');
+      const name = document.createElement('strong');
+      const detail = document.createElement('small');
+      name.textContent = step.name;
+      detail.textContent = step.detail;
+      content.append(name, detail);
+      item.append(number, content);
+      flow.append(item);
+    });
+    document.querySelector('#preview-stage').textContent = data.stage
+      ? (isEnglish ? 'Personal prototype · simplified flow' : '个人原型 · 流程简图')
+      : (isEnglish ? 'Work project · simplified flow' : '工作项目 · 流程简图');
+    document.querySelector('#preview-link').setAttribute('href', previewLinks[key]);
+  };
+  previewButtons.forEach(button => {
+    button.disabled = !previewData?.[previewKeys[button.dataset.graph]];
+    button.addEventListener('click', () => renderPreview(button.dataset.graph));
   });
+  renderPreview('backend');
 
   document.querySelectorAll('[data-filter]').forEach(button => {
     button.addEventListener('click', () => {

@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="../../styles.css?v=9fdc5794d01e">
   <link rel="stylesheet" href="../../seo-pages.css?v=73f137b2ef8d">
   <link rel="stylesheet" href="../../bilingual.css?v=280c2246b661">
+  <link rel="stylesheet" href="../../workbench.css?v=3039f7da7660">
   <script src="../../language-preference.js?v=357a76922256" defer></script>
   <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -77,38 +78,38 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "AIGC Production Workflow",
-          "url": "https://owenpi-alt.github.io/en/projects/aigc-production-workflow/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Quant Research & Backtesting",
-          "url": "https://owenpi-alt.github.io/en/projects/quant-research-backtesting/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 4,
-          "name": "Outbound Calling Platform Modernization",
-          "url": "https://owenpi-alt.github.io/en/projects/java-telemarketing-architecture/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 5,
-          "name": "AI Customer Support & Knowledge Retrieval",
-          "url": "https://owenpi-alt.github.io/en/projects/ai-customer-service-rag/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 6,
           "name": "Enterprise Customer Messaging Platform",
           "url": "https://owenpi-alt.github.io/en/projects/marketing-messaging-platform/"
         },
         {
           "@type": "ListItem",
-          "position": 7,
+          "position": 3,
+          "name": "Outbound Calling Platform Modernization",
+          "url": "https://owenpi-alt.github.io/en/projects/java-telemarketing-architecture/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "AI Customer Support & Knowledge Retrieval",
+          "url": "https://owenpi-alt.github.io/en/projects/ai-customer-service-rag/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
           "name": "Dify Self-Service Assistant for Operations",
           "url": "https://owenpi-alt.github.io/en/projects/dify-operations-assistant/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "AIGC Production Workflow",
+          "url": "https://owenpi-alt.github.io/en/projects/aigc-production-workflow/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Quant Research & Backtesting",
+          "url": "https://owenpi-alt.github.io/en/projects/quant-research-backtesting/"
         }
       ]
     },
@@ -141,15 +142,15 @@
   </header>
   <main id="main" class="seo-main">
     <nav class="seo-breadcrumbs" aria-label="Breadcrumbs"><a href="../">Home</a><span aria-hidden="true">/</span><span aria-current="page">Projects</span></nav>
-    <header class="seo-lede"><p class="seo-kicker">PROJECTS / ENGINEERING IN DETAIL</p><h1>Projects and engineering prototypes</h1><p class="seo-thesis">From business problems to design decisions and implementation.</p><p class="seo-meta">Business case studies describe my actual contributions; research prototypes state their current stage. Diagrams simplify the technical approach.</p></header>
+    <header class="seo-lede"><p class="seo-kicker">PROJECTS / ENGINEERING IN DETAIL</p><h1>Projects and engineering prototypes</h1><p class="seo-thesis">From business problems to design decisions and implementation.</p><p class="seo-meta">Work projects and two personal prototypes, with my role and the current stage noted for each. Diagrams are simplified.</p></header>
     <section class="seo-section" aria-labelledby="cases-title"><h2 id="cases-title">Seven case studies, with the engineering details.</h2><div class="seo-hub-grid">
-      <article class="seo-hub-card"><p class="seo-kicker">CASE 01</p><h2><a href="./restaurant-order-payment/">Restaurant Orders &amp; Payments</a></h2><p class="seo-meta">Baiweiyun (百味云) · Senior Software Engineer / Technical Team Lead · 2016.10 — 2018.04</p><p>An order notification needs a delivery path—and a way to know whether it arrived.</p><p>Order and payment architecture at Baiweiyun: RabbitMQ, Netty and bounded push retries. Design decisions, my role and validation questions.</p><ul class="seo-tags" aria-label="Technologies and topics"><li>Business architecture</li><li>Orders / Payments</li><li>RabbitMQ</li><li>Netty</li><li>Redis</li><li>JPush</li></ul><a href="./restaurant-order-payment/">Read the full case study ↗</a></article>
-      <article class="seo-hub-card"><p class="seo-kicker">CASE 02</p><h2><a href="./aigc-production-workflow/">AIGC Production Workflow</a></h2><p class="seo-meta">Personal R&amp;D · AI-assisted · Offline engineering prototype</p><p>The central question: how should tasks and budgets recover when generation is interrupted?</p><p>An AI-assisted offline AIGC prototype: Python tasks, SQLite budget reservations, recovery and FFmpeg checks. Scope, decisions and validation questions.</p><p class="seo-stage">Offline workflow and mock-provider validation are complete. Real model integration and generated-content quality evaluation remain future integration work; this is not a client production system.</p><ul class="seo-tags" aria-label="Technologies and topics"><li>Python</li><li>SQLite WAL</li><li>FFmpeg / ffprobe</li><li>State machines</li><li>Budget reservations</li><li>Task recovery</li></ul><a href="./aigc-production-workflow/">Read the full case study ↗</a></article>
-      <article class="seo-hub-card"><p class="seo-kicker">CASE 03</p><h2><a href="./quant-research-backtesting/">Quant Research &amp; Backtesting</a></h2><p class="seo-meta">Personal research · AI-assisted · Simulated backtesting prototype</p><p>Reconcile signals, costs, and cash movements before interpreting a backtest.</p><p>An AI-assisted research prototype: LEAN signals, a Python ledger, cost and risk checks, and reproducible simulated backtests. No live trading.</p><p class="seo-stage">Research and simulated backtesting only. The prototype is not connected to a brokerage account, does not place live orders, and is not a client production system.</p><ul class="seo-tags" aria-label="Technologies and topics"><li>C# / LEAN</li><li>Python</li><li>Independent capital ledger</li><li>Cost modeling</li><li>Risk rules</li><li>Reproducible research</li></ul><a href="./quant-research-backtesting/">Read the full case study ↗</a></article>
-      <article class="seo-hub-card"><p class="seo-kicker">CASE 04</p><h2><a href="./java-telemarketing-architecture/">Outbound Calling Platform Modernization</a></h2><p class="seo-meta">Qifu Technology (奇富科技) · Development Lead · 2018.04 — 2026.03</p><p>Service boundaries had to improve alongside lock contention, timeouts, and out-of-memory failures.</p><p>Java modernization at Qifu Technology: service boundaries, JVM and SQL tuning, concurrent queries, and my work as a development lead.</p><ul class="seo-tags" aria-label="Technologies and topics"><li>Java / Dubbo</li><li>Microservices</li><li>CompletableFuture</li><li>JVM</li><li>MySQL / Redis</li><li>XXL-JOB / Apollo</li></ul><a href="./java-telemarketing-architecture/">Read the full case study ↗</a></article>
-      <article class="seo-hub-card"><p class="seo-kicker">CASE 05</p><h2><a href="./ai-customer-service-rag/">AI Customer Support &amp; Knowledge Retrieval</a></h2><p class="seo-meta">Qifu Technology (奇富科技) · Contributor to message processing and routing</p><p>My contribution connected support messages and routing with business context and retrieved knowledge.</p><p>My contributions to AI support messaging and routing: LangChain4j, RAG, context and citations, with design decisions and failure cases to validate.</p><ul class="seo-tags" aria-label="Technologies and topics"><li>Java 17</li><li>Spring Boot 3</li><li>LangChain4j</li><li>RabbitMQ</li><li>PostgreSQL</li><li>RAG / Bailian</li></ul><a href="./ai-customer-service-rag/">Read the full case study ↗</a></article>
-      <article class="seo-hub-card"><p class="seo-kicker">CASE 06</p><h2><a href="./marketing-messaging-platform/">Enterprise Customer Messaging Platform</a></h2><p class="seo-meta">Qifu Technology (奇富科技) · Architecture &amp; core development · 2020.05 — 2024.07</p><p>My focus was the connection between asynchronous requests, business rules, and delivery channels.</p><p>A Kafka-based marketing messaging platform: composable rules, traffic limits and SMS/push integration. Architecture choices and core development work.</p><ul class="seo-tags" aria-label="Technologies and topics"><li>Java</li><li>Kafka</li><li>Chain of responsibility</li><li>Channel strategies</li><li>Asynchronous processing</li><li>Multiple providers</li></ul><a href="./marketing-messaging-platform/">Read the full case study ↗</a></article>
-      <article class="seo-hub-card"><p class="seo-kicker">CASE 07</p><h2><a href="./dify-operations-assistant/">Dify Self-Service Assistant for Operations</a></h2><p class="seo-meta">Qifu Technology (奇富科技) · Project contributor · 2025.05 — 2026.03</p><p>The aim was to let operations ask a bot for the data and status checks they routinely needed.</p><p>A Dify operations assistant connecting intent recognition, parameters and internal APIs. My contributions, workflow design and validation priorities.</p><ul class="seo-tags" aria-label="Technologies and topics"><li>Dify</li><li>Intent recognition</li><li>Parameter extraction</li><li>Business APIs</li><li>Workflow orchestration</li><li>360Teams</li></ul><a href="./dify-operations-assistant/">Read the full case study ↗</a></article>
+      <article class="seo-hub-card"><p class="seo-kicker">CASE 01</p><h2><a href="./restaurant-order-payment/">Restaurant Orders &amp; Payments</a></h2><p class="seo-meta">Baiweiyun (百味云) · Senior Software Engineer / Technical Team Lead · 2016.10 — 2018.04</p><p>An order can be processed while its notification is still waiting for a device acknowledgment.</p><p>Restaurant order and payment work at Baiweiyun, with RabbitMQ, Netty, JPush, application acknowledgments, and Redis controls for repeated notifications.</p><ul class="seo-tags" aria-label="Technologies and topics"><li>Business architecture</li><li>Orders / Payments</li><li>RabbitMQ</li><li>Netty</li><li>Redis</li><li>JPush</li></ul><a href="./restaurant-order-payment/">Read the full case study ↗</a></article>
+      <article class="seo-hub-card"><p class="seo-kicker">CASE 02</p><h2><a href="./marketing-messaging-platform/">Enterprise Customer Messaging Platform</a></h2><p class="seo-meta">Qifu Technology (奇富科技) · Architecture &amp; core development · 2020.05 — 2024.07</p><p>Kafka accepts the requests, a rule chain validates them, and channel strategies handle dispatch.</p><p>Architecture and core development of a Kafka messaging platform, with rule chains, channel dispatch, and carrier, weight, and quota-based SMS selection.</p><ul class="seo-tags" aria-label="Technologies and topics"><li>Java</li><li>Kafka</li><li>Chain of responsibility</li><li>Channel strategies</li><li>Asynchronous processing</li><li>Multiple providers</li></ul><a href="./marketing-messaging-platform/">Read the full case study ↗</a></article>
+      <article class="seo-hub-card"><p class="seo-kicker">CASE 03</p><h2><a href="./java-telemarketing-architecture/">Outbound Calling Platform Modernization</a></h2><p class="seo-meta">Qifu Technology (奇富科技) · Development Lead · 2018.04 — 2026.03</p><p>The monolith needed service decomposition alongside fixes for lock contention, timeouts, and out-of-memory failures.</p><p>Java outbound-calling modernization at Qifu: service decomposition, parallel queries, JVM and SQL work, caching, and my role as development lead.</p><ul class="seo-tags" aria-label="Technologies and topics"><li>Java / Dubbo</li><li>Microservices</li><li>CompletableFuture</li><li>JVM</li><li>MySQL / Redis</li><li>XXL-JOB / Apollo</li></ul><a href="./java-telemarketing-architecture/">Read the full case study ↗</a></article>
+      <article class="seo-hub-card"><p class="seo-kicker">CASE 04</p><h2><a href="./ai-customer-service-rag/">AI Customer Support &amp; Knowledge Retrieval</a></h2><p class="seo-meta">Qifu Technology (奇富科技) · Contributor to message processing and routing</p><p>I contributed to support-message processing and routing, including context, retries, and task state.</p><p>My contributions to support messages and routing: RabbitMQ task state, ticket context, retries, and timeout handling within an AI support platform.</p><ul class="seo-tags" aria-label="Technologies and topics"><li>Java 17</li><li>Spring Boot 3</li><li>LangChain4j</li><li>RabbitMQ</li><li>PostgreSQL</li><li>RAG / Bailian</li></ul><a href="./ai-customer-service-rag/">Read the full case study ↗</a></article>
+      <article class="seo-hub-card"><p class="seo-kicker">CASE 05</p><h2><a href="./dify-operations-assistant/">Dify Self-Service Assistant for Operations</a></h2><p class="seo-meta">Qifu Technology (奇富科技) · Project contributor · 2025.05 — 2026.03</p><p>Let operations query internal systems from 360Teams by translating questions into API calls.</p><p>A Dify project I contributed to: intent recognition, parameter extraction, and internal API queries for operations through a 360Teams bot.</p><ul class="seo-tags" aria-label="Technologies and topics"><li>Dify</li><li>Intent recognition</li><li>Parameter extraction</li><li>Business APIs</li><li>Workflow orchestration</li><li>360Teams</li></ul><a href="./dify-operations-assistant/">Read the full case study ↗</a></article>
+      <article class="seo-hub-card"><p class="seo-kicker">CASE 06</p><h2><a href="./aigc-production-workflow/">AIGC Production Workflow</a></h2><p class="seo-meta">Personal R&amp;D · AI-assisted · Offline engineering prototype</p><p>When a generation request times out, how can the task recover without reserving the same budget twice?</p><p>An AI-assisted personal offline prototype for recovery, budget accounting, and media review. Mock-provider validation only; no commercial delivery.</p><p class="seo-stage">Offline workflow and mock-provider validation are complete. Real providers and generated-content quality have not been evaluated, and the prototype has not been used for commercial delivery.</p><ul class="seo-tags" aria-label="Technologies and topics"><li>Python</li><li>SQLite WAL</li><li>FFmpeg / ffprobe</li><li>State machines</li><li>Budget reservations</li><li>Task recovery</li></ul><a href="./aigc-production-workflow/">Read the full case study ↗</a></article>
+      <article class="seo-hub-card"><p class="seo-kicker">CASE 07</p><h2><a href="./quant-research-backtesting/">Quant Research &amp; Backtesting</a></h2><p class="seo-meta">Personal research · AI-assisted · Simulated backtesting prototype</p><p>Reconcile signals, costs, and cash movements before interpreting a backtest.</p><p>An AI-assisted research prototype with LEAN signals and a Python ledger for costs and risk checks. Simulated backtests only, with no live trading.</p><p class="seo-stage">Research and simulated backtesting only, with no brokerage connection or live orders. Backtest results do not establish future returns.</p><ul class="seo-tags" aria-label="Technologies and topics"><li>C# / LEAN</li><li>Python</li><li>Independent capital ledger</li><li>Cost modeling</li><li>Risk rules</li><li>Reproducible research</li></ul><a href="./quant-research-backtesting/">Read the full case study ↗</a></article>
     </div></section>
     <section class="seo-contact" aria-labelledby="contact-title">
       <h2 id="contact-title">Let’s talk about what you’re building.</h2>

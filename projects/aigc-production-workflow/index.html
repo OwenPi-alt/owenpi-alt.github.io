@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0c0e11">
   <title>AIGC 内容生产工作流：任务恢复、预算与媒体质检｜王子棋</title>
-  <meta name="description" content="AIGC 离线工程原型案例：用 Python、SQLite WAL 和 FFmpeg 组织镜头任务、预算预占、失败恢复及审核版本绑定，展示 AI 协作研发的实现范围与后续集成阶段。">
+  <meta name="description" content="与 AI 协作完成的个人离线原型，用 Python、SQLite WAL 和 FFmpeg 检查任务恢复、模拟预算与媒体审核。已验证 mock provider，尚未验证真实供应商或用于商业交付。">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://owenpi-alt.github.io/projects/aigc-production-workflow/">
   <link rel="alternate" hreflang="zh-CN" href="https://owenpi-alt.github.io/projects/aigc-production-workflow/">
@@ -15,7 +15,7 @@
   <meta property="og:site_name" content="王子棋的技术作品集">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:title" content="AIGC 内容生产工作流：任务恢复、预算与媒体质检｜王子棋">
-  <meta property="og:description" content="AIGC 离线工程原型案例：用 Python、SQLite WAL 和 FFmpeg 组织镜头任务、预算预占、失败恢复及审核版本绑定，展示 AI 协作研发的实现范围与后续集成阶段。">
+  <meta property="og:description" content="与 AI 协作完成的个人离线原型，用 Python、SQLite WAL 和 FFmpeg 检查任务恢复、模拟预算与媒体审核。已验证 mock provider，尚未验证真实供应商或用于商业交付。">
   <meta property="og:url" content="https://owenpi-alt.github.io/projects/aigc-production-workflow/">
   <meta property="og:image" content="https://owenpi-alt.github.io/assets/og-aigc.png">
   <meta property="og:image:width" content="1200">
@@ -23,13 +23,14 @@
   <meta property="og:image:alt" content="AIGC 内容生产工作流">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AIGC 内容生产工作流：任务恢复、预算与媒体质检｜王子棋">
-  <meta name="twitter:description" content="AIGC 离线工程原型案例：用 Python、SQLite WAL 和 FFmpeg 组织镜头任务、预算预占、失败恢复及审核版本绑定，展示 AI 协作研发的实现范围与后续集成阶段。">
+  <meta name="twitter:description" content="与 AI 协作完成的个人离线原型，用 Python、SQLite WAL 和 FFmpeg 检查任务恢复、模拟预算与媒体审核。已验证 mock provider，尚未验证真实供应商或用于商业交付。">
   <meta name="twitter:image" content="https://owenpi-alt.github.io/assets/og-aigc.png">
   <meta name="twitter:image:alt" content="AIGC 内容生产工作流">
   <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
   <link rel="stylesheet" href="../../styles.css?v=9fdc5794d01e">
   <link rel="stylesheet" href="../../seo-pages.css?v=73f137b2ef8d">
   <link rel="stylesheet" href="../../bilingual.css?v=280c2246b661">
+  <link rel="stylesheet" href="../../workbench.css?v=3039f7da7660">
   <script src="../../language-preference.js?v=357a76922256" defer></script>
   <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -38,7 +39,7 @@
       "@type": "Article",
       "@id": "https://owenpi-alt.github.io/projects/aigc-production-workflow/#article",
       "headline": "AIGC 内容生产工作流",
-      "description": "AIGC 离线工程原型案例：用 Python、SQLite WAL 和 FFmpeg 组织镜头任务、预算预占、失败恢复及审核版本绑定，展示 AI 协作研发的实现范围与后续集成阶段。",
+      "description": "与 AI 协作完成的个人离线原型，用 Python、SQLite WAL 和 FFmpeg 检查任务恢复、模拟预算与媒体审核。已验证 mock provider，尚未验证真实供应商或用于商业交付。",
       "inLanguage": "zh-CN",
       "image": {
         "@type": "ImageObject",
@@ -101,12 +102,12 @@
     <nav class="seo-breadcrumbs" aria-label="面包屑导航"><a href="../../zh/">首页</a><span aria-hidden="true">/</span><a href="../">项目案例</a><span aria-hidden="true">/</span><span aria-current="page">AIGC 内容生产工作流</span></nav>
     <article class="seo-article">
       <header class="seo-lede">
-        <p class="seo-kicker">CASE 02 / ENGINEERING IN DETAIL</p>
+        <p class="seo-kicker">CASE 06 / ENGINEERING IN DETAIL</p>
         <h1>AIGC 内容生产工作流</h1>
-        <p class="seo-thesis">这个原型主要在验证：生成中断以后，任务和预算怎样接着处理。</p>
+        <p class="seo-thesis">生成请求超时后，怎样恢复任务，又不重复占用预算？</p>
         <p class="seo-meta">个人研发 · AI 协作 · 离线工程原型</p>
       </header>
-      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">问题与约束</h2><p>内容生产涉及镜头生成、返工、审核和剪辑，难点是多次尝试的状态与成本关系。原型以离线模拟验证：任务中断后怎样恢复，提交结果未知时怎样处理，以及素材或提示词变化后，原来的审核还能否继续使用。</p></section>
+      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">问题与约束</h2><p>这是与 AI 协作完成的个人离线原型。用模拟供应商构造提交超时、执行中断和重复尝试，检查任务恢复与预算记账；再用本地媒体检查素材版本、审核记录和剪辑结果是否对应。真实供应商调用和生成质量尚未验证。</p></section>
       <section class="seo-section" aria-labelledby="flow-title">
         <h2 id="flow-title">核心链路简化示意</h2>
         <p>以下图示为技术思路的简化表达。</p>
@@ -115,18 +116,18 @@
       <section class="seo-section" aria-labelledby="decisions-title">
         <h2 id="decisions-title">架构取舍与实现</h2>
         <div class="seo-decision-grid">
-          <article class="seo-decision"><span>01</span><h3>先持久化，再推动状态</h3><p><strong>难点</strong>请求超时可能发生在提交之后，直接重试会让同一任务再次执行。</p><p><strong>方案</strong>以 SQLite WAL 保存镜头版本、请求哈希、尝试记录和审计事件；提交结果未知时保留预算预占，进入恢复或对账状态。</p><p><strong>价值</strong>把“没收到结果”与“尚未执行”区分开，为恢复提供证据，避免盲目重提。</p></article>
-          <article class="seo-decision"><span>02</span><h3>让预算成为调度约束</h3><p><strong>难点</strong>反复改提示词、重试和淘汰素材，容易让费用统计落后于实际尝试。</p><p><strong>方案</strong>在事务中检查项目与单集预算并原子预占，以整数记账；重试次数跨版本累计，质检淘汰的任务仍保留模拟费用。</p><p><strong>价值</strong>把预算、版本与重试放在同一套规则内，能够解释一次制作消耗了哪些尝试。</p></article>
-          <article class="seo-decision"><span>03</span><h3>把可播放与可交付分开验收</h3><p><strong>难点</strong>媒体格式正常，不代表内容通过审核；更换素材后旧结论可能失效。</p><p><strong>方案</strong>通过 FFmpeg / ffprobe 检查尺寸、时长、音轨、黑帧和冻结；内容审核绑定请求、文件及验收上下文，变化后要求重新审核。</p><p><strong>价值</strong>让技术质检和内容判断留下各自依据，组装时核对版本，避免沿用过期结论。</p></article>
+          <article class="seo-decision"><span>01</span><h3>保存尝试记录，单独处理未知结果</h3><p><strong>难点</strong>请求超时可能发生在提交之后，直接重试会让同一任务再次执行。</p><p><strong>方案</strong>以 SQLite WAL 保存镜头版本、请求哈希、尝试记录和审计事件；提交结果未知时保留预算预占，进入恢复或对账状态。</p><p><strong>考虑</strong>恢复时先查看已有尝试，再决定查询、对账或重新提交；结果未知的请求继续占用预算。</p></article>
+          <article class="seo-decision"><span>02</span><h3>预算检查与预占放在同一事务</h3><p><strong>难点</strong>反复改提示词、重试和淘汰素材，容易让费用统计落后于实际尝试。</p><p><strong>方案</strong>在事务中检查项目与单集预算并原子预占，以整数记账；重试次数跨版本累计，质检淘汰的任务仍保留模拟费用。</p><p><strong>考虑</strong>并发任务不能各自重复使用同一份剩余预算；修改提示词也不会重置累计尝试次数。</p></article>
+          <article class="seo-decision"><span>03</span><h3>素材变化后，重新检查审核记录</h3><p><strong>难点</strong>媒体格式正常，不代表内容通过审核；更换素材后旧结论可能失效。</p><p><strong>方案</strong>通过 FFmpeg / ffprobe 检查尺寸、时长、音轨、黑帧和冻结；内容审核绑定请求、文件及验收上下文，变化后要求重新审核。</p><p><strong>考虑</strong>技术检测与内容审核分别记录，剪辑前核对素材版本，防止新文件沿用旧文件的审核结论。</p></article>
         </div>
       </section>
-      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">工程价值</h2><p>用持久化状态、预算约束和版本证据，组织可恢复、可核对的内容生产流程。</p></section>
+      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">这套设计解决了什么</h2><p>离线模拟覆盖了提交结果未知、任务恢复、预算预占和审核失效处理，并完成本地媒体质检与剪辑验证。</p></section>
       <section class="seo-section" aria-labelledby="checks-title"><h2 id="checks-title">验证关注点</h2><ul class="seo-checklist"><li>中断后恢复任务，能否识别已提交、结果未知与尚未提交的状态？</li><li>修改提示词或替换素材，是否会正确影响重试上限和审核有效性？</li><li>剪辑使用的文件、版本与审核记录，是否指向同一次有效尝试？</li></ul></section>
-      <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">研发范围</h2><p>AI 协作完成的个人工程原型，覆盖任务台账、恢复、技术质检与剪辑验证，重点探索生成流程的工程控制。</p></section>
-      <section class="seo-section seo-stage" aria-labelledby="stage-title"><h2 id="stage-title">当前阶段</h2><p>已完成离线流程与模拟供应商验证；真实模型接入与生成质量评估属于后续集成阶段。</p></section>
+      <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">研发范围</h2><p>与 AI 协作完成任务台账、恢复逻辑、模拟预算记账、技术质检与剪辑验证，用于研究生成任务的调度和故障处理。</p></section>
+      <section class="seo-section seo-stage" aria-labelledby="stage-title"><h2 id="stage-title">当前阶段</h2><p>已完成离线流程和模拟供应商（mock provider）验证；尚未调用真实供应商评估生成质量，未用于商业交付。</p></section>
       <section class="seo-section" aria-labelledby="tags-title"><h2 id="tags-title">技术与主题</h2><ul class="seo-tags" aria-label="技术与主题"><li>Python</li><li>SQLite WAL</li><li>FFmpeg / ffprobe</li><li>状态机</li><li>预算预占</li><li>任务恢复</li></ul></section>
     </article>
-    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">继续看其他案例</h2><div class="seo-related-grid"><a href="../quant-research-backtesting/"><strong>量化策略研究与回测框架</strong><span>先把信号、费用和资金变化对上，再看回测结果。</span></a><a href="../java-telemarketing-architecture/"><strong>电销系统架构改造</strong><span>当时既要拆分服务，也要处理锁竞争、超时和 OOM。</span></a><a href="../ai-customer-service-rag/"><strong>AI 客服与知识检索平台</strong><span>我参与咨询消息与路由开发，把上下文和检索结果接起来。</span></a></div><a href="../">查看全部项目案例 ↗</a></nav>
+    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">继续看其他案例</h2><div class="seo-related-grid"><a href="../quant-research-backtesting/"><strong>量化策略研究与回测框架</strong><span>先把信号、费用和资金变化对上，再看回测结果。</span></a><a href="../restaurant-order-payment/"><strong>餐饮订单与支付系统</strong><span>订单已经处理，门店是否收到通知，要靠应用回执确认。</span></a><a href="../marketing-messaging-platform/"><strong>集团营销触达平台</strong><span>用 Kafka 承接请求，用规则链组织校验，再按渠道分发。</span></a></div><a href="../">查看全部项目案例 ↗</a></nav>
     <section class="seo-contact" aria-labelledby="contact-title">
       <h2 id="contact-title">聊聊你的技术需求。</h2>
       <p>把业务目标、现有系统和交付范围发给我，一起梳理关键问题与实现路径。</p>

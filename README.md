@@ -17,14 +17,15 @@
 - `language-preference.js`：入口语言选择与本地手动偏好；不使用 IP 定位或外部服务。
 - `en/index.html` / `en/resume.html`：完整英文首页和可打印英文简历。
 - `bilingual.css`：语言切换与英文长文本的响应式排版。
-- `styles.css`：深色主题、响应式布局、动效与减少动态效果支持。
+- `styles.css`：基础布局和响应式规则。
+- `workbench.css`：黑灰工程笔记风格；真实案例首屏、紧凑项目列表、移动端与无动画阅读体验。
 - `portfolio.css`：服务列表、工程原型图示、交付流程与新版响应式样式。
 - `casebook.css`：架构交互面板、技术案例长页与更鲜明的内容层次。
 - `case-studies.js`：七个完整案例的数据，包含问题约束、链路、架构取舍、价值与验收关注点。
 - `case-studies.en.js`：对应英文案例，保持同样的案例 key、职责和研发阶段边界。
 - `architecture-lab.js`：三个可切换的设计场景、十二个可探索的架构节点。
 - `architecture-lab.en.js`：英文设计场景与节点说明，供共享交互脚本使用。
-- `app.js`：本地交互，无后端服务、追踪脚本或第三方运行依赖。
+- `app.js`：首屏项目流程切换、筛选、案例预览与联系交互。首屏与详情共用案例数据；无后端服务、追踪脚本或第三方运行依赖。
 - `resume.html`：独立精简简历；使用页面按钮打印或保存 PDF。
 - `assets/favicon.svg`：站点图标。
 - `projects/` / `en/projects/`：中英文案例汇总及完整静态案例页，无需 JavaScript 即可阅读。
@@ -57,7 +58,7 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 中文主页和简历维护在 `index.html` / `resume.html`，英文版本维护在 `en/` 的对应文件。案例源分别是 `case-studies.js` / `case-studies.en.js`；架构推演的英文数据位于 `architecture-lab.en.js`。更新事实、职责或阶段时，两种语言一起维护。
 
-`app.js` 根据文档 `lang` 选择交互文案；`language-preference.js` 只在通用入口自动跳转。中文保留简版案例作为兼容内容；英文案例数据未加载时，真实链接会进入英文静态页，避免回退成中文弹窗。
+`app.js` 根据文档 `lang` 选择交互文案；`language-preference.js` 只在通用入口自动跳转。首页先展示项目，再介绍合作服务、技术拆解和个人经历。首屏摘录真实案例的四步流程，原型有明确标签；无 JavaScript 时仍可阅读并进入静态案例页。中文保留简版案例作为兼容内容；英文案例数据未加载时，真实链接会进入英文静态页，避免回退成中文弹窗。
 
 脚本与增量样式的引用带有文件内容哈希 `?v=`，修改后需更新对应 URL 的版本值，并同步到旧址兼容仓库，避免浏览器混用新旧资源。
 

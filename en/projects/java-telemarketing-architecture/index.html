@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0c0e11">
   <title>Java Telemarketing Architecture: Services, JVM, and Data Access | Wang Ziqi</title>
-  <meta name="description" content="Java modernization at Qifu Technology: service boundaries, JVM and SQL tuning, concurrent queries, and my work as a development lead.">
+  <meta name="description" content="Java outbound-calling modernization at Qifu: service decomposition, parallel queries, JVM and SQL work, caching, and my role as development lead.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://owenpi-alt.github.io/en/projects/java-telemarketing-architecture/">
   <link rel="alternate" hreflang="zh-CN" href="https://owenpi-alt.github.io/projects/java-telemarketing-architecture/">
@@ -15,7 +15,7 @@
   <meta property="og:site_name" content="Wang Ziqi — Software Engineering Portfolio">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="Java Telemarketing Architecture: Services, JVM, and Data Access | Wang Ziqi">
-  <meta property="og:description" content="Java modernization at Qifu Technology: service boundaries, JVM and SQL tuning, concurrent queries, and my work as a development lead.">
+  <meta property="og:description" content="Java outbound-calling modernization at Qifu: service decomposition, parallel queries, JVM and SQL work, caching, and my role as development lead.">
   <meta property="og:url" content="https://owenpi-alt.github.io/en/projects/java-telemarketing-architecture/">
   <meta property="og:image" content="https://owenpi-alt.github.io/assets/og-en-telemarketing.png">
   <meta property="og:image:width" content="1200">
@@ -23,13 +23,14 @@
   <meta property="og:image:alt" content="Outbound Calling Platform Modernization">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Java Telemarketing Architecture: Services, JVM, and Data Access | Wang Ziqi">
-  <meta name="twitter:description" content="Java modernization at Qifu Technology: service boundaries, JVM and SQL tuning, concurrent queries, and my work as a development lead.">
+  <meta name="twitter:description" content="Java outbound-calling modernization at Qifu: service decomposition, parallel queries, JVM and SQL work, caching, and my role as development lead.">
   <meta name="twitter:image" content="https://owenpi-alt.github.io/assets/og-en-telemarketing.png">
   <meta name="twitter:image:alt" content="Outbound Calling Platform Modernization">
   <link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
   <link rel="stylesheet" href="../../../styles.css?v=9fdc5794d01e">
   <link rel="stylesheet" href="../../../seo-pages.css?v=73f137b2ef8d">
   <link rel="stylesheet" href="../../../bilingual.css?v=280c2246b661">
+  <link rel="stylesheet" href="../../../workbench.css?v=3039f7da7660">
   <script src="../../../language-preference.js?v=357a76922256" defer></script>
   <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -38,7 +39,7 @@
       "@type": "Article",
       "@id": "https://owenpi-alt.github.io/en/projects/java-telemarketing-architecture/#article",
       "headline": "Outbound Calling Platform Modernization",
-      "description": "Java modernization at Qifu Technology: service boundaries, JVM and SQL tuning, concurrent queries, and my work as a development lead.",
+      "description": "Java outbound-calling modernization at Qifu: service decomposition, parallel queries, JVM and SQL work, caching, and my role as development lead.",
       "inLanguage": "en",
       "image": {
         "@type": "ImageObject",
@@ -101,12 +102,12 @@
     <nav class="seo-breadcrumbs" aria-label="Breadcrumbs"><a href="../../">Home</a><span aria-hidden="true">/</span><a href="../">Projects</a><span aria-hidden="true">/</span><span aria-current="page">Outbound Calling Platform Modernization</span></nav>
     <article class="seo-article">
       <header class="seo-lede">
-        <p class="seo-kicker">CASE 04 / ENGINEERING IN DETAIL</p>
+        <p class="seo-kicker">CASE 03 / ENGINEERING IN DETAIL</p>
         <h1>Outbound Calling Platform Modernization</h1>
-        <p class="seo-thesis">Service boundaries had to improve alongside lock contention, timeouts, and out-of-memory failures.</p>
+        <p class="seo-thesis">The monolith needed service decomposition alongside fixes for lock contention, timeouts, and out-of-memory failures.</p>
         <p class="seo-meta">Qifu Technology (奇富科技) · Development Lead · 2018.04 — 2026.03</p>
       </header>
-      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">Context and constraints</h2><p>As manual and automated outbound calling evolved, the monolith encountered lock contention, timeouts, and out-of-memory failures. The work combined service decomposition with specific runtime, downstream-call, and data-access improvements. It also required coordination across scheduling, configuration, and team delivery while leaving room for further business changes.</p></section>
+      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">Context and constraints</h2><p>As manual and automated outbound calling evolved, the monolith encountered lock contention, timeouts, and out-of-memory failures. I led service decomposition and worked on agent tag queries, SQL, caching, and JVM behavior. The work also had to preserve business rules and coordinate scheduling, configuration, and releases.</p></section>
       <section class="seo-section" aria-labelledby="flow-title">
         <h2 id="flow-title">Core workflow</h2>
         <p>This diagram is a simplified view of the technical approach.</p>
@@ -115,18 +116,18 @@
       <section class="seo-section" aria-labelledby="decisions-title">
         <h2 id="decisions-title">Design decisions and implementation</h2>
         <div class="seo-decision-grid">
-          <article class="seo-decision"><span>01</span><h3>Decompose services along business responsibilities</h3><p><strong>Challenge</strong>Responsibilities within the monolith affected one another, allowing pressure in one area to become a wider runtime problem.</p><p><strong>Approach</strong>Led the move from a monolith to microservices and introduced XXL-JOB and Apollo for scheduling and configuration. A dedicated outbound validation service handles call restrictions, blocklists, and phone-number and frequency limits.</p><p><strong>Value</strong>Creates clearer boundaries between business rules and execution, giving diagnosis and subsequent changes a defined place in the system.</p></article>
-          <article class="seo-decision"><span>02</span><h3>Bound resources for parallel downstream calls</h3><p><strong>Challenge</strong>Agent-facing tag lookups depended on multiple downstream queries. Sequential waiting and individual failures could both affect result assembly.</p><p><strong>Approach</strong>The tag-query path uses a bounded thread pool and CompletableFuture to fetch downstream results in parallel, retaining available information when an individual query fails.</p><p><strong>Value</strong>Allows concurrency within explicit resource limits and preserves a path for partial results when a dependency fails.</p></article>
-          <article class="seo-decision"><span>03</span><h3>Address performance along specific access paths</h3><p><strong>Challenge</strong>Lock contention, slow queries, and memory pressure overlapped, so a single configuration adjustment could not address every cause.</p><p><strong>Approach</strong>Tuned JVM settings for concurrent access, improved SQL indexes and Redis caching, and separated hot and cold data to address runtime behavior, query access, and data volume individually.</p><p><strong>Value</strong>Links each intervention to a concrete source of pressure, making its effect and any remaining bottlenecks easier to assess.</p></article>
+          <article class="seo-decision"><span>01</span><h3>Split services while preserving business rules</h3><p><strong>Challenge</strong>Responsibilities within the monolith affected one another, allowing pressure in one area to become a wider runtime problem.</p><p><strong>Approach</strong>Led the move from a monolith to microservices and introduced XXL-JOB and Apollo for scheduling and configuration. A dedicated outbound validation service handles call restrictions, blocklists, and phone-number and frequency limits.</p><p><strong>Reasoning</strong>Outbound validation and business execution can be maintained separately. Rules, error responses, and restrictions still need to be checked after the split.</p></article>
+          <article class="seo-decision"><span>02</span><h3>Query tags in parallel and retain partial results</h3><p><strong>Challenge</strong>Agent-facing tag lookups depended on multiple downstream queries. Sequential waiting and individual failures could both affect result assembly.</p><p><strong>Approach</strong>The tag-query path uses a bounded thread pool and CompletableFuture to fetch downstream results in parallel, retaining available information when an individual query fails.</p><p><strong>Reasoning</strong>Queries can run together, and available information can survive an individual failure. Pool capacity limits concurrency; slow dependencies still need separate checks.</p></article>
+          <article class="seo-decision"><span>03</span><h3>Address memory, query access, and data volume separately</h3><p><strong>Challenge</strong>Lock contention, slow queries, and memory pressure overlapped, so a single configuration adjustment could not address every cause.</p><p><strong>Approach</strong>Tuned JVM settings for concurrent access, improved SQL indexes and Redis caching, and separated hot and cold data to address runtime behavior, query access, and data volume individually.</p><p><strong>Reasoning</strong>JVM settings, indexes, caching, and data separation act in different places. Each needs observation under comparable loads; one faster response does not establish an overall improvement.</p></article>
         </div>
       </section>
-      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">Engineering value</h2><p>Connected architectural change to concrete reliability problems, with explicit service boundaries and specific implementation points to validate.</p></section>
+      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">What the design addresses</h2><p>Delivered service decomposition and scheduling and configuration integrations, with changes to parallel queries, JVM settings, SQL, caching, and hot/cold data handling.</p></section>
       <section class="seo-section" aria-labelledby="checks-title"><h2 id="checks-title">Validation focus</h2><ul class="seo-checklist"><li>Do business rules, error responses, and restrictions retain their semantics after service decomposition?</li><li>Do thread usage and partial-result handling behave as intended when downstream services are slow or fail?</li><li>Are JVM, SQL, cache, and hot/cold data changes evaluated under comparable loads?</li></ul></section>
       <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">My contribution</h2><p>Led the monolith-to-microservices migration, covering technical design, core development, and team delivery. Worked with product, QA, and operations on releases and production issues.</p></section>
 
       <section class="seo-section" aria-labelledby="tags-title"><h2 id="tags-title">Technologies and topics</h2><ul class="seo-tags" aria-label="Technologies and topics"><li>Java / Dubbo</li><li>Microservices</li><li>CompletableFuture</li><li>JVM</li><li>MySQL / Redis</li><li>XXL-JOB / Apollo</li></ul></section>
     </article>
-    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">Explore more projects</h2><div class="seo-related-grid"><a href="../ai-customer-service-rag/"><strong>AI Customer Support &amp; Knowledge Retrieval</strong><span>My contribution connected support messages and routing with business context and retrieved knowledge.</span></a><a href="../marketing-messaging-platform/"><strong>Enterprise Customer Messaging Platform</strong><span>My focus was the connection between asynchronous requests, business rules, and delivery channels.</span></a><a href="../dify-operations-assistant/"><strong>Dify Self-Service Assistant for Operations</strong><span>The aim was to let operations ask a bot for the data and status checks they routinely needed.</span></a></div><a href="../">View all projects ↗</a></nav>
+    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">Explore more projects</h2><div class="seo-related-grid"><a href="../ai-customer-service-rag/"><strong>AI Customer Support &amp; Knowledge Retrieval</strong><span>I contributed to support-message processing and routing, including context, retries, and task state.</span></a><a href="../dify-operations-assistant/"><strong>Dify Self-Service Assistant for Operations</strong><span>Let operations query internal systems from 360Teams by translating questions into API calls.</span></a><a href="../aigc-production-workflow/"><strong>AIGC Production Workflow</strong><span>When a generation request times out, how can the task recover without reserving the same budget twice?</span></a></div><a href="../">View all projects ↗</a></nav>
     <section class="seo-contact" aria-labelledby="contact-title">
       <h2 id="contact-title">Let’s talk about what you’re building.</h2>
       <p>Share your goals, current systems, and delivery scope. We can work through the key technical questions and a practical path forward.</p>

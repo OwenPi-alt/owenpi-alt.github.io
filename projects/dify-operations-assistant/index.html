@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0c0e11">
   <title>Dify 运营自助答疑：意图识别、参数抽取与业务接口｜王子棋</title>
-  <meta name="description" content="Dify 运营自助查询案例：通过意图识别、参数抽取、内部接口调用和 360Teams 入口连接运营工作，说明参与范围、工作流设计及上线前验收重点。">
+  <meta name="description" content="参与 Dify 运营自助答疑项目，通过意图识别、参数抽取和内部接口调用处理查询，由 360Teams 机器人返回数据、状态与规则信息。">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://owenpi-alt.github.io/projects/dify-operations-assistant/">
   <link rel="alternate" hreflang="zh-CN" href="https://owenpi-alt.github.io/projects/dify-operations-assistant/">
@@ -15,7 +15,7 @@
   <meta property="og:site_name" content="王子棋的技术作品集">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:title" content="Dify 运营自助答疑：意图识别、参数抽取与业务接口｜王子棋">
-  <meta property="og:description" content="Dify 运营自助查询案例：通过意图识别、参数抽取、内部接口调用和 360Teams 入口连接运营工作，说明参与范围、工作流设计及上线前验收重点。">
+  <meta property="og:description" content="参与 Dify 运营自助答疑项目，通过意图识别、参数抽取和内部接口调用处理查询，由 360Teams 机器人返回数据、状态与规则信息。">
   <meta property="og:url" content="https://owenpi-alt.github.io/projects/dify-operations-assistant/">
   <meta property="og:image" content="https://owenpi-alt.github.io/assets/og-dify.png">
   <meta property="og:image:width" content="1200">
@@ -23,13 +23,14 @@
   <meta property="og:image:alt" content="Dify 运营自助答疑">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Dify 运营自助答疑：意图识别、参数抽取与业务接口｜王子棋">
-  <meta name="twitter:description" content="Dify 运营自助查询案例：通过意图识别、参数抽取、内部接口调用和 360Teams 入口连接运营工作，说明参与范围、工作流设计及上线前验收重点。">
+  <meta name="twitter:description" content="参与 Dify 运营自助答疑项目，通过意图识别、参数抽取和内部接口调用处理查询，由 360Teams 机器人返回数据、状态与规则信息。">
   <meta name="twitter:image" content="https://owenpi-alt.github.io/assets/og-dify.png">
   <meta name="twitter:image:alt" content="Dify 运营自助答疑">
   <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
   <link rel="stylesheet" href="../../styles.css?v=9fdc5794d01e">
   <link rel="stylesheet" href="../../seo-pages.css?v=73f137b2ef8d">
   <link rel="stylesheet" href="../../bilingual.css?v=280c2246b661">
+  <link rel="stylesheet" href="../../workbench.css?v=3039f7da7660">
   <script src="../../language-preference.js?v=357a76922256" defer></script>
   <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -38,7 +39,7 @@
       "@type": "Article",
       "@id": "https://owenpi-alt.github.io/projects/dify-operations-assistant/#article",
       "headline": "Dify 运营自助答疑",
-      "description": "Dify 运营自助查询案例：通过意图识别、参数抽取、内部接口调用和 360Teams 入口连接运营工作，说明参与范围、工作流设计及上线前验收重点。",
+      "description": "参与 Dify 运营自助答疑项目，通过意图识别、参数抽取和内部接口调用处理查询，由 360Teams 机器人返回数据、状态与规则信息。",
       "inLanguage": "zh-CN",
       "image": {
         "@type": "ImageObject",
@@ -101,12 +102,12 @@
     <nav class="seo-breadcrumbs" aria-label="面包屑导航"><a href="../../zh/">首页</a><span aria-hidden="true">/</span><a href="../">项目案例</a><span aria-hidden="true">/</span><span aria-current="page">Dify 运营自助答疑</span></nav>
     <article class="seo-article">
       <header class="seo-lede">
-        <p class="seo-kicker">CASE 07 / ENGINEERING IN DETAIL</p>
+        <p class="seo-kicker">CASE 05 / ENGINEERING IN DETAIL</p>
         <h1>Dify 运营自助答疑</h1>
-        <p class="seo-thesis">运营常问的数据和状态，尝试让机器人直接查出来。</p>
+        <p class="seo-thesis">把运营日常查询接入 360Teams：理解问题，再调用内部接口。</p>
         <p class="seo-meta">奇富科技 · 参与项目建设 · 2025.05 — 2026.03</p>
       </header>
-      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">问题与约束</h2><p>运营经常需要研发协助查数据、查状态和查规则。问题来自日常业务，但答案分散在接口和系统中。项目通过 Dify 将自然语言问题组织成可执行的查询流程，并接入 360Teams，让运营能够在熟悉的沟通入口直接发起提问。</p></section>
+      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">问题与约束</h2><p>运营经常找研发协助查询数据、状态和业务规则。我参与的项目用 Dify 识别问题、提取参数并调用已有内部接口，再通过 360Teams 机器人返回结果。我的角色是参与项目建设，与团队协作完成相关查询场景。</p></section>
       <section class="seo-section" aria-labelledby="flow-title">
         <h2 id="flow-title">核心链路简化示意</h2>
         <p>以下图示为技术思路的简化表达。</p>
@@ -115,18 +116,18 @@
       <section class="seo-section" aria-labelledby="decisions-title">
         <h2 id="decisions-title">架构取舍与实现</h2>
         <div class="seo-decision-grid">
-          <article class="seo-decision"><span>01</span><h3>把自然语言拆成执行步骤</h3><p><strong>难点</strong>运营表达的是业务问题，内部接口需要的是明确的操作类型和参数。</p><p><strong>方案</strong>项目使用 Dify 编排意图识别、参数抽取、内部接口调用与结果回复，将一句提问分解为具有不同职责的处理步骤。</p><p><strong>价值</strong>让问题理解与业务执行能够分别检查，便于辨认偏差发生在意图、参数还是查询结果。</p></article>
-          <article class="seo-decision"><span>02</span><h3>让业务接口承担事实查询</h3><p><strong>难点</strong>数据、状态和规则有各自的来源，需要把语言理解和实际业务信息连接起来。</p><p><strong>方案</strong>工作流将提取出的业务参数用于已有内部接口调用，再围绕返回结果组织回复，面向运营日常查询需求形成问答路径。</p><p><strong>价值</strong>模型负责连接表达与流程，业务信息仍有对应查询来源，使回答可以回到具体接口结果核对。</p></article>
-          <article class="seo-decision"><span>03</span><h3>把能力放进已有工作入口</h3><p><strong>难点</strong>查询工具即使可用，如果入口分散，运营仍需要在多个系统之间寻找操作路径。</p><p><strong>方案</strong>项目接入 360Teams 机器人，供运营直接提问，将数据查询、状态确认和规则答疑的工作流带入日常沟通工具。</p><p><strong>价值</strong>缩短从提出问题到发起查询的操作路径，让自动化能力围绕实际工作习惯组织。</p></article>
+          <article class="seo-decision"><span>01</span><h3>分开检查意图、参数和接口调用</h3><p><strong>难点</strong>运营表达的是业务问题，内部接口需要的是明确的操作类型和参数。</p><p><strong>方案</strong>项目使用 Dify 编排意图识别、参数抽取、内部接口调用与结果回复，分别处理提问到查询结果的各个步骤。</p><p><strong>考虑</strong>查询出错时，可以先确认意图和参数，再检查接口返回，缩小排查范围。</p></article>
+          <article class="seo-decision"><span>02</span><h3>根据内部接口结果组织回复</h3><p><strong>难点</strong>数据、状态和规则有各自的来源，需要把语言理解和实际业务信息连接起来。</p><p><strong>方案</strong>工作流将提取出的业务参数用于已有内部接口调用，再围绕返回结果组织回复，面向运营日常查询需求形成问答路径。</p><p><strong>考虑</strong>回复中的业务数据有对应的接口结果可查，便于检查模型是否误读或遗漏返回内容。</p></article>
+          <article class="seo-decision"><span>03</span><h3>通过 360Teams 提供查询入口</h3><p><strong>难点</strong>查询工具即使可用，如果入口分散，运营仍需要在多个系统之间寻找操作路径。</p><p><strong>方案</strong>项目接入 360Teams 机器人，供运营直接提问，将数据查询、状态确认和规则答疑的工作流带入日常沟通工具。</p><p><strong>考虑</strong>运营可在已有沟通工具中发起查询，无需为这些场景另找系统入口。</p></article>
         </div>
       </section>
-      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">工程价值</h2><p>将高频业务查询组织成可执行工作流，让自然语言入口、内部接口与运营工作场景连接起来。</p></section>
+      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">这套设计解决了什么</h2><p>项目将意图识别、参数抽取和内部接口调用编排为 Dify 工作流，供运营通过 360Teams 查询数据、状态与规则。</p></section>
       <section class="seo-section" aria-labelledby="checks-title"><h2 id="checks-title">验证关注点</h2><ul class="seo-checklist"><li>问题表达不完整或参数缺失时，是否能够识别需要补充的信息？</li><li>接口权限、异常响应和空结果，是否纳入上线前的验收范围？</li><li>回复中的数据与业务接口返回值是否一致，能否回查对应来源？</li></ul></section>
       <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">我的职责</h2><p>参与运营自助查询项目建设，围绕运营日常的数据、状态与规则查询场景协作推进。</p></section>
 
       <section class="seo-section" aria-labelledby="tags-title"><h2 id="tags-title">技术与主题</h2><ul class="seo-tags" aria-label="技术与主题"><li>Dify</li><li>意图识别</li><li>参数抽取</li><li>业务 API</li><li>工作流编排</li><li>360Teams</li></ul></section>
     </article>
-    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">继续看其他案例</h2><div class="seo-related-grid"><a href="../restaurant-order-payment/"><strong>餐饮订单与支付系统</strong><span>通知发出去了，门店有没有收到，还得分开看。</span></a><a href="../aigc-production-workflow/"><strong>AIGC 内容生产工作流</strong><span>这个原型主要在验证：生成中断以后，任务和预算怎样接着处理。</span></a><a href="../quant-research-backtesting/"><strong>量化策略研究与回测框架</strong><span>先把信号、费用和资金变化对上，再看回测结果。</span></a></div><a href="../">查看全部项目案例 ↗</a></nav>
+    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">继续看其他案例</h2><div class="seo-related-grid"><a href="../aigc-production-workflow/"><strong>AIGC 内容生产工作流</strong><span>生成请求超时后，怎样恢复任务，又不重复占用预算？</span></a><a href="../quant-research-backtesting/"><strong>量化策略研究与回测框架</strong><span>先把信号、费用和资金变化对上，再看回测结果。</span></a><a href="../restaurant-order-payment/"><strong>餐饮订单与支付系统</strong><span>订单已经处理，门店是否收到通知，要靠应用回执确认。</span></a></div><a href="../">查看全部项目案例 ↗</a></nav>
     <section class="seo-contact" aria-labelledby="contact-title">
       <h2 id="contact-title">聊聊你的技术需求。</h2>
       <p>把业务目标、现有系统和交付范围发给我，一起梳理关键问题与实现路径。</p>
