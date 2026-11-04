@@ -1,51 +1,51 @@
 {
   "siteUrl": "https://owenpi-alt.github.io/",
-  "name": "Wang Ziqi",
+  "name": "Wang Zi",
   "email": "chuangzaoxingfuvip@gmail.com",
   "github": "https://github.com/OwenPi-alt",
-  "siteName": "Wang Ziqi — Software Engineering Portfolio",
+  "siteName": "Wang Zi — Software Engineering Portfolio",
   "language": "en",
   "ogImage": "assets/og-en-card.png",
   "cases": {
     "commerce": {
       "slug": "restaurant-order-payment",
-      "title": "Restaurant Orders and Payments: Messaging and Recovery | Wang Ziqi",
+      "title": "Restaurant Orders and Payments: Messaging and Recovery | Wang Zi",
       "description": "Restaurant order and payment work at Baiweiyun, with RabbitMQ, Netty, JPush, application acknowledgments, and Redis controls for repeated notifications.",
       "image": "assets/og-en-commerce.png"
     },
     "aigc": {
       "slug": "aigc-production-workflow",
-      "title": "AIGC Production Workflow: Recovery, Budgets, and Media Review | Wang Ziqi",
+      "title": "AIGC Production Workflow: Recovery, Budgets, and Media Review | Wang Zi",
       "description": "An AI-assisted personal offline prototype for recovery, budget accounting, and media review. Mock-provider validation only; no commercial delivery.",
       "image": "assets/og-en-aigc.png"
     },
     "quant": {
       "slug": "quant-research-backtesting",
-      "title": "Quantitative Research: LEAN Signals and Backtest Validation | Wang Ziqi",
+      "title": "Quantitative Research: LEAN Signals and Backtest Validation | Wang Zi",
       "description": "An AI-assisted research prototype with LEAN signals and a Python ledger for costs and risk checks. Simulated backtests only, with no live trading.",
       "image": "assets/og-en-quant.png"
     },
     "telemarketing": {
       "slug": "java-telemarketing-architecture",
-      "title": "Java Telemarketing Architecture: Services, JVM, and Data Access | Wang Ziqi",
+      "title": "Java Telemarketing Architecture: Services, JVM, and Data Access | Wang Zi",
       "description": "Java outbound-calling modernization at Qifu: service decomposition, parallel queries, JVM and SQL work, caching, and my role as development lead.",
       "image": "assets/og-en-telemarketing.png"
     },
     "customer-ai": {
       "slug": "ai-customer-service-rag",
-      "title": "AI Customer Support and RAG: Routing, Context, and Citations | Wang Ziqi",
+      "title": "AI Customer Support and RAG: Routing, Context, and Citations | Wang Zi",
       "description": "My contributions to support messages and routing: RabbitMQ task state, ticket context, retries, and timeout handling within an AI support platform.",
       "image": "assets/og-en-customer-ai.png"
     },
     "messaging": {
       "slug": "marketing-messaging-platform",
-      "title": "Marketing Messaging: Kafka, Rules, and Channel Integration | Wang Ziqi",
+      "title": "Marketing Messaging: Kafka, Rules, and Channel Integration | Wang Zi",
       "description": "Architecture and core development of a Kafka messaging platform, with rule chains, channel dispatch, and carrier, weight, and quota-based SMS selection.",
       "image": "assets/og-en-messaging.png"
     },
     "dify": {
       "slug": "dify-operations-assistant",
-      "title": "Dify Operations Assistant: Intent, Parameters, and Business APIs | Wang Ziqi",
+      "title": "Dify Operations Assistant: Intent, Parameters, and Business APIs | Wang Zi",
       "description": "A Dify project I contributed to: intent recognition, parameter extraction, and internal API queries for operations through a 360Teams bot.",
       "image": "assets/og-en-dify.png"
     }

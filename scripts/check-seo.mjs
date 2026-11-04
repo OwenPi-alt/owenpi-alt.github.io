@@ -81,7 +81,7 @@ for(const url of urls){
   }
   const renderedText=decode(html.slice(html.indexOf('<body')).replace(/<script\b[\s\S]*?<\/script>/g,'').replace(/<[^>]+>/g,''));
   if(locale.prefix){
-    const stripped=renderedText.replace(/中文|奇富科技|百味云|长沙文理专修学院|上海邮乐网络技术有限公司|上海狄杰斯|东软集团|王子棋/g,'');
+    const stripped=renderedText.replace(/中文|奇富科技|百味云|上海邮乐网络技术有限公司|上海狄杰斯|东软集团|王子/g,'');
     assert.ok(!/[\u3400-\u9fff]/.test(stripped),file+' untranslated visible Chinese text');
   }
   for(const match of html.matchAll(/<(?:a|link|script|img)\b[^>]*>/g)){

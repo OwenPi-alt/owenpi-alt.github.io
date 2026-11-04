@@ -1,6 +1,6 @@
-# 王子棋 · 架构设计 / 全栈开发 / AI 工程
+# 王子 · 架构设计 / 全栈开发 / AI 工程
 
-个人履历、技术作品集与项目合作参考页，使用原生 HTML、CSS 和 JavaScript，由 GitHub Pages 托管。
+公开署名为“王子 / Wang Zi”。个人履历、技术作品集与项目合作参考页，使用原生 HTML、CSS 和 JavaScript，由 GitHub Pages 托管。
 
 **访问地址：[owenpi-alt.github.io](https://owenpi-alt.github.io/)**
 
@@ -18,7 +18,7 @@
 - `en/index.html` / `en/resume.html`：完整英文首页和可打印英文简历。
 - `bilingual.css`：语言切换与英文长文本的响应式排版。
 - `styles.css`：基础布局和响应式规则。
-- `workbench.css`：黑灰工程笔记风格；真实案例首屏、紧凑项目列表、移动端与无动画阅读体验。
+- `workbench.css`：浅色视觉主题；居中介绍、宽幅项目流程、紧凑案例列表，以及中英文移动端排版。
 - `portfolio.css`：服务列表、工程原型图示、交付流程与新版响应式样式。
 - `casebook.css`：架构交互面板、技术案例长页与更鲜明的内容层次。
 - `case-studies.js`：七个完整案例的数据，包含问题约束、链路、架构取舍、价值与验收关注点。

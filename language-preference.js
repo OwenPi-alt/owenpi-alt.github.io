@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const storageKey = 'wangziqi.portfolio.language.v1';
+  const storageKey = 'portfolio.language.v1';
   const supportedLanguage = value => {
     if (typeof value !== 'string') return null;
     const primary = value.trim().toLowerCase().replace(/_/g, '-').split('-')[0];

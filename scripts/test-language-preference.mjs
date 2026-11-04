@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const source = fs.readFileSync(new URL('../language-preference.js', import.meta.url), 'utf8');
-const key = 'wangziqi.portfolio.language.v1';
+const key = 'portfolio.language.v1';
 function run(options={}) {
   const {path='/',mount='/',saved=null,storage='ok'}=options;
   const languages=Object.hasOwn(options,'languages')?options.languages:['zh-CN'];

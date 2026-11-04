@@ -126,7 +126,7 @@ function head({ title, description, route, prefix, type, schema, shareImage = im
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0c0e11">
+  <meta name="theme-color" content="#ffffff">
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}">
   <meta name="robots" content="index,follow,max-image-preview:large">

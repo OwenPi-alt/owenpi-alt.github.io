@@ -1,51 +1,51 @@
 {
   "siteUrl": "https://owenpi-alt.github.io/",
-  "name": "王子棋",
+  "name": "王子",
   "email": "chuangzaoxingfuvip@gmail.com",
   "github": "https://github.com/OwenPi-alt",
-  "siteName": "王子棋的技术作品集",
+  "siteName": "王子的技术作品集",
   "language": "zh-CN",
   "ogImage": "assets/og-card.png",
   "cases": {
     "commerce": {
       "slug": "restaurant-order-payment",
-      "title": "餐饮订单与支付系统：业务架构、消息通知与补偿｜王子棋",
+      "title": "餐饮订单与支付系统：业务架构、消息通知与补偿｜王子",
       "description": "百味云餐饮系统案例：负责云小二、云掌柜架构与核心开发。介绍订单和支付处理，以及 RabbitMQ、Netty、极光 Push、应用回执和 Redis 重复通知控制。",
       "image": "assets/og-commerce.png"
     },
     "aigc": {
       "slug": "aigc-production-workflow",
-      "title": "AIGC 内容生产工作流：任务恢复、预算与媒体质检｜王子棋",
+      "title": "AIGC 内容生产工作流：任务恢复、预算与媒体质检｜王子",
       "description": "与 AI 协作完成的个人离线原型，用 Python、SQLite WAL 和 FFmpeg 检查任务恢复、模拟预算与媒体审核。已验证 mock provider，尚未验证真实供应商或用于商业交付。",
       "image": "assets/og-aigc.png"
     },
     "quant": {
       "slug": "quant-research-backtesting",
-      "title": "量化研究与回测框架：LEAN 信号、独立账本与风险验证｜王子棋",
+      "title": "量化研究与回测框架：LEAN 信号、独立账本与风险验证｜王子",
       "description": "与 AI 协作完成的个人量化研究原型：LEAN / C# 信号、Python 独立账本、费用与风险规则的逐笔核对。仅用于模拟回测，未接入实盘，回测结果不代表未来收益。",
       "image": "assets/og-quant.png"
     },
     "telemarketing": {
       "slug": "java-telemarketing-architecture",
-      "title": "Java 电销系统架构改造：微服务、JVM 与数据访问治理｜王子棋",
+      "title": "Java 电销系统架构改造：微服务、JVM 与数据访问治理｜王子",
       "description": "奇富科技 Java 电销系统改造：主导微服务拆分，处理并行查询、JVM、SQL、缓存和冷热数据问题，介绍任务配置管理及开发 Leader 的具体职责。",
       "image": "assets/og-telemarketing.png"
     },
     "customer-ai": {
       "slug": "ai-customer-service-rag",
-      "title": "AI 客服与 RAG 知识检索：消息路由、上下文与引用追踪｜王子棋",
+      "title": "AI 客服与 RAG 知识检索：消息路由、上下文与引用追踪｜王子",
       "description": "参与奇富科技 AI 客服的咨询消息与路由模块开发：RabbitMQ 任务状态、工单上下文、失败重试和超时处理。介绍所在平台的知识检索与引用记录。",
       "image": "assets/og-customer-ai.png"
     },
     "messaging": {
       "slug": "marketing-messaging-platform",
-      "title": "营销触达平台：Kafka 异步链路、规则引擎与多渠道接入｜王子棋",
+      "title": "营销触达平台：Kafka 异步链路、规则引擎与多渠道接入｜王子",
       "description": "负责集团营销触达平台架构与核心开发：Kafka 缓冲请求，责任链组合校验规则，按渠道分发，并依据运营商、权重和配额选择短信供应商。",
       "image": "assets/og-messaging.png"
     },
     "dify": {
       "slug": "dify-operations-assistant",
-      "title": "Dify 运营自助答疑：意图识别、参数抽取与业务接口｜王子棋",
+      "title": "Dify 运营自助答疑：意图识别、参数抽取与业务接口｜王子",
       "description": "参与 Dify 运营自助答疑项目，通过意图识别、参数抽取和内部接口调用处理查询，由 360Teams 机器人返回数据、状态与规则信息。",
       "image": "assets/og-dify.png"
     }
