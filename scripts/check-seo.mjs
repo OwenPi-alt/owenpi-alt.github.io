@@ -93,6 +93,15 @@ for(const url of urls){
 }
 for(const locale of locales){
   const home=read(locale.home+'index.html');
+  const english=Boolean(locale.prefix);
+  assert.ok(home.includes(english?'I started in Java backend development':'从 Java 后端开发做起'),locale.home+' career starts in Java backend development');
+  assert.ok(!/(?:从前端开发(?:做起|开始)|I started in frontend development)/.test(home),locale.home+' must not infer a frontend career origin');
+  assert.match(locale.cases['customer-ai'].meta,/ · 2026$/,locale.home+' AI customer service is a 2026 project');
+  assert.match(locale.cases.dify.meta,/2025\.05 — 2026\.03$/,locale.home+' Dify retains its separate project dates');
+  const aiCard=[...home.matchAll(/<article\b[\s\S]*?<\/article>/g)].map(m=>m[0]).find(article=>article.includes('data-project="customer-ai"'));
+  assert.ok(aiCard&&/<span>2026<\/span>/.test(aiCard),locale.home+' AI project card carries the confirmed year');
+  const aiResume=[...read(locale.prefix+'resume.html').matchAll(/<article\b[\s\S]*?<\/article>/g)].map(m=>m[0]).find(article=>/<h3>AI (?:客服|customer service)/.test(article));
+  assert.ok(aiResume&&/class="meta">[^<]* · 2026<\/p>/.test(aiResume),locale.home+' resume carries the same AI project year');
   for(const [key,meta] of Object.entries(locale.config.cases)){
     const tag=[...home.matchAll(/<a\b[^>]*>/g)].map(m=>attrs(m[0])).find(a=>a['data-project']===key);
     assert.ok(tag?.href,key+' has a real preview link');

@@ -36,6 +36,10 @@
 - `.nojekyll`：直接发布静态文件。
 - `.github/ISSUE_TEMPLATE/project-inquiry.yml` / `project-inquiry-en.yml`：中英文公开项目合作需求表单。
 
+## 内容事实维护
+
+职业起点为 Java 后端开发，另有前端开发经历。AI 客服与知识检索项目的时间为 2026 年，个人职责为参与咨询消息与路由模块开发；不补写未经确认的起止月份。Dify 运营自助答疑是独立项目，时间为 2025.05—2026.03。描述系统采用的技术机制时，不自动归为本人逐项独立实现。
+
 ## 项目合作入口
 
 业务邮箱：[chuangzaoxingfuvip@gmail.com](mailto:chuangzaoxingfuvip@gmail.com)。“聊聊合作”、服务咨询与案例咨询均直接打开邮件撰写窗口；页面同时提供邮箱复制入口。

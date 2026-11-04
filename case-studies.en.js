@@ -129,7 +129,7 @@ window.PORTFOLIO_CASE_STUDIES = {
     title: 'Outbound Calling Platform Modernization',
     meta: 'Qifu Technology (奇富科技) · Development Lead · 2018.04 — 2026.03',
     thesis: 'The monolith needed service decomposition alongside fixes for lock contention, timeouts, and out-of-memory failures.',
-    context: 'As manual and automated outbound calling evolved, the monolith encountered lock contention, timeouts, and out-of-memory failures. I led service decomposition and worked on agent tag queries, SQL, caching, and JVM behavior. The work also had to preserve business rules and coordinate scheduling, configuration, and releases.',
+    context: 'As manual and automated outbound calling evolved, the monolith encountered lock contention, timeouts, and out-of-memory failures. I led service decomposition and worked on JVM settings, SQL, caching, and hot/cold data separation. The system also uses parallel agent-tag queries. The migration had to preserve business rules and coordinate scheduling, configuration, and releases.',
     flow: [
       { name: 'Calling requests', detail: 'Manual and automated outbound calls' },
       { name: 'Rule validation', detail: 'Call restrictions, blocklists, and limits' },
@@ -161,14 +161,14 @@ window.PORTFOLIO_CASE_STUDIES = {
       'Do thread usage and partial-result handling behave as intended when downstream services are slow or fail?',
       'Are JVM, SQL, cache, and hot/cold data changes evaluated under comparable loads?'
     ],
-    outcome: 'Delivered service decomposition and scheduling and configuration integrations, with changes to parallel queries, JVM settings, SQL, caching, and hot/cold data handling.',
+    outcome: 'Delivered service decomposition and scheduling and configuration integrations, with JVM, SQL, caching, and hot/cold data improvements.',
     responsibility: 'Led the monolith-to-microservices migration, covering technical design, core development, and team delivery. Worked with product, QA, and operations on releases and production issues.',
     tags: ['Java / Dubbo', 'Microservices', 'CompletableFuture', 'JVM', 'MySQL / Redis', 'XXL-JOB / Apollo']
   },
   'customer-ai': {
     title: 'AI Customer Support & Knowledge Retrieval',
-    meta: 'Qifu Technology (奇富科技) · Contributor to message processing and routing',
-    thesis: 'I contributed to support-message processing and routing, including context, retries, and task state.',
+    meta: 'Qifu Technology (奇富科技) · Contributor to message processing and routing · 2026',
+    thesis: 'I contributed to support-message processing and routing based on business context.',
     context: 'Support inquiries need ticket context to choose among clarification, status queries, knowledge retrieval, and human handoff. The platform retains model calls and citations for answer investigation and operational feedback. My contributions were in message processing and routing; the following also describes the wider workflow those modules participate in.',
     flow: [
       { name: 'Message intake', detail: 'Receive inquiries and persist records' },
@@ -201,8 +201,8 @@ window.PORTFOLIO_CASE_STUDIES = {
       'Do missing knowledge, retrieval failures, and insufficient context lead to appropriate routing or feedback?',
       'Can an answer be traced to its knowledge citations, prompt version, and model call?'
     ],
-    outcome: 'Contributed to message handling and scenario routing, using ticket context and handling duplicate submissions, failed attempts, and timed-out tasks.',
-    responsibility: 'Contributed to support-message processing and routing, using business context to distinguish scenarios. Work included failure retries, timeout-state cleanup, and duplicate-submission controls.',
+    outcome: 'Contributed to support-message processing and scenario routing. The system uses ticket context and task state to handle duplicate messages, failure retries, and timeout cleanup.',
+    responsibility: 'Contributed to support-message processing and routing, using business context to distinguish support scenarios.',
     tags: ['Java 17', 'Spring Boot 3', 'LangChain4j', 'RabbitMQ', 'PostgreSQL', 'RAG / Bailian']
   },
   messaging: {

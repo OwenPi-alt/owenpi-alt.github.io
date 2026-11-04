@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>Java Telemarketing Architecture: Services, JVM, and Data Access | Wang Zi</title>
-  <meta name="description" content="Java outbound-calling modernization at Qifu: service decomposition, parallel queries, JVM and SQL work, caching, and my role as development lead.">
+  <meta name="description" content="Led Qifu’s service decomposition and JVM, SQL, and cache work. The case also explains the system’s parallel queries and outbound validation.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://owenpi-alt.github.io/en/projects/java-telemarketing-architecture/">
   <link rel="alternate" hreflang="zh-CN" href="https://owenpi-alt.github.io/projects/java-telemarketing-architecture/">
@@ -15,7 +15,7 @@
   <meta property="og:site_name" content="Wang Zi — Software Engineering Portfolio">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="Java Telemarketing Architecture: Services, JVM, and Data Access | Wang Zi">
-  <meta property="og:description" content="Java outbound-calling modernization at Qifu: service decomposition, parallel queries, JVM and SQL work, caching, and my role as development lead.">
+  <meta property="og:description" content="Led Qifu’s service decomposition and JVM, SQL, and cache work. The case also explains the system’s parallel queries and outbound validation.">
   <meta property="og:url" content="https://owenpi-alt.github.io/en/projects/java-telemarketing-architecture/">
   <meta property="og:image" content="https://owenpi-alt.github.io/assets/og-en-telemarketing.png">
   <meta property="og:image:width" content="1200">
@@ -23,7 +23,7 @@
   <meta property="og:image:alt" content="Outbound Calling Platform Modernization">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Java Telemarketing Architecture: Services, JVM, and Data Access | Wang Zi">
-  <meta name="twitter:description" content="Java outbound-calling modernization at Qifu: service decomposition, parallel queries, JVM and SQL work, caching, and my role as development lead.">
+  <meta name="twitter:description" content="Led Qifu’s service decomposition and JVM, SQL, and cache work. The case also explains the system’s parallel queries and outbound validation.">
   <meta name="twitter:image" content="https://owenpi-alt.github.io/assets/og-en-telemarketing.png">
   <meta name="twitter:image:alt" content="Outbound Calling Platform Modernization">
   <link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
@@ -39,7 +39,7 @@
       "@type": "Article",
       "@id": "https://owenpi-alt.github.io/en/projects/java-telemarketing-architecture/#article",
       "headline": "Outbound Calling Platform Modernization",
-      "description": "Java outbound-calling modernization at Qifu: service decomposition, parallel queries, JVM and SQL work, caching, and my role as development lead.",
+      "description": "Led Qifu’s service decomposition and JVM, SQL, and cache work. The case also explains the system’s parallel queries and outbound validation.",
       "inLanguage": "en",
       "image": {
         "@type": "ImageObject",
@@ -107,7 +107,7 @@
         <p class="seo-thesis">The monolith needed service decomposition alongside fixes for lock contention, timeouts, and out-of-memory failures.</p>
         <p class="seo-meta">Qifu Technology (奇富科技) · Development Lead · 2018.04 — 2026.03</p>
       </header>
-      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">Context and constraints</h2><p>As manual and automated outbound calling evolved, the monolith encountered lock contention, timeouts, and out-of-memory failures. I led service decomposition and worked on agent tag queries, SQL, caching, and JVM behavior. The work also had to preserve business rules and coordinate scheduling, configuration, and releases.</p></section>
+      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">Context and constraints</h2><p>As manual and automated outbound calling evolved, the monolith encountered lock contention, timeouts, and out-of-memory failures. I led service decomposition and worked on JVM settings, SQL, caching, and hot/cold data separation. The system also uses parallel agent-tag queries. The migration had to preserve business rules and coordinate scheduling, configuration, and releases.</p></section>
       <section class="seo-section" aria-labelledby="flow-title">
         <h2 id="flow-title">Core workflow</h2>
         <p>This diagram is a simplified view of the technical approach.</p>
@@ -121,13 +121,13 @@
           <article class="seo-decision"><span>03</span><h3>Address memory, query access, and data volume separately</h3><p><strong>Challenge</strong>Lock contention, slow queries, and memory pressure overlapped, so a single configuration adjustment could not address every cause.</p><p><strong>Approach</strong>Tuned JVM settings for concurrent access, improved SQL indexes and Redis caching, and separated hot and cold data to address runtime behavior, query access, and data volume individually.</p><p><strong>Reasoning</strong>JVM settings, indexes, caching, and data separation act in different places. Each needs observation under comparable loads; one faster response does not establish an overall improvement.</p></article>
         </div>
       </section>
-      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">What the design addresses</h2><p>Delivered service decomposition and scheduling and configuration integrations, with changes to parallel queries, JVM settings, SQL, caching, and hot/cold data handling.</p></section>
+      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">What the design addresses</h2><p>Delivered service decomposition and scheduling and configuration integrations, with JVM, SQL, caching, and hot/cold data improvements.</p></section>
       <section class="seo-section" aria-labelledby="checks-title"><h2 id="checks-title">Validation focus</h2><ul class="seo-checklist"><li>Do business rules, error responses, and restrictions retain their semantics after service decomposition?</li><li>Do thread usage and partial-result handling behave as intended when downstream services are slow or fail?</li><li>Are JVM, SQL, cache, and hot/cold data changes evaluated under comparable loads?</li></ul></section>
       <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">My contribution</h2><p>Led the monolith-to-microservices migration, covering technical design, core development, and team delivery. Worked with product, QA, and operations on releases and production issues.</p></section>
 
       <section class="seo-section" aria-labelledby="tags-title"><h2 id="tags-title">Technologies and topics</h2><ul class="seo-tags" aria-label="Technologies and topics"><li>Java / Dubbo</li><li>Microservices</li><li>CompletableFuture</li><li>JVM</li><li>MySQL / Redis</li><li>XXL-JOB / Apollo</li></ul></section>
     </article>
-    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">Explore more projects</h2><div class="seo-related-grid"><a href="../ai-customer-service-rag/"><strong>AI Customer Support &amp; Knowledge Retrieval</strong><span>I contributed to support-message processing and routing, including context, retries, and task state.</span></a><a href="../dify-operations-assistant/"><strong>Dify Self-Service Assistant for Operations</strong><span>Let operations query internal systems from 360Teams by translating questions into API calls.</span></a><a href="../aigc-production-workflow/"><strong>AIGC Production Workflow</strong><span>When a generation request times out, how can the task recover without reserving the same budget twice?</span></a></div><a href="../">View all projects ↗</a></nav>
+    <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">Explore more projects</h2><div class="seo-related-grid"><a href="../ai-customer-service-rag/"><strong>AI Customer Support &amp; Knowledge Retrieval</strong><span>I contributed to support-message processing and routing based on business context.</span></a><a href="../dify-operations-assistant/"><strong>Dify Self-Service Assistant for Operations</strong><span>Let operations query internal systems from 360Teams by translating questions into API calls.</span></a><a href="../aigc-production-workflow/"><strong>AIGC Production Workflow</strong><span>When a generation request times out, how can the task recover without reserving the same budget twice?</span></a></div><a href="../">View all projects ↗</a></nav>
     <section class="seo-contact" aria-labelledby="contact-title">
       <h2 id="contact-title">Let’s talk about what you’re building.</h2>
       <p>Share your goals, current systems, and delivery scope. We can work through the key technical questions and a practical path forward.</p>

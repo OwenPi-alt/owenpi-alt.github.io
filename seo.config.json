@@ -28,13 +28,13 @@
     "telemarketing": {
       "slug": "java-telemarketing-architecture",
       "title": "Java 电销系统架构改造：微服务、JVM 与数据访问治理｜王子",
-      "description": "奇富科技 Java 电销系统改造：主导微服务拆分，处理并行查询、JVM、SQL、缓存和冷热数据问题，介绍任务配置管理及开发 Leader 的具体职责。",
+      "description": "奇富科技 Java 电销系统改造：主导微服务拆分，开展 JVM、SQL、缓存和冷热数据优化；同时介绍系统采用的并行查询、外呼校验及任务配置管理。",
       "image": "assets/og-telemarketing.png"
     },
     "customer-ai": {
       "slug": "ai-customer-service-rag",
       "title": "AI 客服与 RAG 知识检索：消息路由、上下文与引用追踪｜王子",
-      "description": "参与奇富科技 AI 客服的咨询消息与路由模块开发：RabbitMQ 任务状态、工单上下文、失败重试和超时处理。介绍所在平台的知识检索与引用记录。",
+      "description": "2026 年参与奇富科技 AI 客服的咨询消息与路由模块开发，结合业务上下文区分场景。案例介绍所在系统的 RabbitMQ 任务状态、失败重试、知识检索与引用记录。",
       "image": "assets/og-customer-ai.png"
     },
     "messaging": {

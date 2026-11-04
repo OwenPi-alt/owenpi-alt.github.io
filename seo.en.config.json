@@ -28,13 +28,13 @@
     "telemarketing": {
       "slug": "java-telemarketing-architecture",
       "title": "Java Telemarketing Architecture: Services, JVM, and Data Access | Wang Zi",
-      "description": "Java outbound-calling modernization at Qifu: service decomposition, parallel queries, JVM and SQL work, caching, and my role as development lead.",
+      "description": "Led Qifu’s service decomposition and JVM, SQL, and cache work. The case also explains the system’s parallel queries and outbound validation.",
       "image": "assets/og-en-telemarketing.png"
     },
     "customer-ai": {
       "slug": "ai-customer-service-rag",
       "title": "AI Customer Support and RAG: Routing, Context, and Citations | Wang Zi",
-      "description": "My contributions to support messages and routing: RabbitMQ task state, ticket context, retries, and timeout handling within an AI support platform.",
+      "description": "Contributed to Qifu’s AI support messaging and routing in 2026. The case explains ticket context, RabbitMQ task states, knowledge retrieval, and citations.",
       "image": "assets/og-en-customer-ai.png"
     },
     "messaging": {

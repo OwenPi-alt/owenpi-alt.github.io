@@ -140,10 +140,10 @@
       tags: ['Java', '微服务', 'JVM', 'MySQL', 'Redis', 'XXL-JOB', 'Apollo']
     },
     'customer-ai': {
-      title: 'AI 客服与知识检索平台', meta: '奇富科技 · 参与咨询消息与路由模块开发',
+      title: 'AI 客服与知识检索平台', meta: '奇富科技 · 参与咨询消息与路由模块开发 · 2026',
       context: '面向用户咨询和运营客服，结合业务上下文与知识库生成建议答复，支持信息澄清、状态查询和人工分流。',
       decisions: ['通过 RabbitMQ 接收咨询消息，保存处理记录，再异步调用模型并写回回复。', '接入百炼知识库，结合检索得分与命中阈值组织答复。', '保存引用片段、Prompt 版本和模型调用信息，为问题追踪和运营反馈提供依据。'],
-      responsibility: '参与咨询消息与路由模块开发，结合业务上下文区分咨询场景。项目经历涉及失败重试、超时状态清理与重复提交控制。',
+      responsibility: '参与咨询消息与路由模块开发，结合业务上下文区分咨询场景。',
       tags: ['Java 17', 'Spring Boot 3', 'LangChain4j', 'RabbitMQ', 'PostgreSQL', 'RAG']
     },
     messaging: {

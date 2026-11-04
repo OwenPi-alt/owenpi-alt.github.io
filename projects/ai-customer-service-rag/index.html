@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>AI 客服与 RAG 知识检索：消息路由、上下文与引用追踪｜王子</title>
-  <meta name="description" content="参与奇富科技 AI 客服的咨询消息与路由模块开发：RabbitMQ 任务状态、工单上下文、失败重试和超时处理。介绍所在平台的知识检索与引用记录。">
+  <meta name="description" content="2026 年参与奇富科技 AI 客服的咨询消息与路由模块开发，结合业务上下文区分场景。案例介绍所在系统的 RabbitMQ 任务状态、失败重试、知识检索与引用记录。">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://owenpi-alt.github.io/projects/ai-customer-service-rag/">
   <link rel="alternate" hreflang="zh-CN" href="https://owenpi-alt.github.io/projects/ai-customer-service-rag/">
@@ -15,7 +15,7 @@
   <meta property="og:site_name" content="王子的技术作品集">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:title" content="AI 客服与 RAG 知识检索：消息路由、上下文与引用追踪｜王子">
-  <meta property="og:description" content="参与奇富科技 AI 客服的咨询消息与路由模块开发：RabbitMQ 任务状态、工单上下文、失败重试和超时处理。介绍所在平台的知识检索与引用记录。">
+  <meta property="og:description" content="2026 年参与奇富科技 AI 客服的咨询消息与路由模块开发，结合业务上下文区分场景。案例介绍所在系统的 RabbitMQ 任务状态、失败重试、知识检索与引用记录。">
   <meta property="og:url" content="https://owenpi-alt.github.io/projects/ai-customer-service-rag/">
   <meta property="og:image" content="https://owenpi-alt.github.io/assets/og-customer-ai.png">
   <meta property="og:image:width" content="1200">
@@ -23,7 +23,7 @@
   <meta property="og:image:alt" content="AI 客服与知识检索平台">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AI 客服与 RAG 知识检索：消息路由、上下文与引用追踪｜王子">
-  <meta name="twitter:description" content="参与奇富科技 AI 客服的咨询消息与路由模块开发：RabbitMQ 任务状态、工单上下文、失败重试和超时处理。介绍所在平台的知识检索与引用记录。">
+  <meta name="twitter:description" content="2026 年参与奇富科技 AI 客服的咨询消息与路由模块开发，结合业务上下文区分场景。案例介绍所在系统的 RabbitMQ 任务状态、失败重试、知识检索与引用记录。">
   <meta name="twitter:image" content="https://owenpi-alt.github.io/assets/og-customer-ai.png">
   <meta name="twitter:image:alt" content="AI 客服与知识检索平台">
   <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
@@ -39,7 +39,7 @@
       "@type": "Article",
       "@id": "https://owenpi-alt.github.io/projects/ai-customer-service-rag/#article",
       "headline": "AI 客服与知识检索平台",
-      "description": "参与奇富科技 AI 客服的咨询消息与路由模块开发：RabbitMQ 任务状态、工单上下文、失败重试和超时处理。介绍所在平台的知识检索与引用记录。",
+      "description": "2026 年参与奇富科技 AI 客服的咨询消息与路由模块开发，结合业务上下文区分场景。案例介绍所在系统的 RabbitMQ 任务状态、失败重试、知识检索与引用记录。",
       "inLanguage": "zh-CN",
       "image": {
         "@type": "ImageObject",
@@ -104,8 +104,8 @@
       <header class="seo-lede">
         <p class="seo-kicker">CASE 04 / ENGINEERING IN DETAIL</p>
         <h1>AI 客服与知识检索平台</h1>
-        <p class="seo-thesis">参与咨询消息与路由开发，处理上下文、重试和任务状态。</p>
-        <p class="seo-meta">奇富科技 · 参与咨询消息与路由模块开发</p>
+        <p class="seo-thesis">参与咨询消息与路由开发，结合业务上下文区分咨询场景。</p>
+        <p class="seo-meta">奇富科技 · 参与咨询消息与路由模块开发 · 2026</p>
       </header>
       <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">问题与约束</h2><p>咨询处理需要结合工单背景，选择信息澄清、状态查询、知识检索或人工分流。项目保存模型调用和知识引用，供排查答复与运营反馈使用。我的参与范围是咨询消息与路由模块，下文也说明这些模块所在的整体处理流程。</p></section>
       <section class="seo-section" aria-labelledby="flow-title">
@@ -121,9 +121,9 @@
           <article class="seo-decision"><span>03</span><h3>保存引用、Prompt 和模型调用信息</h3><p><strong>难点</strong>仅保存最终文本，难以解释答案来源与某次调用出现偏差的原因。</p><p><strong>方案</strong>平台接入百炼知识库，结合检索得分与阈值组织答复；保存路由、引用片段、Prompt 版本、模型和 Token 信息，并记录运营反馈。</p><p><strong>考虑</strong>排查一条答复时，可以对照引用片段、当时的提示词和模型调用，判断问题来自检索还是生成。</p></article>
         </div>
       </section>
-      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">这套设计解决了什么</h2><p>参与实现消息处理与场景路由，结合工单上下文处理咨询，并处理重复提交、失败重试和超时状态。</p></section>
+      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">这套设计解决了什么</h2><p>参与咨询消息处理与场景路由开发。所在系统结合工单上下文处理咨询，并按任务状态处理重复消息、失败重试和超时清理。</p></section>
       <section class="seo-section" aria-labelledby="checks-title"><h2 id="checks-title">验证关注点</h2><ul class="seo-checklist"><li>重复消息、超时任务与失败重试，是否按状态条件进入正确处理路径？</li><li>知识未命中、检索异常或上下文不足时，是否给出适当分流或反馈？</li><li>一条答复能否追溯到使用的知识引用、Prompt 版本及模型调用？</li></ul></section>
-      <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">我的职责</h2><p>参与咨询消息与路由模块开发，结合业务上下文区分场景；涉及失败重试、超时状态清理和重复提交控制。</p></section>
+      <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">我的职责</h2><p>参与咨询消息与路由模块开发，结合业务上下文区分咨询场景。</p></section>
 
       <section class="seo-section" aria-labelledby="tags-title"><h2 id="tags-title">技术与主题</h2><ul class="seo-tags" aria-label="技术与主题"><li>Java 17</li><li>Spring Boot 3</li><li>LangChain4j</li><li>RabbitMQ</li><li>PostgreSQL</li><li>RAG / 百炼</li></ul></section>
     </article>

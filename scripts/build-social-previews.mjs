@@ -49,7 +49,7 @@ for (const language of ['zh', 'en']) {
   for (const [key, item] of Object.entries(cases)) {
     if (!config.cases[key]?.image) throw new Error('Missing ' + language + ' image target: ' + key);
     const source = item.meta.split(' · ');
-    const proof = item.stage ? item.meta : source.slice(0, 2).join(' · ');
+    const proof = item.stage || key === 'customer-ai' ? item.meta : source.slice(0, 2).join(' · ');
     const stageNote = key === 'quant'
       ? (english ? 'Simulated backtests · No live trading' : '模拟回测 · 未接入实盘')
       : (english ? 'Offline prototype · Mock-provider validation' : '离线原型 · 模拟供应商验证');

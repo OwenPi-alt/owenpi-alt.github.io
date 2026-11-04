@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>AI Customer Support and RAG: Routing, Context, and Citations | Wang Zi</title>
-  <meta name="description" content="My contributions to support messages and routing: RabbitMQ task state, ticket context, retries, and timeout handling within an AI support platform.">
+  <meta name="description" content="Contributed to Qifu’s AI support messaging and routing in 2026. The case explains ticket context, RabbitMQ task states, knowledge retrieval, and citations.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://owenpi-alt.github.io/en/projects/ai-customer-service-rag/">
   <link rel="alternate" hreflang="zh-CN" href="https://owenpi-alt.github.io/projects/ai-customer-service-rag/">
@@ -15,7 +15,7 @@
   <meta property="og:site_name" content="Wang Zi — Software Engineering Portfolio">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="AI Customer Support and RAG: Routing, Context, and Citations | Wang Zi">
-  <meta property="og:description" content="My contributions to support messages and routing: RabbitMQ task state, ticket context, retries, and timeout handling within an AI support platform.">
+  <meta property="og:description" content="Contributed to Qifu’s AI support messaging and routing in 2026. The case explains ticket context, RabbitMQ task states, knowledge retrieval, and citations.">
   <meta property="og:url" content="https://owenpi-alt.github.io/en/projects/ai-customer-service-rag/">
   <meta property="og:image" content="https://owenpi-alt.github.io/assets/og-en-customer-ai.png">
   <meta property="og:image:width" content="1200">
@@ -23,7 +23,7 @@
   <meta property="og:image:alt" content="AI Customer Support &amp; Knowledge Retrieval">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AI Customer Support and RAG: Routing, Context, and Citations | Wang Zi">
-  <meta name="twitter:description" content="My contributions to support messages and routing: RabbitMQ task state, ticket context, retries, and timeout handling within an AI support platform.">
+  <meta name="twitter:description" content="Contributed to Qifu’s AI support messaging and routing in 2026. The case explains ticket context, RabbitMQ task states, knowledge retrieval, and citations.">
   <meta name="twitter:image" content="https://owenpi-alt.github.io/assets/og-en-customer-ai.png">
   <meta name="twitter:image:alt" content="AI Customer Support &amp; Knowledge Retrieval">
   <link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
@@ -39,7 +39,7 @@
       "@type": "Article",
       "@id": "https://owenpi-alt.github.io/en/projects/ai-customer-service-rag/#article",
       "headline": "AI Customer Support & Knowledge Retrieval",
-      "description": "My contributions to support messages and routing: RabbitMQ task state, ticket context, retries, and timeout handling within an AI support platform.",
+      "description": "Contributed to Qifu’s AI support messaging and routing in 2026. The case explains ticket context, RabbitMQ task states, knowledge retrieval, and citations.",
       "inLanguage": "en",
       "image": {
         "@type": "ImageObject",
@@ -104,8 +104,8 @@
       <header class="seo-lede">
         <p class="seo-kicker">CASE 04 / ENGINEERING IN DETAIL</p>
         <h1>AI Customer Support &amp; Knowledge Retrieval</h1>
-        <p class="seo-thesis">I contributed to support-message processing and routing, including context, retries, and task state.</p>
-        <p class="seo-meta">Qifu Technology (奇富科技) · Contributor to message processing and routing</p>
+        <p class="seo-thesis">I contributed to support-message processing and routing based on business context.</p>
+        <p class="seo-meta">Qifu Technology (奇富科技) · Contributor to message processing and routing · 2026</p>
       </header>
       <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">Context and constraints</h2><p>Support inquiries need ticket context to choose among clarification, status queries, knowledge retrieval, and human handoff. The platform retains model calls and citations for answer investigation and operational feedback. My contributions were in message processing and routing; the following also describes the wider workflow those modules participate in.</p></section>
       <section class="seo-section" aria-labelledby="flow-title">
@@ -121,9 +121,9 @@
           <article class="seo-decision"><span>03</span><h3>Retain citations, prompts, and model-call details</h3><p><strong>Challenge</strong>The final reply alone cannot explain its source or why a particular model call produced an unsuitable result.</p><p><strong>Approach</strong>The system integrates the Bailian knowledge base and uses retrieval scores and thresholds to inform replies. It retains routes, cited passages, prompt versions, model and token information, and operational feedback.</p><p><strong>Reasoning</strong>An answer can be checked against its cited passages, prompt, and model call to investigate whether an issue arose in retrieval or generation.</p></article>
         </div>
       </section>
-      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">What the design addresses</h2><p>Contributed to message handling and scenario routing, using ticket context and handling duplicate submissions, failed attempts, and timed-out tasks.</p></section>
+      <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">What the design addresses</h2><p>Contributed to support-message processing and scenario routing. The system uses ticket context and task state to handle duplicate messages, failure retries, and timeout cleanup.</p></section>
       <section class="seo-section" aria-labelledby="checks-title"><h2 id="checks-title">Validation focus</h2><ul class="seo-checklist"><li>Do duplicate messages, timed-out tasks, and failed retries follow the correct state-dependent paths?</li><li>Do missing knowledge, retrieval failures, and insufficient context lead to appropriate routing or feedback?</li><li>Can an answer be traced to its knowledge citations, prompt version, and model call?</li></ul></section>
-      <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">My contribution</h2><p>Contributed to support-message processing and routing, using business context to distinguish scenarios. Work included failure retries, timeout-state cleanup, and duplicate-submission controls.</p></section>
+      <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">My contribution</h2><p>Contributed to support-message processing and routing, using business context to distinguish support scenarios.</p></section>
 
       <section class="seo-section" aria-labelledby="tags-title"><h2 id="tags-title">Technologies and topics</h2><ul class="seo-tags" aria-label="Technologies and topics"><li>Java 17</li><li>Spring Boot 3</li><li>LangChain4j</li><li>RabbitMQ</li><li>PostgreSQL</li><li>RAG / Bailian</li></ul></section>
     </article>
