@@ -16,13 +16,13 @@
     "aigc": {
       "slug": "aigc-production-workflow",
       "title": "AIGC Production Workflow: Recovery, Budgets, and Media Review | Wang Zi",
-      "description": "An AI-assisted personal offline prototype using Python, SQLite WAL, a mock provider, and local media to validate recovery, budget accounting, quality checks, and editing.",
+      "description": "AIGC workflow using Python, SQLite WAL, FFmpeg and a mock provider to handle task recovery, budget accounting, media checks and editing.",
       "image": "assets/og-en-aigc.png"
     },
     "quant": {
       "slug": "quant-research-backtesting",
       "title": "Quantitative Research: LEAN Signals and Backtest Validation | Wang Zi",
-      "description": "An AI-assisted personal research prototype with LEAN signals, an independent Python ledger, simulated costs and settlement, risk rules, and trade-by-trade reconciliation.",
+      "description": "LEAN / C# strategy signals and an independent Python ledger for simulated fills, costs, settlement, risk rules and trade-by-trade reconciliation.",
       "image": "assets/og-en-quant.png"
     },
     "telemarketing": {

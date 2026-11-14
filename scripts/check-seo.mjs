@@ -77,7 +77,7 @@ for(const url of urls){
     const key=Object.keys(locale.config.cases).find(k=>localFile==='projects/'+locale.config.cases[k].slug+'/index.html');
     const data=locale.cases[key];const body=decode(html.slice(html.indexOf('<body')));
     for(const value of [data.context,data.responsibility,data.outcome,...data.decisions.flatMap(d=>[d.problem,d.choice,d.benefit]),...data.checks])assert.ok(body.includes(value),file+' preserves narrative');
-    if(data.stage)assert.ok(body.includes(data.stage),file+' preserves prototype stage');
+    if(data.stage)assert.ok(body.includes(data.stage),file+' preserves stage description');
   }
   const renderedText=decode(html.slice(html.indexOf('<body')).replace(/<script\b[\s\S]*?<\/script>/g,'').replace(/<[^>]+>/g,''));
   if(locale.prefix){

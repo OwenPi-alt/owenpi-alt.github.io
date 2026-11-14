@@ -1,5 +1,5 @@
 // Detailed case narratives. Business cases retain their confirmed role boundaries;
-// lab cases describe AI-assisted personal research prototypes, not client or live-trading delivery.
+// Technical cases describe workflows, backtesting mechanisms, and implementation details.
 window.PORTFOLIO_CASE_STUDIES = {
   commerce: {
     title: 'Restaurant Orders & Payments',
@@ -43,9 +43,9 @@ window.PORTFOLIO_CASE_STUDIES = {
   },
   aigc: {
     title: 'AIGC Production Workflow',
-    meta: 'Personal R&D · AI-assisted · Offline engineering prototype',
+    meta: 'AIGC workflows · Python / SQLite / FFmpeg',
     thesis: 'When a generation request times out, how can the task recover without reserving the same budget twice?',
-    context: 'This is an AI-assisted personal offline prototype. A mock provider simulates submission timeouts, interruptions, and repeated attempts to exercise recovery and budget accounting. Local media is used to check asset versions, review records, and edit assembly.',
+    context: 'Content production involves repeated generation, retries, review and editing. SQLite WAL tracks shot tasks, budgets and asset versions. A mock provider exercises submission timeouts, interruptions and repeated attempts; local media checks compare asset versions, approval records and edit assembly.',
     flow: [
       { name: 'Shot ledger', detail: 'Versions, requests, and budgets' },
       { name: 'Simulated execution', detail: 'Submission, polling, and recovery' },
@@ -56,7 +56,7 @@ window.PORTFOLIO_CASE_STUDIES = {
       {
         title: 'Record each attempt and handle unknown outcomes explicitly',
         problem: 'A request can time out after submission. Retrying immediately may execute the same task again.',
-        choice: 'Stored shot versions, request hashes, attempt records, and audit events in SQLite WAL. When a submission outcome is unknown, the prototype retains the budget reservation and enters recovery or reconciliation.',
+        choice: 'Stored shot versions, request hashes, attempt records, and audit events in SQLite WAL. When a submission outcome is unknown, the workflow retains the budget reservation and enters recovery or reconciliation.',
         benefit: 'Recovery inspects existing attempts before polling, reconciling, or submitting again. An unresolved request keeps its budget reservation.'
       },
       {
@@ -77,17 +77,16 @@ window.PORTFOLIO_CASE_STUDIES = {
       'Do prompt or media changes correctly affect retry limits and review validity?',
       'Do the files, versions, and approvals used in an edit refer to the same valid attempt?'
     ],
-    outcome: 'Offline simulations cover unknown submissions, task recovery, budget reservations, and invalidated reviews, alongside local media checks and edit assembly.',
-    responsibilityLabel: 'Research scope',
-    responsibility: 'Developed with AI assistance to explore generation-task scheduling and failure handling: task records, recovery logic, simulated budget accounting, technical media checks, and edit validation.',
-    stage: 'Offline workflows, a mock provider, and local media are used to validate task recovery, budget accounting, quality checks, and editing.',
+    outcome: 'Mock-provider scenarios cover unknown submissions, task recovery, budget reservations and invalidated reviews, alongside media checks and edit assembly.',
+    responsibilityLabel: 'Implementation',
+    responsibility: 'Developed with AI assistance: task scheduling and recovery, budget accounting, media checks, approval records and edit validation.',
     tags: ['Python', 'SQLite WAL', 'FFmpeg / ffprobe', 'State machines', 'Budget reservations', 'Task recovery']
   },
   quant: {
     title: 'Quant Research & Backtesting',
-    meta: 'Personal research · AI-assisted · Simulated backtesting prototype',
+    meta: 'Quantitative backtesting · LEAN / C# / Python',
     thesis: 'Reconcile signals, costs, and cash movements before interpreting a backtest.',
-    context: 'This is an AI-assisted personal research prototype. LEAN / C# calculates signals, while an independent Python ledger simulates fills and cash movements. Transaction records are used to check the effects of costs and risk rules. The work focuses on finding calculation discrepancies and preserving experiment conditions; a return chart alone does not establish that a strategy works.',
+    context: 'LEAN / C# calculates strategy signals, while an independent Python ledger simulates fills and cash movements. Transaction records check costs and risk rules. Inputs, parameters, code versions and trade details are retained to locate differences in signals, execution assumptions and capital accounting.',
     flow: [
       { name: 'Market data & signals', detail: 'LEAN / C# calculations' },
       { name: 'Independent ledger', detail: 'Python execution simulation' },
@@ -120,9 +119,8 @@ window.PORTFOLIO_CASE_STUDIES = {
       'Can the same inputs, code, and parameters reproduce both detailed records and aggregate results?'
     ],
     outcome: 'Checks strategy signals, simulated execution, and capital accounting separately, with transaction records and hashes identifying each experiment.',
-    responsibilityLabel: 'Research scope',
-    responsibility: 'An AI-assisted personal research prototype covering signal calculations, an independent capital ledger, risk rules, result reconciliation, and HTML research reports.',
-    stage: 'Personal research and simulated backtesting covering signal calculations, an independent capital ledger, risk rules, and result reconciliation.',
+    responsibilityLabel: 'Implementation',
+    responsibility: 'Developed with AI assistance: signal calculations, an independent capital ledger, risk rules, trade-by-trade reconciliation and HTML reports.',
     tags: ['C# / LEAN', 'Python', 'Independent capital ledger', 'Cost modeling', 'Risk rules', 'Reproducible research']
   },
   telemarketing: {

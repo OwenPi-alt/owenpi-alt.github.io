@@ -36,7 +36,7 @@ for (const language of ['zh', 'en']) {
     skills: introParts.join(' · '),
     proof: proofParts.join(''),
     nodes: nodes(english ? ['Systems', 'AI applications', 'Delivery'] : ['系统开发', 'AI 应用', '项目交付']),
-    diagramNote: english ? 'Business projects &amp; research prototypes' : '业务项目与个人研究原型',
+    diagramNote: english ? 'Architecture, development &amp; implementation' : '系统架构 · 开发实现 · 技术选择',
     domain: 'owenpi-alt.github.io/' + (english ? 'en/' : 'zh/'),
     foot: english ? 'Portfolio' : '项目记录'
   };
@@ -49,20 +49,21 @@ for (const language of ['zh', 'en']) {
   for (const [key, item] of Object.entries(cases)) {
     if (!config.cases[key]?.image) throw new Error('Missing ' + language + ' image target: ' + key);
     const source = item.meta.split(' · ');
-    const proof = item.stage || key === 'customer-ai' ? item.meta : source.slice(0, 2).join(' · ');
+    const technicalProject = key === 'aigc' || key === 'quant';
+    const proof = technicalProject || key === 'customer-ai' ? item.meta : source.slice(0, 2).join(' · ');
     const stageNote = key === 'quant'
       ? (english ? 'Simulated backtests · Ledger reconciliation' : '模拟回测 · 独立账本核对')
-      : (english ? 'Offline prototype · Mock-provider validation' : '离线原型 · 模拟供应商验证');
+      : (english ? 'Task recovery · Budgets · Media checks' : '任务恢复 · 预算管理 · 媒体质检');
     await writeFile(resolve(output, key + '.html'), render({
       ...fields,
       title: escape(item.title + ' · ' + config.name),
       cardClass: ' case',
-      tag: item.stage ? (english ? 'Research prototype · AI-assisted' : '个人研究原型 · AI 协作') : (english ? 'Business project' : '业务项目'),
+      tag: technicalProject ? (key === 'aigc' ? 'AIGC WORKFLOW' : (english ? 'QUANTITATIVE BACKTESTING' : '量化策略回测')) : (english ? 'Project case study' : '项目案例'),
       heading: escape(item.title),
       skills: escape(item.thesis),
       proof: escape(proof),
       nodes: nodes([item.flow[0].name, item.flow[1].name, item.flow[3].name]),
-      diagramNote: item.stage ? stageNote : (english ? 'A simplified view of the project' : '项目流程简图'),
+      diagramNote: technicalProject ? stageNote : (english ? 'A simplified view of the project' : '项目流程简图'),
       domain: 'owenpi-alt.github.io/' + (english ? 'en/' : '') + 'projects/' + escape(config.cases[key].slug) + '/',
       foot: english ? 'Project notes' : '项目记录'
     }));

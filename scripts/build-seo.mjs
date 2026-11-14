@@ -100,8 +100,8 @@ const imageObject = imagePath => ({ '@type': 'ImageObject', url: absolute(imageP
 const image = imageObject(config.ogImage);
 const label = (zh, en) => english ? en : zh;
 const hubRoute = `${base}projects/`;
-const hubTitle = label(`项目案例与工程原型 | ${config.name}`, `Projects and Engineering Prototypes | ${config.name}`);
-const hubDescription = label(`${config.name}的项目案例与工程原型：餐饮订单与支付、电销架构、营销触达、AI 客服、Dify 运营问答，以及 AIGC 工作流与量化研究。包含问题背景、架构取舍、职责与当前阶段。`, `Seven case studies in Java architecture, business systems, AI workflows and quantitative research, covering responsibilities, trade-offs and prototype stages.`);
+const hubTitle = label(`项目案例与技术实践 | ${config.name}`, `Projects and Engineering Details | ${config.name}`);
+const hubDescription = label(`${config.name}的项目案例与技术实践：餐饮订单与支付、电销架构、营销触达、AI 客服、Dify 运营问答，以及 AIGC 工作流与量化研究。介绍问题背景、技术选择、具体实现与职责。`, `Seven case studies in Java architecture, business systems, AI workflows and quantitative research, covering technologies, design decisions, implementation and responsibilities.`);
 const localizedRoutes = route => {
   const suffix = route.slice(base.length);
   return { zh: suffix, en: `en/${suffix}` };
@@ -247,7 +247,7 @@ function renderHub() {
   ${siteHeader(homeHref, route)}
   <main id="main" class="seo-main">
     <nav class="seo-breadcrumbs" aria-label="${label('面包屑导航', 'Breadcrumbs')}"><a href="${homeHref}">${label('首页', 'Home')}</a><span aria-hidden="true">/</span><span aria-current="page">${label('项目案例', 'Projects')}</span></nav>
-    <header class="seo-lede"><p class="seo-kicker">PROJECTS / ENGINEERING IN DETAIL</p><h1>${label('项目案例与工程原型', 'Projects and engineering prototypes')}</h1><p class="seo-thesis">${label('从业务问题，到架构取舍与实现。', 'From business problems to design decisions and implementation.')}</p><p class="seo-meta">${label('这里收录工作项目和两个个人原型，分别说明我的工作与当前进展。图示经过简化。', 'Work projects and two personal prototypes, with my role and the current stage noted for each. Diagrams are simplified.')}</p></header>
+    <header class="seo-lede"><p class="seo-kicker">PROJECTS / ENGINEERING IN DETAIL</p><h1>${label('项目案例与技术实践', 'Projects and engineering details')}</h1><p class="seo-thesis">${label('从业务问题，到架构取舍与实现。', 'From business problems to design decisions and implementation.')}</p><p class="seo-meta">${label('这里记录业务系统、AI 应用、AIGC 工作流和量化回测工具的设计与实现。图示经过简化。', 'Design and implementation across business systems, AI applications, AIGC workflows and quantitative backtesting. Diagrams are simplified.')}</p></header>
     <section class="seo-section" aria-labelledby="cases-title"><h2 id="cases-title">${label('七个案例，展开看工程细节。', 'Seven case studies, with the engineering details.')}</h2><div class="seo-hub-grid">${cases.map(entry => `
       <article class="seo-hub-card"><p class="seo-kicker">CASE ${String(entry.index + 1).padStart(2, '0')}</p><h2><a href="./${escapeHtml(entry.seo.slug)}/">${escapeHtml(entry.data.title)}</a></h2><p class="seo-meta">${escapeHtml(entry.data.meta)}</p><p>${escapeHtml(entry.data.thesis)}</p><p>${escapeHtml(entry.seo.description)}</p>${entry.data.stage ? `<p class="seo-stage">${escapeHtml(entry.data.stage)}</p>` : ''}${tags(entry.data.tags)}<a href="./${escapeHtml(entry.seo.slug)}/">${label('阅读完整案例 ↗', 'Read the full case study ↗')}</a></article>`).join('')}
     </div></section>

@@ -1,5 +1,5 @@
 // Detailed case narratives. Business cases retain their confirmed role boundaries;
-// lab cases describe research prototypes rather than client or live-trading delivery.
+// Technical cases describe workflows, backtesting mechanisms, and implementation details.
 window.PORTFOLIO_CASE_STUDIES = {
   commerce: {
     title: '餐饮订单与支付系统',
@@ -43,9 +43,9 @@ window.PORTFOLIO_CASE_STUDIES = {
   },
   aigc: {
     title: 'AIGC 内容生产工作流',
-    meta: '个人研发 · AI 协作 · 离线工程原型',
+    meta: 'AIGC 工作流 · Python / SQLite / FFmpeg',
     thesis: '生成请求超时后，怎样恢复任务，又不重复占用预算？',
-    context: '这是与 AI 协作完成的个人离线原型。用模拟供应商构造提交超时、执行中断和重复尝试，检查任务恢复与预算记账；再用本地媒体检查素材版本、审核记录和剪辑结果是否对应。',
+    context: '内容生产包含多轮生成、重试、审核和剪辑。使用 SQLite WAL 管理镜头任务、预算与素材版本，通过模拟供应商构造超时、中断和重复尝试，检查任务恢复与记账；用本地媒体核对审核记录和剪辑结果。',
     flow: [
       { name: '镜头台账', detail: '版本、请求与预算' },
       { name: '模拟执行', detail: '提交、查询与恢复' },
@@ -77,17 +77,16 @@ window.PORTFOLIO_CASE_STUDIES = {
       '修改提示词或替换素材，是否会正确影响重试上限和审核有效性？',
       '剪辑使用的文件、版本与审核记录，是否指向同一次有效尝试？'
     ],
-    outcome: '离线模拟覆盖了提交结果未知、任务恢复、预算预占和审核失效处理，并完成本地媒体质检与剪辑验证。',
-    responsibilityLabel: '研发范围',
-    responsibility: '与 AI 协作完成任务台账、恢复逻辑、模拟预算记账、技术质检与剪辑验证，用于研究生成任务的调度和故障处理。',
-    stage: '以离线流程、模拟供应商（mock provider）和本地媒体验证任务恢复、预算记账、质检与剪辑。',
+    outcome: '通过模拟供应商检查提交结果未知、任务恢复、预算预占和审核失效处理，并完成媒体质检与剪辑验证。',
+    responsibilityLabel: '实现内容',
+    responsibility: '与 AI 协作开发任务台账、恢复逻辑、预算记账和媒体质检，并检查剪辑素材、版本与审核记录的一致性。',
     tags: ['Python', 'SQLite WAL', 'FFmpeg / ffprobe', '状态机', '预算预占', '任务恢复']
   },
   quant: {
     title: '量化策略研究与回测框架',
-    meta: '个人研究 · AI 协作 · 模拟回测原型',
+    meta: '量化回测 · LEAN / C# / Python',
     thesis: '先把信号、费用和资金变化对上，再看回测结果。',
-    context: '这是与 AI 协作完成的个人研究原型。LEAN / C# 计算信号，Python 独立模拟成交和资金变化，再逐笔核对费用与风险规则的影响。研究重点是找出计算差异、保留实验条件，不以单份收益曲线判断策略有效。',
+    context: '使用 LEAN / C# 计算策略信号，Python 独立模拟成交和资金变化，并逐笔核对费用与风险规则的影响。保留输入、参数、代码版本和交易明细，用于定位信号、成交假设与资金计算之间的差异。',
     flow: [
       { name: '行情与信号', detail: 'LEAN / C# 计算' },
       { name: '独立账本', detail: 'Python 模拟成交' },
@@ -120,9 +119,8 @@ window.PORTFOLIO_CASE_STUDIES = {
       '冻结同一组输入、代码和参数，能否复现明细与汇总结果？'
     ],
     outcome: '将策略信号、模拟成交和资金账本分开核对，并用逐笔记录与哈希记录各次实验。',
-    responsibilityLabel: '研发范围',
-    responsibility: 'AI 协作完成的个人研究原型，覆盖信号计算、独立资金账本、风险规则、结果核对与 HTML 研究报告。',
-    stage: '个人研究与模拟回测，覆盖信号计算、独立资金账本、风险规则与结果核对。',
+    responsibilityLabel: '实现内容',
+    responsibility: '与 AI 协作开发信号计算、独立资金账本、风险规则、逐笔结果核对与 HTML 报告。',
     tags: ['C# / LEAN', 'Python', '独立资金账本', '成本模型', '风险规则', '可复现研究']
   },
   telemarketing: {

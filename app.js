@@ -75,9 +75,7 @@
       item.append(number, content);
       flow.append(item);
     });
-    document.querySelector('#preview-stage').textContent = data.stage
-      ? (isEnglish ? 'Personal prototype · simplified flow' : '个人原型 · 流程简图')
-      : (isEnglish ? 'Work project · simplified flow' : '工作项目 · 流程简图');
+    document.querySelector('#preview-stage').textContent = isEnglish ? 'Simplified workflow' : '流程简图';
     document.querySelector('#preview-link').setAttribute('href', previewLinks[key]);
   };
   previewButtons.forEach(button => {
@@ -115,21 +113,19 @@
       tags: ['业务架构', '订单模块', '支付网关', 'Netty', '极光 Push', '消息通知']
     },
     aigc: {
-      title: 'AIGC 内容生产工作流', meta: '个人研发 · AI 协作 · 离线工程原型',
-      context: '内容生产往往包含多轮生成、重试、审核和剪辑。这个原型将镜头任务、预算、文件版本与审核记录组织成持久化流程，验证复杂生成任务的工程控制方式。',
+      title: 'AIGC 内容生产工作流', meta: 'AIGC 工作流 · Python / SQLite / FFmpeg',
+      context: '内容生产往往包含多轮生成、重试、审核和剪辑。工作流将镜头任务、预算、文件版本与审核记录组织成持久化流程，验证复杂生成任务的工程控制方式。',
       decisions: ['状态先持久化：用 SQLite WAL 记录任务、尝试与审计事件。提交结果未知时进入恢复或对账状态，避免将超时直接当作失败重提。', '预算进入调度：在事务中完成预算检查与预占，使用整数记账；重试次数跨版本累计，保留质检淘汰任务的模拟费用。', '技术质检与内容审核分开：FFmpeg / ffprobe 检查时长、尺寸、音轨、黑帧和冻结；审核记录绑定请求与资产版本，条件变化后旧审核失效。'],
-      responsibilityLabel: '研发范围',
-      responsibility: 'AI 协作完成的个人工程原型，覆盖任务台账、恢复、技术质检与剪辑验证。展示重点是流程编排和工程约束设计。',
-      stage: '以离线流程、模拟供应商和本地媒体验证任务恢复、质检与剪辑。',
+      responsibilityLabel: '实现内容',
+      responsibility: '与 AI 协作开发任务台账、恢复逻辑、技术质检与剪辑流程，处理任务编排和异常恢复。',
       tags: ['Python', 'SQLite WAL', 'FFmpeg / ffprobe', '状态机', '预算预占', '任务恢复']
     },
     quant: {
-      title: '量化策略研究与回测框架', meta: '个人研究 · AI 协作 · Quant Research Engineering',
+      title: '量化策略研究与回测框架', meta: '量化回测 · LEAN / C# / Python',
       context: '将行情数据、策略信号、成本假设和资金变化放进可核对的研究流程，关注结果能否复现、费用是否正确计入、风险规则是否真实作用于账本。',
       decisions: ['信号与账本解耦：LEAN / C# 生成结构化策略信号，独立 Python 账本模拟资金与成交路径，并逐行交叉核对信号输出。', '成本与风险使用一致资金模型：区分交易权益、净权益、现金扣款与收益归因，将手续费、滑点、资金费与结算纳入账本，风险控制基于扣费后净权益。', '结果可以复现：保留交易明细、决策原因、费用与风险记录，通过输入、代码与输出哈希及逐笔对账追踪结果来源。'],
-      responsibilityLabel: '研发范围',
-      responsibility: 'AI 协作完成的个人量化研究原型，覆盖信号计算、独立资金账本、风险规则、结果核对与 HTML 研究报告。',
-      stage: '个人研究与模拟回测框架，覆盖信号计算、独立账本、风险规则和结果核对。',
+      responsibilityLabel: '实现内容',
+      responsibility: '与 AI 协作开发信号计算、独立资金账本、风险规则、结果核对与 HTML 报告。',
       tags: ['C# / LEAN', 'Python', '回测引擎', '成本账本', '风险约束', '可复现研究']
     },
     telemarketing: {
