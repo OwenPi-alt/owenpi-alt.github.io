@@ -45,7 +45,7 @@ window.PORTFOLIO_CASE_STUDIES = {
     title: 'AIGC Production Workflow',
     meta: 'Personal R&D · AI-assisted · Offline engineering prototype',
     thesis: 'When a generation request times out, how can the task recover without reserving the same budget twice?',
-    context: 'This is an AI-assisted personal offline prototype. A mock provider simulates submission timeouts, interruptions, and repeated attempts to exercise recovery and budget accounting. Local media is used to check asset versions, review records, and edit assembly. Real provider calls and generated-content quality have not been evaluated.',
+    context: 'This is an AI-assisted personal offline prototype. A mock provider simulates submission timeouts, interruptions, and repeated attempts to exercise recovery and budget accounting. Local media is used to check asset versions, review records, and edit assembly.',
     flow: [
       { name: 'Shot ledger', detail: 'Versions, requests, and budgets' },
       { name: 'Simulated execution', detail: 'Submission, polling, and recovery' },
@@ -80,7 +80,7 @@ window.PORTFOLIO_CASE_STUDIES = {
     outcome: 'Offline simulations cover unknown submissions, task recovery, budget reservations, and invalidated reviews, alongside local media checks and edit assembly.',
     responsibilityLabel: 'Research scope',
     responsibility: 'Developed with AI assistance to explore generation-task scheduling and failure handling: task records, recovery logic, simulated budget accounting, technical media checks, and edit validation.',
-    stage: 'Offline workflow and mock-provider validation are complete. Real providers and generated-content quality have not been evaluated, and the prototype has not been used for commercial delivery.',
+    stage: 'Offline workflows, a mock provider, and local media are used to validate task recovery, budget accounting, quality checks, and editing.',
     tags: ['Python', 'SQLite WAL', 'FFmpeg / ffprobe', 'State machines', 'Budget reservations', 'Task recovery']
   },
   quant: {
@@ -122,7 +122,7 @@ window.PORTFOLIO_CASE_STUDIES = {
     outcome: 'Checks strategy signals, simulated execution, and capital accounting separately, with transaction records and hashes identifying each experiment.',
     responsibilityLabel: 'Research scope',
     responsibility: 'An AI-assisted personal research prototype covering signal calculations, an independent capital ledger, risk rules, result reconciliation, and HTML research reports.',
-    stage: 'Research and simulated backtesting only, with no brokerage connection or live orders. Backtest results do not establish future returns.',
+    stage: 'Personal research and simulated backtesting covering signal calculations, an independent capital ledger, risk rules, and result reconciliation.',
     tags: ['C# / LEAN', 'Python', 'Independent capital ledger', 'Cost modeling', 'Risk rules', 'Reproducible research']
   },
   telemarketing: {

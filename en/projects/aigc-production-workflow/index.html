@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>AIGC Production Workflow: Recovery, Budgets, and Media Review | Wang Zi</title>
-  <meta name="description" content="An AI-assisted personal offline prototype for recovery, budget accounting, and media review. Mock-provider validation only; no commercial delivery.">
+  <meta name="description" content="An AI-assisted personal offline prototype using Python, SQLite WAL, a mock provider, and local media to validate recovery, budget accounting, quality checks, and editing.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://owenpi-alt.github.io/en/projects/aigc-production-workflow/">
   <link rel="alternate" hreflang="zh-CN" href="https://owenpi-alt.github.io/projects/aigc-production-workflow/">
@@ -15,7 +15,7 @@
   <meta property="og:site_name" content="Wang Zi — Software Engineering Portfolio">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="AIGC Production Workflow: Recovery, Budgets, and Media Review | Wang Zi">
-  <meta property="og:description" content="An AI-assisted personal offline prototype for recovery, budget accounting, and media review. Mock-provider validation only; no commercial delivery.">
+  <meta property="og:description" content="An AI-assisted personal offline prototype using Python, SQLite WAL, a mock provider, and local media to validate recovery, budget accounting, quality checks, and editing.">
   <meta property="og:url" content="https://owenpi-alt.github.io/en/projects/aigc-production-workflow/">
   <meta property="og:image" content="https://owenpi-alt.github.io/assets/og-en-aigc.png">
   <meta property="og:image:width" content="1200">
@@ -23,7 +23,7 @@
   <meta property="og:image:alt" content="AIGC Production Workflow">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AIGC Production Workflow: Recovery, Budgets, and Media Review | Wang Zi">
-  <meta name="twitter:description" content="An AI-assisted personal offline prototype for recovery, budget accounting, and media review. Mock-provider validation only; no commercial delivery.">
+  <meta name="twitter:description" content="An AI-assisted personal offline prototype using Python, SQLite WAL, a mock provider, and local media to validate recovery, budget accounting, quality checks, and editing.">
   <meta name="twitter:image" content="https://owenpi-alt.github.io/assets/og-en-aigc.png">
   <meta name="twitter:image:alt" content="AIGC Production Workflow">
   <link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
@@ -39,7 +39,7 @@
       "@type": "Article",
       "@id": "https://owenpi-alt.github.io/en/projects/aigc-production-workflow/#article",
       "headline": "AIGC Production Workflow",
-      "description": "An AI-assisted personal offline prototype for recovery, budget accounting, and media review. Mock-provider validation only; no commercial delivery.",
+      "description": "An AI-assisted personal offline prototype using Python, SQLite WAL, a mock provider, and local media to validate recovery, budget accounting, quality checks, and editing.",
       "inLanguage": "en",
       "image": {
         "@type": "ImageObject",
@@ -107,7 +107,7 @@
         <p class="seo-thesis">When a generation request times out, how can the task recover without reserving the same budget twice?</p>
         <p class="seo-meta">Personal R&amp;D · AI-assisted · Offline engineering prototype</p>
       </header>
-      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">Context and constraints</h2><p>This is an AI-assisted personal offline prototype. A mock provider simulates submission timeouts, interruptions, and repeated attempts to exercise recovery and budget accounting. Local media is used to check asset versions, review records, and edit assembly. Real provider calls and generated-content quality have not been evaluated.</p></section>
+      <section class="seo-section" aria-labelledby="context-title"><h2 id="context-title">Context and constraints</h2><p>This is an AI-assisted personal offline prototype. A mock provider simulates submission timeouts, interruptions, and repeated attempts to exercise recovery and budget accounting. Local media is used to check asset versions, review records, and edit assembly.</p></section>
       <section class="seo-section" aria-labelledby="flow-title">
         <h2 id="flow-title">Core workflow</h2>
         <p>This diagram is a simplified view of the technical approach.</p>
@@ -124,7 +124,7 @@
       <section class="seo-section seo-value" aria-labelledby="value-title"><h2 id="value-title">What the design addresses</h2><p>Offline simulations cover unknown submissions, task recovery, budget reservations, and invalidated reviews, alongside local media checks and edit assembly.</p></section>
       <section class="seo-section" aria-labelledby="checks-title"><h2 id="checks-title">Validation focus</h2><ul class="seo-checklist"><li>After an interruption, can recovery distinguish submitted tasks, unknown outcomes, and tasks never submitted?</li><li>Do prompt or media changes correctly affect retry limits and review validity?</li><li>Do the files, versions, and approvals used in an edit refer to the same valid attempt?</li></ul></section>
       <section class="seo-section" aria-labelledby="role-title"><h2 id="role-title">Research scope</h2><p>Developed with AI assistance to explore generation-task scheduling and failure handling: task records, recovery logic, simulated budget accounting, technical media checks, and edit validation.</p></section>
-      <section class="seo-section seo-stage" aria-labelledby="stage-title"><h2 id="stage-title">Current stage</h2><p>Offline workflow and mock-provider validation are complete. Real providers and generated-content quality have not been evaluated, and the prototype has not been used for commercial delivery.</p></section>
+      <section class="seo-section seo-stage" aria-labelledby="stage-title"><h2 id="stage-title">Current stage</h2><p>Offline workflows, a mock provider, and local media are used to validate task recovery, budget accounting, quality checks, and editing.</p></section>
       <section class="seo-section" aria-labelledby="tags-title"><h2 id="tags-title">Technologies and topics</h2><ul class="seo-tags" aria-label="Technologies and topics"><li>Python</li><li>SQLite WAL</li><li>FFmpeg / ffprobe</li><li>State machines</li><li>Budget reservations</li><li>Task recovery</li></ul></section>
     </article>
     <nav class="seo-related" aria-labelledby="related-title"><h2 id="related-title">Explore more projects</h2><div class="seo-related-grid"><a href="../quant-research-backtesting/"><strong>Quant Research &amp; Backtesting</strong><span>Reconcile signals, costs, and cash movements before interpreting a backtest.</span></a><a href="../restaurant-order-payment/"><strong>Restaurant Orders &amp; Payments</strong><span>An order can be processed while its notification is still waiting for a device acknowledgment.</span></a><a href="../marketing-messaging-platform/"><strong>Enterprise Customer Messaging Platform</strong><span>Kafka accepts the requests, a rule chain validates them, and channel strategies handle dispatch.</span></a></div><a href="../">View all projects ↗</a></nav>

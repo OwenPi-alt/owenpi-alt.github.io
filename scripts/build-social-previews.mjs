@@ -51,7 +51,7 @@ for (const language of ['zh', 'en']) {
     const source = item.meta.split(' · ');
     const proof = item.stage || key === 'customer-ai' ? item.meta : source.slice(0, 2).join(' · ');
     const stageNote = key === 'quant'
-      ? (english ? 'Simulated backtests · No live trading' : '模拟回测 · 未接入实盘')
+      ? (english ? 'Simulated backtests · Ledger reconciliation' : '模拟回测 · 独立账本核对')
       : (english ? 'Offline prototype · Mock-provider validation' : '离线原型 · 模拟供应商验证');
     await writeFile(resolve(output, key + '.html'), render({
       ...fields,
