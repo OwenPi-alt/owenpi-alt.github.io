@@ -62,7 +62,7 @@
   .hero h1, html[lang='en'] .hero h1 { margin: 0; font-size: clamp(48px, 5.5vw, 76px); line-height: 1.18; font-weight: 650; letter-spacing: -3px; white-space: normal; text-wrap: balance; }
   .hero h1 > span { color: #68686e; text-shadow: none; }
   .hero-description, html[lang='en'] .hero-description { max-width: 740px; margin-top: 26px; font-size: 19px; line-height: 1.8; color: #636369; letter-spacing: 0; text-wrap: pretty; }
-  .hero-actions { order: 2; margin-top: 28px; gap: 8px; justify-content: center; }
+  .hero-actions { order: 2; margin-top: 28px; gap: 8px; justify-content: center; flex-wrap: wrap; }
   .hero-proofline, html[lang='en'] .hero-proofline { order: 3; display: flex; justify-content: center; gap: 0; margin-top: 40px; max-width: none; width: auto; border: 0; padding: 0; }
   .hero-proofline > span { padding: 0 32px; text-align: center; }
   .hero-proofline > span + span { padding-left: 32px; border-left: 1px solid var(--line); }
