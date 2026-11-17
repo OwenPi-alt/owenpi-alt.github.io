@@ -94,9 +94,14 @@ const cases = keys.map((key, index) => {
 const absolute = route => new URL(route, siteUrl).href;
 const homeRoute = english ? base : 'zh/';
 const mailto = `mailto:${config.email}`;
-const imageUrl = absolute(config.ogImage);
+const versionedImage = imagePath => {
+  const url = new URL(imagePath, siteUrl);
+  url.searchParams.set('v', createHash('sha256').update(fs.readFileSync(path.join(root, imagePath))).digest('hex').slice(0, 12));
+  return url.href;
+};
+const imageUrl = versionedImage(config.ogImage);
 const person = { '@type': 'Person', '@id': absolute('#person'), name: config.name, url: absolute(homeRoute) };
-const imageObject = imagePath => ({ '@type': 'ImageObject', url: absolute(imagePath), width: 1200, height: 630 });
+const imageObject = imagePath => ({ '@type': 'ImageObject', url: versionedImage(imagePath), width: 1200, height: 630 });
 const image = imageObject(config.ogImage);
 const label = (zh, en) => english ? en : zh;
 const hubRoute = `${base}projects/`;
@@ -196,7 +201,7 @@ function renderCase(entry) {
     mainEntityOfPage: { '@type': 'WebPage', '@id': absolute(route) },
     url: absolute(route)
   }, breadcrumbs(route, data.title)];
-  return `${head({ title: seo.title, description: seo.description, route, prefix, type: 'article', schema, shareImage: absolute(seo.image || config.ogImage), shareImageAlt: seo.image ? data.title : config.siteName })}
+  return `${head({ title: seo.title, description: seo.description, route, prefix, type: 'article', schema, shareImage: versionedImage(seo.image || config.ogImage), shareImageAlt: seo.image ? data.title : config.siteName })}
 <body class="seo-page">
   ${siteHeader(homeHref, route)}
   <main id="main" class="seo-main">
